@@ -91,7 +91,7 @@ export default class App extends React.Component {
               // create new elem to be added to area showing "loaded" items
               var serverImageElem = '<img alt="img not found"class="server-img-tile server-' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" />'
 
-              var serverImgWithName = '<div class="serv-img-container"><span class="var-name">var name: $image</span>' + serverImageElem + '</div>';
+              var serverImgWithName = '<div class="serv-img-container"><span class="var-name var-name-txt">var name: $image</span>' + serverImageElem + '</div>';
 
               // append it to the container
               $servImg.append(serverImgWithName);
@@ -164,11 +164,15 @@ export default class App extends React.Component {
         <button id="toggle-console">Hide information</button>
         <div id="change-demos-wrapper">
           <div>
-            <div>var name: $map</div> {/* will add span highlighting for var inspection in next steps */}
+            <div className="var-name-txt">var name: $map</div> {/* will add span highlighting for var inspection in next steps */}
             <div id="server-images"></div>
           </div>
           <div id="change-console">
             {/* Step 1 */}
+            <div className="var-defns">
+              <div className="var-def">var name</div>
+              <div className="var-def">var value</div>
+            </div>
             <div className="value-def">
               <p id="position-0"></p>
               <p className="more-chevron" id="position-nested-lvl-1-chevron">></p>
