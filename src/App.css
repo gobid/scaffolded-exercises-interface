@@ -220,21 +220,30 @@ p {
 }
 
 .more-chevron {
-  display: none;
-  margin: 12px;
-  color: white;
-  font-weight: bolder;
-  border: white 1px solid;
+  margin: 3px;
+  min-height: 14px;
+  min-width: 25px;
+  background-color: #bbb;
+  border-radius: 50%;
+  padding: 1px 5px;
   cursor: pointer;
 }
 
-#position-1, #scroll-delta-1, .nested {
+.reflection-questions {
+  margin-top: 10px;
   display: none;
 }
 
-/* .nested {
+.ref-question {
   display: none;
+}
+/* #reflection-q-more-chevron {
+  
 } */
+
+#position-1 {
+  display: none;
+}
 
 .inspect-code {
     background-color: #0000ff8a;

@@ -113,6 +113,8 @@ export default class App extends React.Component {
           position[1] = Math.round(pos.pageY + scroll_delta[1])
           $('#modified-position0-code-1')[0].innerHTML = `position[0] = Math.round(${pos.pageX} + ${scroll_delta[0]})`
           $('#modified-position1-code-1')[0].innerHTML = `position[1] = Math.round(${pos.pageY} + ${scroll_delta[1]})`
+          $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>...</div>';
+          console.log($map)
           update();
         }
       }
@@ -130,6 +132,7 @@ export default class App extends React.Component {
           scroll_delta = null;
           $('#modified-position0-code-1')[0].innerHTML = `position[0] = ${position[0]}`
           $('#modified-position1-code-1')[0].innerHTML = `position[1] = ${position[1]}`
+          $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>...</div>';
         });
     };
 
@@ -156,6 +159,25 @@ export default class App extends React.Component {
       (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
       $('#position-1')[0].style.display = modalDisplay;
     })
+
+    /* Opens reflection questions */
+    $('#reflection-q-more-chevron').click(() => {
+      let modalDisplay = $('.reflection-questions')[0].style.display;
+      (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
+      $('.reflection-questions')[0].style.display = modalDisplay;
+      $('.ref-question')[0].style.display = "block";
+    })
+  }
+  displayReflectionQuestions() {
+    let questions = Array.from($('.ref-question'));
+
+    for (let q = 1; q < questions.length; q++) {
+      if (questions[q].style.display === 'none' || questions[q].style.display === '') {
+        questions[q].style.display = 'block';
+        return;
+      }
+    }
+    $('#show-reflection-question')[0].disabled = true;
   }
 
   render() {
@@ -175,9 +197,32 @@ export default class App extends React.Component {
             </div>
             <div className="value-def">
               <p id="position-0"></p>
-              <p className="more-chevron" id="position-nested-lvl-1-chevron">></p>
+              <p className="more-chevron" style={{display: 'none'}}id="position-nested-lvl-1-chevron">></p>
               <Position17 id="position-1" />
             </div>
+            <div id="map-elem"><b>$map</b> = <span id="map-elem-val">{`= <div class="map" style="position: absolute; left: -67645.4px; top: -27545.6px;">...</div>`}</span></div>
+            <hr></hr>
+            <p><b>Interact with screen!</b></p>
+            <div>
+              <b>Reflection Questions</b>
+              <span className="more-chevron" id="reflection-q-more-chevron"><b>></b></span>
+            </div>
+            <div className="reflection-questions">
+              <div className="ref-question">
+                <div className="question-txt">What is happening visually?</div>
+                <textarea className="response-area"></textarea>
+              </div>
+              <div className="ref-question">
+                <div className="question-txt">What is happening in the code?</div>
+                <textarea className="response-area"></textarea>
+              </div>
+              <div className="ref-question">
+                <div className="question-txt">What is the relationsihp between $map and $position?</div>
+                <textarea className="response-area"></textarea>
+              </div>
+              <button id="show-reflection-question" onClick={this.displayReflectionQuestions}>Next question</button>
+            </div>
+            <br></br>
           </div>
         </div> {/* closes div that wraps the entire information pane */}
         <div className="map"></div>
