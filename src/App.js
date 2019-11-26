@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Position17 from './components/position17';
+import Codeview1 from './components/codeview1';
 import $ from 'jquery';
 window.$ = $;
 
@@ -14,7 +15,6 @@ export default class App extends React.Component {
     // bind functions
   }
   */
-
   componentDidMount() {
     function eventPos(e) {
       if (e.type.match(/^touch/)) {
@@ -167,7 +167,15 @@ export default class App extends React.Component {
       $('.reflection-questions')[0].style.display = modalDisplay;
       $('.ref-question')[0].style.display = "block";
     })
+
+    /* Opens code related to reflection questions */
+    $('#reflection-q-code-chevron').click(() => {
+      let modalDisplay = $('#codeview1')[0].style.display;
+      (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
+      $('#codeview1')[0].style.display = modalDisplay;
+    })
   }
+
   displayReflectionQuestions() {
     let questions = Array.from($('.ref-question'));
 
@@ -213,7 +221,11 @@ export default class App extends React.Component {
                 <textarea className="response-area"></textarea>
               </div>
               <div className="ref-question">
-                <div className="question-txt">What is happening in the code?</div>
+                <div className="question-txt" id="code-question">
+                  What is happening in the code?
+                  <span className="more-chevron" id="reflection-q-code-chevron"><b>></b></span>
+                  <Codeview1 id="codeview1" />
+                </div>
                 <textarea className="response-area"></textarea>
               </div>
               <div className="ref-question">

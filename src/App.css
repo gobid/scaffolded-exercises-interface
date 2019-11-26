@@ -237,6 +237,12 @@ p {
 .ref-question {
   display: none;
 }
+
+.response-area {
+  width: 95%;
+  height: 75px;
+}
+
 /* #reflection-q-more-chevron {
   
 } */

@@ -1,0 +1,27 @@
+.code-editor-window {
+  display: none;
+  width: 547px;
+  background: GhostWhite;
+  border-radius: 0.3rem;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  font-family: 'PT Mono', monospace;
+}
+
+#code-question {
+  display: flex;
+  align-items: center;
+  width: 500px;
+}
+
+.var-value-code-inspect {
+    background-color: #0000ff8a;
+    cursor: pointer;
+    color: white;
+}
+
+.tutorons-code-inspect {
+    background-color: lightgreen;
+    cursor: pointer;
+    color: white;
+}
