@@ -91,15 +91,7 @@ export default class App extends React.Component {
               // create new elem to be added to area showing "loaded" items
               var serverImageElem = '<img alt="img not found"class="server-img-tile server-' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" />'
 
-              let prevVals = `<div class="prevValsDropdown"><button class="dropdownBtn">previous >></button><div class="dropdownContent">`
-              let modImages = serverImages[ctr].slice(0, serverImages[ctr].length - 1);
-              modImages.forEach((imgName) => {
-                prevVals += `<a href="#" class="prevVal">${imgName}</a>`
-              })
-
-              prevVals += '</div></div>'
-
-              var serverImgWithName = '<div class="serv-img-container">' + '<span class="coords">classname: tile' + name + prevVals + '</span>' + serverImageElem + '</div>';
+              var serverImgWithName = '<div class="serv-img-container"><span class="var-name">var name: $image</span>' + serverImageElem + '</div>';
 
               // append it to the container
               $servImg.append(serverImgWithName);
@@ -171,14 +163,10 @@ export default class App extends React.Component {
       <div className="App">
         <button id="toggle-console">Hide information</button>
         <div id="change-demos-wrapper">
-          <ul className="all-learning-steps">
-            <li className="learning-step active">step 1 - intuitions</li>
-            <li className="learning-step">step 2 - steps</li>
-            <li className="learning-step">step 3 - conditions</li>
-            <li className="learning-step">step 4 - calculations</li>
-            <li className="learning-step">step 5 - connections</li>
-          </ul>
-          <div id="server-images"></div>
+          <div>
+            <div>var name: $map</div> {/* will add span highlighting for var inspection in next steps */}
+            <div id="server-images"></div>
+          </div>
           <div id="change-console">
             {/* Step 1 */}
             <div className="value-def">
