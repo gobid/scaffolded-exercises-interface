@@ -4,7 +4,7 @@
   background: GhostWhite;
   border-radius: 0.3rem;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  /* overflow: hidden; */
   font-family: 'PT Mono', monospace;
 }
 
@@ -21,9 +21,9 @@
 }
 
 .tutorons-code-inspect {
-  background-color: lightgreen;
+  /* background-color: lightgreen; */
   cursor: pointer;
-  color: white;
+  /* color: white; */
   position: relative;
   display: inline-block;
   border-bottom: 1px dotted black; 
@@ -32,16 +32,20 @@
 /* Tooltip text */
 .tutorons-text {
   visibility: hidden;
-  width: 120px;
+  width: 150px;
   background-color: black;
   color: #fff;
-  text-align: center;
   padding: 5px 0;
   border-radius: 6px;
+  padding: 5px;
  
-  /* Position the tooltip text - see examples below! */
+  /* Position the tooltip text */
   position: absolute;
   z-index: 1;
+  /* to align above */
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */

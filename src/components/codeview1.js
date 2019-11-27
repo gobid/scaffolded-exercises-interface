@@ -26,6 +26,17 @@ export default class Codeview1 extends React.Component {
         $('#position1-code-display')[0].style.color = 'white';
       }, 2000);
     }
+
+    if (e.target.id === 'map-code-display') {
+      $('#map-elem-val')[0].style.backgroundColor = 'yellow';
+      $('#map-code-display')[0].style.backgroundColor = 'yellow';
+      $('#map-code-display')[0].style.color = 'black';
+      setTimeout(function () {
+        $('#map-elem-val')[0].style.backgroundColor = 'initial';
+        $('#map-code-display')[0].style.backgroundColor = '#0000ff8a';
+        $('#map-code-display')[0].style.color = 'white';
+      }, 2000);
+    }
   }
 
   clickToInspectDocs(e) {
@@ -36,11 +47,11 @@ export default class Codeview1 extends React.Component {
     return (
       <div className="code-editor-window" id={this.props.id}>
         <div className="window-body">
-          {`$map.css({`}
+          <span className="var-value-code-inspect" id="map-code-display" onClick={this.clickToInspectCode}>$map</span>{`.css({`}
           <br></br>
           &nbsp;&nbsp;
           <span className="tutorons-code-inspect">left
-            <span class="tutorons-text">The left CSS property participates in specifying the horizontal position of a positioned element. It has no effect on non-positioned elements.</span> 
+            <span className="tutorons-text">The left CSS property participates in specifying the horizontal position of a positioned element. It has no effect on non-positioned elements.</span> 
             {/* will use the <meta name="description" content=""> content values for this to do it programmatically on https://developer.mozilla.org/en-US/docs/Web/CSS (AND/OR PLY) */}
           </span>: 
           <span className="var-value-code-inspect" id="position0-code-display" onClick={this.clickToInspectCode}>position[0]</span>,
