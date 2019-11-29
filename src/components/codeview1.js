@@ -57,7 +57,10 @@ export default class Codeview1 extends React.Component {
           <span className="var-value-code-inspect" id="position0-code-display" onClick={this.clickToInspectCode}>position[0]</span>,
           <br></br>
           &nbsp;&nbsp;
-          <span className="tutorons-code-inspect">top</span>:
+          <span className="tutorons-code-inspect">top
+            <span className="tutorons-text">The top CSS property participates in specifying the vertical position of a positioned element. It has no effect on non-positioned elements.</span>
+            {/* will use the <meta name="description" content=""> content values for this to do it programmatically on https://developer.mozilla.org/en-US/docs/Web/CSS (AND/OR PLY) */}
+          </span>: 
           <span className="var-value-code-inspect" id="position1-code-display" onClick={this.clickToInspectCode}>position[1]</span>,
           <br></br>
           {`})`}

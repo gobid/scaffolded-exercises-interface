@@ -114,7 +114,6 @@ export default class App extends React.Component {
           $('#modified-position0-code-1')[0].innerHTML = `position[0] = Math.round(${pos.pageX} + ${scroll_delta[0]})`
           $('#modified-position1-code-1')[0].innerHTML = `position[1] = Math.round(${pos.pageY} + ${scroll_delta[1]})`
           $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>...</div>';
-          console.log($map)
           update();
         }
       }
@@ -137,6 +136,7 @@ export default class App extends React.Component {
     };
 
     $(function () {
+      // eslint-disable-next-line
       var map = new Map($('.map'));
     });
 
@@ -175,8 +175,8 @@ export default class App extends React.Component {
       $('#codeview1')[0].style.display = modalDisplay;
     })
   }
-
-  displayReflectionQuestions() {
+  
+  displayAndDownloadQuestions() {
     let questions = Array.from($('.ref-question'));
 
     for (let q = 1; q < questions.length; q++) {
@@ -185,7 +185,41 @@ export default class App extends React.Component {
         return;
       }
     }
+
+    // if there are no more questions to show,
+    // disable "next" button and download responses
     $('#show-reflection-question')[0].disabled = true;
+    
+    const reflections = Array.from($('.reflection'));
+    let data = '';
+
+    // Get the data from each element on the form.
+    reflections.forEach((r) => {
+      if (r.innerHTML !== undefined) {
+        data += ' \r\n ' + r.innerHTML;
+      }
+      if (r.value !== undefined) {
+        data += ' \r\n ' + r.value;
+      }
+    })
+
+    // Convert the text to BLOB.
+    const textToBLOB = new Blob([data], { type: 'text/plain' });
+    const sFileName = 'part1reflections.txt'; // The file to save the data.
+
+    let newLink = document.createElement("a");
+    newLink.download = sFileName;
+
+    if (window.webkitURL != null) {
+      newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+    }
+    else {
+      newLink.href = window.URL.createObjectURL(textToBLOB);
+      newLink.style.display = "none";
+      document.body.appendChild(newLink);
+    }
+
+    newLink.click();
   }
 
   render() {
@@ -217,22 +251,22 @@ export default class App extends React.Component {
             </div>
             <div className="reflection-questions">
               <div className="ref-question">
-                <div className="question-txt">What is happening visually?</div>
-                <textarea className="response-area"></textarea>
+                <div className="question-txt reflection">What is happening visually?</div>
+                <textarea className="response-area reflection" id="p1q1"></textarea>
               </div>
               <div className="ref-question">
-                <div className="question-txt" id="code-question">
-                  What is happening in the code?
+                <div id="code-question">
+                  <span className="question-txt p1q2 reflection">What is happening in the code?</span>
                   <span className="more-chevron" id="reflection-q-code-chevron"><b>></b></span>
                   <Codeview1 id="codeview1" />
                 </div>
-                <textarea className="response-area"></textarea>
+                <textarea className="response-area p1q2 reflection"></textarea>
               </div>
               <div className="ref-question">
-                <div className="question-txt">What is the relationsihp between $map and $position?</div>
-                <textarea className="response-area"></textarea>
+                <div className="question-txt reflection">What is the relationsihp between $map and $position?</div>
+                <textarea className="response-area reflection" id="p1q3"></textarea>
               </div>
-              <button id="show-reflection-question" onClick={this.displayReflectionQuestions}>Next question</button>
+              <button id="show-reflection-question" onClick={this.displayAndDownloadQuestions}>Next question</button>
             </div>
             <br></br>
           </div>
