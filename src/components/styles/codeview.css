@@ -8,10 +8,17 @@
   font-family: 'PT Mono', monospace;
 }
 
-#code-question {
+#code-question, #display-pane-map-elem {
   display: flex;
   align-items: center;
+}
+
+#code-question {
   width: 500px;
+}
+
+#map-elem-code-chevron, #codeview0 {
+  display: none;
 }
 
 .var-value-code-inspect {
