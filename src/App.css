@@ -37,6 +37,7 @@
 .content-descriptions {
   font-style: italic;
   width: fit-content;
+  max-width: 470px;
   margin: 10px auto;
   font-family: monospace;
   /* border-bottom: mediumpurple 2px solid; */
@@ -50,6 +51,10 @@
   position: fixed;
   left: 0;
   top: 20px;
+}
+
+#display-pane {
+  margin-right: 5px;
 }
 
 #change-console {
@@ -270,6 +275,10 @@ p {
 .response-area {
   width: 95%;
   height: 75px;
+}
+
+#save-responses {
+  display: none;
 }
 
 /* #reflection-q-more-chevron {
