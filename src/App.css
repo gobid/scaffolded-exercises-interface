@@ -45,7 +45,7 @@
 }
 
 #change-demos-wrapper {
-  display: none;
+  display: flex; /* should start as none in production */
   margin-top: 10px;
   align-items: flex-start;
   position: fixed;
@@ -70,6 +70,7 @@
   padding-left: 10px;
   height: 800px;
   overflow-y: scroll;
+  overflow-x: visible;
 }
 
 .var-defns {
@@ -275,6 +276,10 @@ p {
   margin-top: 10px;
 }
 
+.question-txt {
+  margin-bottom: 10px;
+}
+
 .ref-question {
   display: none;
 }
@@ -397,6 +402,12 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.code-editor-window {
+      position: absolute;
+    margin-left: 275px;
+    width: fit-content;
 }
 
 #code-editor {
