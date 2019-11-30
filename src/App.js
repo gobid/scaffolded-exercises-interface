@@ -165,14 +165,6 @@ export default class App extends React.Component {
       $('#position-1')[0].style.display = modalDisplay;
     })
 
-    /* Opens reflection questions */
-    $('#reflection-q-more-chevron').click(() => {
-      let modalDisplay = $('.reflection-questions')[0].style.display;
-      (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
-      $('.reflection-questions')[0].style.display = modalDisplay;
-      $('.ref-question')[0].style.display = "block";
-    })
-
     /* Opens code related to reflection questions */
     $('#reflection-q-code-chevron').click(() => {
       let modalDisplay = $('#codeview1')[0].style.display;
@@ -278,10 +270,9 @@ export default class App extends React.Component {
             <hr></hr>
             <div>
               <b>Reflection Questions</b>
-              <span className="more-chevron" id="reflection-q-more-chevron"><b>></b></span>
             </div>
             <div className="reflection-questions">
-              <div className="ref-question">
+              <div className="ref-question first-question">
                 <div className="question-txt reflection">As you interact with the screen, what is happening visually?</div>
                 <textarea className="response-area reflection" id="p1q1"></textarea>
               </div>
