@@ -28,6 +28,7 @@ export default class App extends React.Component {
 
     var Map = function ($map) {
       var $servImg = $('#server-images');
+      var imageDropdown = $('#image-dropdown');
       var size = [14, 48, 25, 33];
       var tilesize = 2048;
       var scroll_delta = null;
@@ -63,6 +64,7 @@ export default class App extends React.Component {
 
           var $remove = $map.children();
           var $removeServerImgs = $servImg.children();
+          var $removeImageDropdowns = imageDropdown.children();
 
           let allNames = [];
           let ctr = 0;
@@ -92,18 +94,23 @@ export default class App extends React.Component {
               // step 0: no decoration/labeling. Just small image. 
               var serverImageElem = '<img alt="img not found"class="server-img-tile server-' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" />'
 
-              /*
-                // step 1: variable name label
-                var serverImgWithName = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">var name: $image</span>' + serverImageElem + '</div>';
-              */
+              // step 1: variable name label
+              var serverImgWithName = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + '"/&gt;</span>' + serverImageElem + '</div>';
 
-              // append it to the container
-              $servImg.append(serverImageElem);
+              // append loaded (optionally labeled) image to the container
+              $servImg.append(serverImgWithName);
+
+              // step 1: create image instance dropdown menu;
+              var imageDropdownElem = document.createElement('p');
+              imageDropdownElem.innerText = '<img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + ((centre[1] + y) * tilesize) + 'px;left:' + ((centre[0] + x) * tilesize) + 'px; z-index: -1; position: absolute;;" style="display:none" />';
+
+              imageDropdown.append(imageDropdownElem);
 
               ctr++
             }
             $remove.remove();
             $removeServerImgs.remove();
+            $removeImageDropdowns.remove();
           }
         }
       }
@@ -178,6 +185,12 @@ export default class App extends React.Component {
       (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
       $('#codeview0')[0].style.display = modalDisplay;
     })
+
+    $('#image-instances-dropdown-chevron').click(() => {
+      let modalDisplay = $('#image-dropdown')[0].style.display;
+      (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
+      $('#image-dropdown')[0].style.display = modalDisplay;
+    })
   }
   
   displayQuestions() {
@@ -239,7 +252,7 @@ export default class App extends React.Component {
             <div id="server-images-wrapper">
               <span id="map-div-wrapper">
                 <div className="var-name-txt" id="display-pane-map-elem">
-                  <span class="var-name-1">{`<div class="map">`}</span>
+                  <span className="var-name-1">{`<div class="map">`}</span>
                   <span className="more-chevron" id="map-elem-code-chevron"><b>></b></span>
                   <div className="code-editor-window" id="codeview0">
                     <div className="window-body" id="display-pane-map-code">
@@ -266,7 +279,9 @@ export default class App extends React.Component {
               <p className="more-chevron" style={{display: 'none'}}id="position-nested-lvl-1-chevron">></p>
               <Position17 id="position-1" />
             </div>
-            <div id="map-elem"><b>$map</b> = <span id="map-elem-val">{`= <div class="map" style="position: absolute; left: -67645.4px; top: -27545.6px;">`}</span></div>
+            <div id="map-elem"><b>$map</b> = <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645.4px; top: -27545.6px;">`}</span></div>
+            <p id="image-elem"><b>$image</b> = <span id="image-elem-val">9 instances</span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>></b></span></p>
+            <div id="image-dropdown"></div>
             <hr></hr>
             <div>
               <b>Reflection Questions</b>
