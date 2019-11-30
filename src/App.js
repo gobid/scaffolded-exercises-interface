@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Position17 from './components/position17';
 import Codeview1 from './components/codeview1';
+import Codeview2 from './components/codeview2';
 import $ from 'jquery';
 window.$ = $;
 
@@ -102,7 +103,8 @@ export default class App extends React.Component {
 
               // step 1: create image instance dropdown menu;
               var imageDropdownElem = document.createElement('p');
-              imageDropdownElem.innerText = '<img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + ((centre[1] + y) * tilesize) + 'px;left:' + ((centre[0] + x) * tilesize) + 'px; z-index: -1; position: absolute;;" style="display:none" />';
+              // fIX THIS TO BE ACT IMAGE CODE ONCE LOADED (bc display isn't none once it's loaded even tho it is in original code generation)
+              imageDropdownElem.innerText = '<img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + ((centre[1] + y) * tilesize) + 'px;left:' + ((centre[0] + x) * tilesize) + 'px; z-index: -1; position: absolute;;" />';
 
               imageDropdown.append(imageDropdownElem);
 
@@ -280,8 +282,10 @@ export default class App extends React.Component {
               <Position17 id="position-1" />
             </div>
             <div id="map-elem"><b>$map</b> = <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645.4px; top: -27545.6px;">`}</span></div>
-            <p id="image-elem"><b>$image</b> = <span id="image-elem-val">9 instances</span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>></b></span></p>
-            <div id="image-dropdown"></div>
+            <div id="image-elem">
+              <p><b>$image</b> = <span id="image-elem-val">9 instances</span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>></b></span></p>
+              <div id="image-dropdown"></div>
+            </div>
             <hr></hr>
             <div>
               <b>Reflection Questions</b>
@@ -295,12 +299,12 @@ export default class App extends React.Component {
                 <div id="code-question">
                   <span className="question-txt p1q2 reflection">What is happening in the code?</span>
                   <span className="more-chevron" id="reflection-q-code-chevron"><b>></b></span>
-                  <Codeview1 id="codeview1" />
+                  <Codeview2 id="codeview1" />
                 </div>
                 <textarea className="response-area p1q2 reflection"></textarea>
               </div>
               <div className="ref-question">
-                <div className="question-txt reflection">What is the relationship between $map and $position?</div>
+                <div className="question-txt reflection">What is the relationship between $map and $image?</div>
                 <textarea className="response-area reflection" id="p1q3"></textarea>
               </div>
               <button id="show-reflection-question" onClick={this.displayQuestions}>Next question</button>
