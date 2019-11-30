@@ -101,8 +101,23 @@ export default class App extends React.Component {
               // append loaded (optionally labeled) image to the container
               $servImg.append(serverImgWithName);
 
-              // step 1: create image instance dropdown menu;
+              // for sub-outcome 2: create image instance dropdown menu;
               var imageDropdownElem = document.createElement('p');
+              imageDropdownElem.classList.add('image-dropdown-elem')
+              imageDropdownElem.id = `server-${name}`;
+              imageDropdownElem.addEventListener('click', (e) => {
+                var instances = Array.from($(`.${e.target.id}`))
+                instances.forEach((i) => {
+                  console.log(i)
+                  i.style.border = '4px lightgreen solid';
+                  e.target.style.backgroundColor = 'lightgreen';
+                  setTimeout(function () {
+                    i.style.border = '1px lightblue solid';
+                    e.target.style.backgroundColor = 'initial';
+                  }, 2000);
+                })
+              })
+
               // fIX THIS TO BE ACT IMAGE CODE ONCE LOADED (bc display isn't none once it's loaded even tho it is in original code generation)
               imageDropdownElem.innerText = '<img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + ((centre[1] + y) * tilesize) + 'px;left:' + ((centre[0] + x) * tilesize) + 'px; z-index: -1; position: absolute;;" />';
 
