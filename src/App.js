@@ -16,7 +16,12 @@ export default class App extends React.Component {
     // bind functions
   }
   */
+
   componentDidMount() {
+    function appendCode(parent, child) {
+      parent.insertAdjacentElement('afterend', child);
+    }
+
     function eventPos(e) {
       if (e.type.match(/^touch/)) {
         e = e.originalEvent.changedTouches[0];
@@ -92,36 +97,59 @@ export default class App extends React.Component {
               serverImages[ctr].push(name);
 
               // create new elem to be added to area showing "loaded" items
-              // step 0: no decoration/labeling. Just small image. 
-              var serverImageElem = '<img alt="img not found"class="server-img-tile server-' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" />'
+              // sub-outcome 0: small image loaded without any label/decoration
+              var serverImg = '<img alt="img not found"class="server-img-tile server-' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" />'
 
-              // step 1: variable name label
-              var serverImgWithName = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + '"/&gt;</span>' + serverImageElem + '</div>';
+              // sub-outcome 1: small image loaded with elem tag + class name
+              var serverImgWithName = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + '"/&gt;</span>' + serverImg + '</div>';
+
+              // sub-outcome 2: small image loaded with elem tag + class name + css inline with html 
+              var serverImgWithCSS = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">style="top:' + ((centre[1] + y) * tilesize) + 'px; left:' + ((centre[0] + x) * tilesize) + 'px;"</span>' + serverImg + '</div>';
 
               // append loaded (optionally labeled) image to the container
-              $servImg.append(serverImgWithName);
+              $servImg.append(serverImgWithCSS);
 
               // for sub-outcome 2: create image instance dropdown menu;
               var imageDropdownElem = document.createElement('p');
               imageDropdownElem.classList.add('image-dropdown-elem')
               imageDropdownElem.id = `server-${name}`;
+
               imageDropdownElem.addEventListener('click', (e) => {
+                let elem = e.target;
+                // change colors of code snippet + image display
                 var instances = Array.from($(`.${e.target.id}`))
                 instances.forEach((i) => {
                   console.log(i)
-                  i.style.border = '4px lightgreen solid';
-                  e.target.style.backgroundColor = 'lightgreen';
-                  setTimeout(function () {
+                  if (i.style.borderColor === 'lightgreen') {
                     i.style.border = '1px lightblue solid';
-                    e.target.style.backgroundColor = '#f8f8ff73';
-                  }, 2000);
+                    elem.style.backgroundColor = '#f8f8ff73';
+                  } else {
+                    i.style.border = '4px lightgreen solid';
+                    elem.style.backgroundColor = 'lightgreen';
+                  };
                 })
               })
 
+              // this should be appending a Codeview component
+              // let imageCodeDisplay = document.createElement('div');
+              // imageCodeDisplay.classList.add('code-editor-window');
+              // imageCodeDisplay.innerHTML = '<div className="window-body">HEYYYYYY </div>' 
+              // console.log(imageCodeDisplay)
+
+
               // fIX THIS TO BE ACT IMAGE CODE ONCE LOADED (bc display isn't none once it's loaded even tho it is in original code generation)
-              imageDropdownElem.innerText = '<img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + ((centre[1] + y) * tilesize) + 'px;left:' + ((centre[0] + x) * tilesize) + 'px; z-index: -1; position: absolute;;" />';
+              imageDropdownElem.innerHTML = '&lt;img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + ((centre[1] + y) * tilesize) + 'px;left:' + ((centre[0] + x) * tilesize) + 'px; z-index: -1; position: absolute;;" /&gt;';
 
               imageDropdown.append(imageDropdownElem);
+              // this should be appending a Codeview component
+              // imageDropdownElem.appendChild(imageCodeDisplay);
+
+              var imageCodeDisplay = document.createElement('div');
+              imageCodeDisplay.classList.add('image-dropdown-elem-code', 'code-editor-window')
+              imageCodeDisplay.id = `server-${name}-code`;
+              imageCodeDisplay.innerHTML = `&lt;img class="img-tile tile${name}" src="http://imgs.xkcd.com/clickdrag/${name}.png" style="top:<span data-centre=${centre} data-x=${x} data-y=${y}>${(centre[1] + y) * tilesize}</span>px; left:<span data-centre=${centre} data-x=${x} data-y=${y}>${(centre[0] + x) * tilesize}</span>px; z-index: -1; position: absolute;;" /&gt;`
+
+              imageDropdownElem.addEventListener('click', appendCode(imageDropdownElem, imageCodeDisplay));
 
               ctr++
             }
@@ -208,6 +236,15 @@ export default class App extends React.Component {
       (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
       $('#image-dropdown')[0].style.display = modalDisplay;
     })
+
+    // $('#change-console').on('scroll', (() => {
+    //   // let codeEditorWindows = Array.from($('.code-editor-window'));
+    //   // codeEditorWindows.forEach((window) => {
+    //   //   let currTop = window.style.top;
+    //   //   window.style.top = currTop + $('#change-console').scrollTop();
+    //   // })
+    //   $('.code-editor-window').css('top', 0 - $('#change-console').scrollTop())
+    // }))
   }
   
   displayQuestions() {

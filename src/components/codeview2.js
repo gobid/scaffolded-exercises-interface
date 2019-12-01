@@ -3,7 +3,7 @@ import $ from 'jquery';
 import './styles/codeview.css';
 window.$ = $;
 
-export default class Codeview1 extends React.Component {
+export default class Codeview2 extends React.Component {
   clickToInspectCode(e) {
     if (e.target.id === 'image-code-display') {
       $('#image-elem')[0].style.backgroundColor = 'yellow';
