@@ -45,7 +45,7 @@ export default class Codeview2 extends React.Component {
 
   render() {
     return (
-      <div className="code-editor-window" id={this.props.id}>
+      <div className="code-editor code-editor-window" id={this.props.id}>
         <div className="window-body">
           {`for (var y = -1; y <= +1; y++) {`}
           <br></br>

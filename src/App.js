@@ -70,7 +70,7 @@ export default class App extends React.Component {
 
           var $remove = $map.children();
           var $removeServerImgs = $servImg.children();
-          var $removeImageDropdowns = imageDropdown.children();
+          var $removeImageDropdowns = imageDropdown.children().not(":first-child");
 
           let allNames = [];
           let ctr = 0;
@@ -96,24 +96,69 @@ export default class App extends React.Component {
               }
               serverImages[ctr].push(name);
 
-              // create new elem to be added to area showing "loaded" items
-              // sub-outcome 0: small image loaded without any label/decoration
+/***************************************/
+/***************************************/
+/* BELOW: creating img elements to be added to area showing "loaded" items + information about the $image var instances to show/be inspected in the change console */
+/***************************************/
+/***************************************/
+
+              // for sub-outcome 0: small image loaded without any label/decoration
               var serverImg = '<img alt="img not found"class="server-img-tile server-' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" />'
 
-              // sub-outcome 1: small image loaded with elem tag + class name
+              // for sub-outcome 1: small image loaded with elem tag + class name
               var serverImgWithName = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + '"/&gt;</span>' + serverImg + '</div>';
 
-              // sub-outcome 2: small image loaded with elem tag + class name + css inline with html 
+              // for sub-outcome 2: small image loaded with elem tag + class name + css inline with html 
               var serverImgWithCSS = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">style="top:' + ((centre[1] + y) * tilesize) + 'px; left:' + ((centre[0] + x) * tilesize) + 'px;"</span>' + serverImg + '</div>';
 
-              // append loaded (optionally labeled) image to the container
+              // ALWAYS: append image (optionally labeled depending on sub-outcome) to the container
               $servImg.append(serverImgWithCSS);
 
-              // for sub-outcome 2: create image instance dropdown menu;
+              // for sub-outcome 2: create image instance dropdown menu with inspectable variable values
               var imageDropdownElem = document.createElement('p');
               imageDropdownElem.classList.add('image-dropdown-elem')
-              imageDropdownElem.id = `server-${name}`;
+              imageDropdownElem.id = `server-${name}-code`;
+              imageDropdownElem.innerHTML = `&lt;img <br>&nbsp;class="img-tile tile${name}" <br>&nbsp;src="http://imgs.xkcd.com/clickdrag/${name}.png" <br>&nbsp;style="top:<span class="var-value-code-inspect" data-clicks="0" data-val=${(centre[1] + y) * tilesize} data-centre[1]=${centre[1]} data-y=${y} data-tilesize=${tilesize}>${(centre[1] + y) * tilesize}</span>px;\n left:<span data-clicks="0" data-centre[0]=${centre[0]} data-x=${x} data-tilesize=${tilesize}>${(centre[0] + x) * tilesize}</span>px;\n z-index: -1; position: absolute;;" /&gt;`;
 
+              /* 3 states of this:
+                - rendered value
+                - variable names
+                - variable values
+                
+                keep track of which state you are in with a custom data attribute and just cycle to the next one with each click
+              */
+              $('.var-value-code-inspect').click((e) => {
+                console.log('clicked yep')
+                let customData = e.target.dataset;
+                console.log('custom data', customData)
+                // let state = customData.clicks;
+                let state = e.target.innerHTML;
+
+                const centre1 = customData["centre[1]"];
+                const yHere = customData["y"];
+                const tilesize = customData["tilesize"];
+
+                // `<span className="tutorons-code-inspect">(${centre1} + ${y}) * ${tilesize}<span className="tutorons-text">(centre[1] + y) * tilesize</span></span>`
+
+                if (state === customData.val) {
+                  e.target.innerHTML = `(${centre1} + ${yHere}) * ${tilesize}`;
+                  e.target.dataset.clicks = "1";
+                  return;
+                }
+                else if (state === `(${centre1} + ${yHere}) * ${tilesize}`) {
+                  e.target.innerHTML = `(centre[1] + y) * tilesize`;
+                  e.target.dataset.clicks = "2";
+                  return;
+                }
+                else { // state = `(centre[1] + y) * tilesize`
+                  e.target.innerHTML = customData.val;
+                  e.target.dataset.clicks = "0";
+                  return;
+                }
+              })
+
+/* 
+Problem: the span onclick events ^above conflict with this event listener.              
               imageDropdownElem.addEventListener('click', (e) => {
                 let elem = e.target;
                 // change colors of code snippet + image display
@@ -308,7 +353,7 @@ export default class App extends React.Component {
                 <div className="var-name-txt" id="display-pane-map-elem">
                   <span className="var-name-1">{`<div class="map">`}</span>
                   <span className="more-chevron" id="map-elem-code-chevron"><b>></b></span>
-                  <div className="code-editor-window" id="codeview0">
+                  <div className="code-editor code-editor-window" id="codeview0">
                     <div className="window-body" id="display-pane-map-code">
                       {`<div class="map" style="position: absolute; left: -67645.4px; top: -27545.6px;">`}
                     </div>
@@ -336,7 +381,9 @@ export default class App extends React.Component {
             <div id="map-elem"><b>$map</b> = <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645.4px; top: -27545.6px;">`}</span></div>
             <div id="image-elem">
               <p><b>$image</b> = <span id="image-elem-val">9 instances</span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>></b></span></p>
-              <div id="image-dropdown"></div>
+              <div id="image-dropdown">
+                <p><i>Click to inspect</i></p>
+              </div>
             </div>
             <hr></hr>
             <div>

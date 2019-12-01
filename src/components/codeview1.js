@@ -45,7 +45,7 @@ export default class Codeview1 extends React.Component {
 
   render() {
     return (
-      <div className="code-editor-window" id={this.props.id}>
+      <div className="code-editor code-editor-window" id={this.props.id}>
         <div className="window-body">
           <span className="var-value-code-inspect" id="map-code-display" onClick={this.clickToInspectCode}>$map</span>{`.css({`}
           <br></br>

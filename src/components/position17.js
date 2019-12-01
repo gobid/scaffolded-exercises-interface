@@ -22,7 +22,7 @@ export default class Position17 extends React.Component {
   render() {
     return (
       <div className="nested" id={this.props.id}>
-        <div className="window" id="code-editor">
+        <div className="window">
           <div className="window-body">
             <div className="code-input">
               <div className="line-wrap">
