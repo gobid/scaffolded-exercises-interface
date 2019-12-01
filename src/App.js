@@ -115,50 +115,12 @@ export default class App extends React.Component {
               $servImg.append(serverImgWithCSS);
 
               // for sub-outcome 2: create image instance dropdown menu with inspectable variable values
+              // custom data attributes used for possible inline state switching (see 3 state situation explanation below)
               var imageDropdownElem = document.createElement('p');
               imageDropdownElem.classList.add('image-dropdown-elem')
-              imageDropdownElem.id = `server-${name}-code`;
-              imageDropdownElem.innerHTML = `&lt;img <br>&nbsp;class="img-tile tile${name}" <br>&nbsp;src="http://imgs.xkcd.com/clickdrag/${name}.png" <br>&nbsp;style="top:<span class="var-value-code-inspect" data-clicks="0" data-val=${(centre[1] + y) * tilesize} data-centre[1]=${centre[1]} data-y=${y} data-tilesize=${tilesize}>${(centre[1] + y) * tilesize}</span>px;\n left:<span data-clicks="0" data-centre[0]=${centre[0]} data-x=${x} data-tilesize=${tilesize}>${(centre[0] + x) * tilesize}</span>px;\n z-index: -1; position: absolute;;" /&gt;`;
+              imageDropdownElem.id = `server-${name}`;
+              // imageDropdownElem.innerHTML = `&lt;img <br>&nbsp;class="img-tile tile${name}" <br>&nbsp;src="http://imgs.xkcd.com/clickdrag/${name}.png" <br>&nbsp;style="top:<span class="var-value-code-inspect" data-clicks="0" data-val=${(centre[1] + y) * tilesize} data-centre[1]=${centre[1]} data-y=${y} data-tilesize=${tilesize}>${(centre[1] + y) * tilesize}</span>px;\n left:<span data-clicks="0" data-centre[0]=${centre[0]} data-x=${x} data-tilesize=${tilesize}>${(centre[0] + x) * tilesize}</span>px;\n z-index: -1; position: absolute;;" /&gt;`;
 
-              /* 3 states of this:
-                - rendered value
-                - variable names
-                - variable values
-                
-                keep track of which state you are in with a custom data attribute and just cycle to the next one with each click
-              */
-              $('.var-value-code-inspect').click((e) => {
-                console.log('clicked yep')
-                let customData = e.target.dataset;
-                console.log('custom data', customData)
-                // let state = customData.clicks;
-                let state = e.target.innerHTML;
-
-                const centre1 = customData["centre[1]"];
-                const yHere = customData["y"];
-                const tilesize = customData["tilesize"];
-
-                // `<span className="tutorons-code-inspect">(${centre1} + ${y}) * ${tilesize}<span className="tutorons-text">(centre[1] + y) * tilesize</span></span>`
-
-                if (state === customData.val) {
-                  e.target.innerHTML = `(${centre1} + ${yHere}) * ${tilesize}`;
-                  e.target.dataset.clicks = "1";
-                  return;
-                }
-                else if (state === `(${centre1} + ${yHere}) * ${tilesize}`) {
-                  e.target.innerHTML = `(centre[1] + y) * tilesize`;
-                  e.target.dataset.clicks = "2";
-                  return;
-                }
-                else { // state = `(centre[1] + y) * tilesize`
-                  e.target.innerHTML = customData.val;
-                  e.target.dataset.clicks = "0";
-                  return;
-                }
-              })
-
-/* 
-Problem: the span onclick events ^above conflict with this event listener.              
               imageDropdownElem.addEventListener('click', (e) => {
                 let elem = e.target;
                 // change colors of code snippet + image display
@@ -173,16 +135,16 @@ Problem: the span onclick events ^above conflict with this event listener.
                     elem.style.backgroundColor = 'lightgreen';
                   };
                 })
+
+                if ($(`#${e.target.id}-code`)[0].style.display === 'none') {
+                  $(`#${e.target.id}-code`).css('top', e.target.getBoundingClientRect().top);
+                  $(`#${e.target.id}-code`)[0].style.display = 'block';
+                } else {
+                  $(`#${e.target.id}-code`)[0].style.display = 'none';
+                }
               })
 
-              // this should be appending a Codeview component
-              // let imageCodeDisplay = document.createElement('div');
-              // imageCodeDisplay.classList.add('code-editor-window');
-              // imageCodeDisplay.innerHTML = '<div className="window-body">HEYYYYYY </div>' 
-              // console.log(imageCodeDisplay)
-
-
-              // fIX THIS TO BE ACT IMAGE CODE ONCE LOADED (bc display isn't none once it's loaded even tho it is in original code generation)
+              // Fix the element creation to pull from the HTML for the actual rendered images because this display shows "artificially" created code right now
               imageDropdownElem.innerHTML = '&lt;img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + ((centre[1] + y) * tilesize) + 'px;left:' + ((centre[0] + x) * tilesize) + 'px; z-index: -1; position: absolute;;" /&gt;';
 
               imageDropdown.append(imageDropdownElem);
@@ -190,9 +152,10 @@ Problem: the span onclick events ^above conflict with this event listener.
               // imageDropdownElem.appendChild(imageCodeDisplay);
 
               var imageCodeDisplay = document.createElement('div');
-              imageCodeDisplay.classList.add('image-dropdown-elem-code', 'code-editor-window')
+              imageCodeDisplay.classList.add('image-dropdown-elem-code', 'code-editor', 'code-editor-window')
               imageCodeDisplay.id = `server-${name}-code`;
               imageCodeDisplay.innerHTML = `&lt;img class="img-tile tile${name}" src="http://imgs.xkcd.com/clickdrag/${name}.png" style="top:<span data-centre=${centre} data-x=${x} data-y=${y}>${(centre[1] + y) * tilesize}</span>px; left:<span data-centre=${centre} data-x=${x} data-y=${y}>${(centre[0] + x) * tilesize}</span>px; z-index: -1; position: absolute;;" /&gt;`
+              imageCodeDisplay.style.display = 'none';
 
               imageDropdownElem.addEventListener('click', appendCode(imageDropdownElem, imageCodeDisplay));
 
@@ -417,3 +380,48 @@ Problem: the span onclick events ^above conflict with this event listener.
     )
   }
 }
+
+/* 3 states of image CSS left/top position value inspection:
+  - rendered value (some large #)
+  - variable names (centre, x/y, tilesize)
+  - variable values (33, -1, 2048)
+
+  Idea: keep track of which state you are in with a custom data attribute and just cycle to the next one with each click
+*/
+/*
+
+              $('.var-value-code-inspect').click((e) => {
+                console.log('clicked yep')
+                let customData = e.target.dataset;
+                console.log('custom data', customData)
+                // let state = customData.clicks;
+                let state = e.target.innerHTML;
+
+                const centre1 = customData["centre[1]"];
+                const yHere = customData["y"];
+                const tilesize = customData["tilesize"];
+
+                // `<span className="tutorons-code-inspect">(${centre1} + ${y}) * ${tilesize}<span className="tutorons-text">(centre[1] + y) * tilesize</span></span>`
+
+                if (state === customData.val) {
+                  e.target.innerHTML = `(${centre1} + ${yHere}) * ${tilesize}`;
+                  e.target.dataset.clicks = "1";
+                  return;
+                }
+                else if (state === `(${centre1} + ${yHere}) * ${tilesize}`) {
+                  e.target.innerHTML = `(centre[1] + y) * tilesize`;
+                  e.target.dataset.clicks = "2";
+                  return;
+                }
+                else { // state = `(centre[1] + y) * tilesize`
+                  e.target.innerHTML = customData.val;
+                  e.target.dataset.clicks = "0";
+                  return;
+                }
+              })
+*/
+              // this should be appending a Codeview component
+              // let imageCodeDisplay = document.createElement('div');
+              // imageCodeDisplay.classList.add('code-editor-window');
+              // imageCodeDisplay.innerHTML = '<div className="window-body">HEYYYYYY </div>'
+              // console.log(imageCodeDisplay)
