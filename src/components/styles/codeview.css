@@ -2,7 +2,7 @@
   /* display: none; -- should be none for prod */
   width: 547px;
   position: absolute;
-  margin-left: 275px;
+  margin-left: 280px;
   width: fit-content;
 }
 
@@ -11,6 +11,7 @@
   border-radius: 0.3rem;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
   font-family: 'PT Mono', monospace;
+  line-height: 20px;
 }
 
 #code-question, #display-pane-map-elem {
@@ -30,6 +31,12 @@
   background-color: #0000ff8a;
   cursor: pointer;
   color: white;
+}
+
+.var-value-show {
+  background-color: yellow;
+  cursor: pointer;
+  color: black;
 }
 
 .tutorons-code-inspect {

@@ -303,10 +303,6 @@ p {
   box-shadow: 0px 8px 2px 0px rgba(0, 0, 0, 0.1)
 }
 
-.image-dropdown-elem-code {
-  margin-left: 10px;
-}
-
 #save-responses {
   display: none;
 }
