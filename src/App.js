@@ -113,7 +113,7 @@ export default class App extends React.Component {
                   e.target.style.backgroundColor = 'lightgreen';
                   setTimeout(function () {
                     i.style.border = '1px lightblue solid';
-                    e.target.style.backgroundColor = 'initial';
+                    e.target.style.backgroundColor = '#f8f8ff73';
                   }, 2000);
                 })
               })
