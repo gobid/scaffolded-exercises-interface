@@ -168,9 +168,18 @@ export default class App extends React.Component {
     /* Opens reflection questions */
     $('#reflection-q-more-chevron').click(() => {
       let modalDisplay = $('.reflection-questions')[0].style.display;
-      (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
+      let chevronDir = $('#reflection-q-more-chevron')[0].innerText;
+
+      if (modalDisplay === "none") {
+        modalDisplay = "block";
+        chevronDir = "▼";
+      } else {
+        modalDisplay = "none";
+        chevronDir = "▶";
+      }
       $('.reflection-questions')[0].style.display = modalDisplay;
       $('.ref-question')[0].style.display = "block";
+      $('#reflection-q-more-chevron')[0].innerText = chevronDir;
     })
 
     /* Opens code related to reflection questions */
@@ -178,6 +187,10 @@ export default class App extends React.Component {
       let modalDisplay = $('#codeview1')[0].style.display;
       (modalDisplay === "none") ? modalDisplay = "block" : modalDisplay = "none";
       $('#codeview1')[0].style.display = modalDisplay;
+
+      let chevronDir = $('#reflection-q-code-chevron')[0].innerText;
+      (chevronDir === '▶') ? chevronDir = '▼' : chevronDir = '▶'
+      $('#reflection-q-code-chevron')[0].innerText = chevronDir;
     })
 
     /* Opens map div source code */
@@ -278,7 +291,7 @@ export default class App extends React.Component {
             <hr></hr>
             <div>
               <b>Reflection Questions</b>
-              <span className="more-chevron" id="reflection-q-more-chevron"><b>></b></span>
+              <span className="more-chevron" id="reflection-q-more-chevron"><b>▼</b></span>
             </div>
             <div className="reflection-questions">
               <div className="ref-question first-question">
@@ -288,7 +301,7 @@ export default class App extends React.Component {
               <div className="ref-question">
                 <div id="code-question">
                   <span className="question-txt p1q2 reflection">What is happening in the code?</span>
-                  <span className="more-chevron" id="reflection-q-code-chevron"><b>></b></span>
+                  <span className="more-chevron" id="reflection-q-code-chevron"><b>▼</b></span>
                   <Codeview1 id="codeview1" />
                 </div>
                 <textarea className="response-area p1q2 reflection"></textarea>
