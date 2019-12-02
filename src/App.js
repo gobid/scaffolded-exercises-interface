@@ -306,10 +306,20 @@ export default class App extends React.Component {
               <p className="more-chevron" style={{display: 'none'}}id="position-nested-lvl-1-chevron">></p>
               <Position17 id="position-1" />
             </div>
-            <div id="map-elem"><b>$map</b> = <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645px; top: -27545px;">`}</span> (see left)</div>
+            <div id="map-elem"><b>$map</b> = 
+              <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645px; top: -27545px;">`}</span> 
+              (see left) 
+              <br></br>
+              <br></br>
+              <em><b>$map</b> nested elements</em> <span className="more-chevron" id="image-instances-dropdown-chevron"><b>&#x25B6;</b></span></div>
+            <div id="image-dropdown"></div>
+
             <div id="image-elem">
-              <p><b>$image</b> = <span id="image-elem-val">9 instances (see left)</span><span className="more-chevron" id="image-instances-dropdown-chevron" style={{'display': 'none'}}><b>&#x25B6;</b></span></p>
-              <div id="image-dropdown"></div>
+              <p><b>$image</b> = 
+                <span id="image-elem-val"> 9 instances (see left)</span>
+                {/* <span className="more-chevron" id="image-instances-dropdown-chevron" style={{'display': 'none'}}><b>&#x25B6;</b></span> */}
+              </p>
+              {/* <div id="image-dropdown"></div> */}
             </div>
             <hr></hr>
             <div>
