@@ -96,11 +96,11 @@ export default class App extends React.Component {
               }
               serverImages[ctr].push(name);
 
-/***************************************/
-/***************************************/
-/* BELOW: creating img elements to be added to area showing "loaded" items + information about the $image var instances to show/be inspected in the change console */
-/***************************************/
-/***************************************/
+              /***************************************/
+              /***************************************/
+              /* BELOW: creating img elements to be added to area showing "loaded" items + information about the $image var instances to show/be inspected in the change console */
+              /***************************************/
+              /***************************************/
 
               // for sub-outcome 0: small image loaded without any label/decoration
               var serverImg = '<img alt="img not found"class="server-img-tile server-' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" />'
@@ -119,14 +119,14 @@ export default class App extends React.Component {
               var imageDropdownElem = document.createElement('p');
               imageDropdownElem.classList.add('image-dropdown-elem')
               imageDropdownElem.id = `server-${name}`;
-              // imageDropdownElem.innerHTML = `&lt;img <br>&nbsp;class="img-tile tile${name}" <br>&nbsp;src="http://imgs.xkcd.com/clickdrag/${name}.png" <br>&nbsp;style="top:<span class="var-value-code-inspect" data-clicks="0" data-val=${(centre[1] + y) * tilesize} data-centre[1]=${centre[1]} data-y=${y} data-tilesize=${tilesize}>${(centre[1] + y) * tilesize}</span>px;\n left:<span data-clicks="0" data-centre[0]=${centre[0]} data-x=${x} data-tilesize=${tilesize}>${(centre[0] + x) * tilesize}</span>px;\n z-index: -1; position: absolute;;" /&gt;`;
+              // Fix the element creation to pull from the HTML for the actual rendered images because this display shows "artificially" created code right now
+              imageDropdownElem.innerHTML = '&lt;img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + ((centre[1] + y) * tilesize) + 'px;left:' + ((centre[0] + x) * tilesize) + 'px; z-index: -1; position: absolute;;" /&gt;';
 
               imageDropdownElem.addEventListener('click', (e) => {
                 let elem = e.target;
                 // change colors of code snippet + image display
                 var instances = Array.from($(`.${e.target.id}`))
                 instances.forEach((i) => {
-                  console.log(i)
                   if (i.style.borderColor === 'lightgreen') {
                     i.style.border = '1px lightblue solid';
                     elem.style.backgroundColor = '#f8f8ff73';
@@ -144,19 +144,74 @@ export default class App extends React.Component {
                 }
               })
 
-              // Fix the element creation to pull from the HTML for the actual rendered images because this display shows "artificially" created code right now
-              imageDropdownElem.innerHTML = '&lt;img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + ((centre[1] + y) * tilesize) + 'px;left:' + ((centre[0] + x) * tilesize) + 'px; z-index: -1; position: absolute;;" /&gt;';
-
               imageDropdown.append(imageDropdownElem);
               // this should be appending a Codeview component
               // imageDropdownElem.appendChild(imageCodeDisplay);
 
-              var imageCodeDisplay = document.createElement('div');
-              imageCodeDisplay.classList.add('image-dropdown-elem-code', 'code-editor', 'code-editor-window')
+              let imageCodeDisplay = document.createElement('div');
+              imageCodeDisplay.classList.add('image-dropdown-elem-code', 'code-editor', 'code-editor-window');
               imageCodeDisplay.id = `server-${name}-code`;
-              imageCodeDisplay.innerHTML = `&lt;img class="img-tile tile${name}" src="http://imgs.xkcd.com/clickdrag/${name}.png" style="top:<span class="image-dropdown-elem-code-variable var-value-code-inspect top" data-centre[1]=${centre[1]} data-y=${y} data-tilesize=${tilesize}>${`(centre[1] + y) * tilesize`}</span>px; left:<span class="image-dropdown-elem-code-variable var-value-code-inspect left" data-centre[0]=${centre[0]} data-x=${x} data-tilesize=${tilesize}>${`(centre[0] + x) * tilesize`}</span>px; z-index: -1; position: absolute;;" /&gt;`
+
+              let varInspect1 = document.createElement('span');
+              varInspect1.classList.add('image-dropdown-elem-code-variable', 'var-value-code-inspect', 'top');
+              varInspect1.id = `${name}-code-css-top-var`;
+              varInspect1.setAttribute('data-centre1', centre[1]);
+              varInspect1.setAttribute('data-y', y);
+              varInspect1.setAttribute('data-tilesize', tilesize);
+              varInspect1.innerText = `(centre[1] + y) * tilesize`;
+
+              let varInspect2 = document.createElement('span');
+              varInspect2.classList.add('image-dropdown-elem-code-variable', 'var-value-code-inspect', 'left');
+              varInspect2.id = `${name}-code-css-left-var`;
+              varInspect2.setAttribute('data-centre0', centre[0]);
+              varInspect2.setAttribute('data-x', x);
+              varInspect2.setAttribute('data-tilesize', tilesize);
+              varInspect2.innerText = `(centre[0] + x) * tilesize`;
+
+              imageCodeDisplay.innerHTML = `&lt;img class="img-tile tile${name}" src = "http://imgs.xkcd.com/clickdrag/${name}.png" style = "top:`;
+              imageCodeDisplay.appendChild(varInspect1);
+              imageCodeDisplay.innerHTML += `px; left:`;
+              imageCodeDisplay.appendChild(varInspect2);
+              imageCodeDisplay.innerHTML += `px; z-index: -1; position: absolute;;" /&gt;`
               imageCodeDisplay.style.display = 'none';
 
+              // imageCodeDisplay.innerHTML = `&lt;img class="img-tile tile${name}" src="http://imgs.xkcd.com/clickdrag/${name}.png" style="top:<span class="image-dropdown-elem-code-variable var-value-code-inspect top" data-centre[1]=${centre[1]} data-y=${y} data-tilesize=${tilesize}>${`(centre[1] + y) * tilesize`}</span>px; left:<span class="image-dropdown-elem-code-variable var-value-code-inspect left" data-centre[0]=${centre[0]} data-x=${x} data-tilesize=${tilesize}>${`(centre[0] + x) * tilesize`}</span>px; z-index: -1; position: absolute;;" /&gt;`
+
+              let nameHold = name;
+              $(document).on('click', `#${nameHold}-code-css-top-var`, function (e) {
+                let h = document.getElementById(`${nameHold}-code-css-top-var`);
+                console.log('clicked whooohoo')
+                if (h.classList.contains('var-value-code-inspect')) {
+                  h.classList.remove('var-value-code-inspect');
+                  h.classList.add('var-value-show');
+
+                  const codeVals = h.dataset;
+                  h.innerHTML = `(${codeVals["centre1"]} + ${codeVals["y"]}) * ${codeVals["tilesize"]}`;
+                }
+                else {
+                  h.classList.remove('var-value-show');
+                  h.classList.add('var-value-code-inspect');
+                  h.innerHTML = `(centre[1] + y) * tilesize`;
+                }
+              })
+
+              $(document).on('click', `#${nameHold}-code-css-left-var`, function (e) {
+                let h = document.getElementById(`${nameHold}-code-css-left-var`);
+                console.log('clicked whooohoo')
+                if (h.classList.contains('var-value-code-inspect')) {
+                  h.classList.remove('var-value-code-inspect');
+                  h.classList.add('var-value-show');
+
+                  const codeVals = h.dataset;
+                  h.innerHTML = `(${codeVals["centre0"]} + ${codeVals["x"]}) * ${codeVals["tilesize"]}`
+                }
+                else {
+                  h.classList.remove('var-value-show');
+                  h.classList.add('var-value-code-inspect');
+                  h.innerHTML = `(centre[0] + x) * tilesize`;
+                }
+              })
+              
               appendCode(imageDropdownElem, imageCodeDisplay);
 
               ctr++
@@ -243,45 +298,6 @@ export default class App extends React.Component {
       let modalDisplay = $('#image-dropdown')[0].style.display;
       (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
       $('#image-dropdown')[0].style.display = modalDisplay;
-    })
-
-    // $('#change-console').on('scroll', (() => {
-    //   // let codeEditorWindows = Array.from($('.code-editor-window'));
-    //   // codeEditorWindows.forEach((window) => {
-    //   //   let currTop = window.style.top;
-    //   //   window.style.top = currTop + $('#change-console').scrollTop();
-    //   // })
-    //   $('.code-editor-window').css('top', 0 - $('#change-console').scrollTop())
-    // }))
-    $('#change-console').on('load', () => {
-      let hoverImgCode = Array.from($('.image-dropdown-elem-code-variable'))
-      hoverImgCode.forEach((h) => {
-        h.addEventListener('mousedown', (e) => {
-          if (h.classList.contains('var-value-code-inspect')) {
-            h.classList.remove('var-value-code-inspect');
-            h.classList.add('var-value-show');
-
-            const codeVals = h.dataset;
-            if (h.classList.contains('top')) {
-              h.innerHTML = `(${codeVals["centre[1]"]} + ${codeVals["y"]}) * ${codeVals["tilesize"]}`
-            }
-            if (h.classList.contains('left')) {
-              h.innerHTML = `(${codeVals["centre[0]"]} + ${codeVals["x"]}) * ${codeVals["tilesize"]}`
-            }
-          }
-          else {
-            h.classList.remove('var-value-show');
-            h.classList.add('var-value-code-inspect');
-
-            if (h.classList.contains('top')) {
-              h.innerHTML = `(centre[1] + y) * tilesize`;
-            }
-            if (h.classList.contains('left')) {
-              h.innerHTML = `(centre[0] + x) * tilesize`;
-            }
-          }
-        })
-      })
     })
   }
   
