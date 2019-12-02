@@ -18,13 +18,21 @@ export default class Codeview3 extends React.Component {
     }
 
     if (e.target.classList.contains('css-computation-code-display')) {
-      console.log("clocked!!")
       let elem = e.target;
       $('#map-nested-elems')[0].style.backgroundColor = 'yellow';
       elem.style.backgroundColor = 'yellow';
       elem.style.color = 'black';
       setTimeout(function () {
         $('#map-nested-elems')[0].style.backgroundColor = 'initial';
+        let imageElemClass = `.${$('.image-dropdown-elem')[0].id}`;
+        $(imageElemClass)[0].style.border = '4px lightgreen solid';
+        $('#image-dropdown').css('display', 'block');
+        $('#image-instances-dropdown-chevron')[0].innerText = '▼';
+        $('.image-dropdown-elem')[0].style.backgroundColor = 'lightgreen';
+        let codeDisplayId = `#${$('.image-dropdown-elem')[0].id}-code`;
+        console.log("code display id", codeDisplayId)
+        $(codeDisplayId).css('top', $('.image-dropdown-elem')[0].getBoundingClientRect().top);
+        $(codeDisplayId).css('display', 'block');
         elem.style.backgroundColor = '#0000ff8a';
         elem.style.color = 'white';
       }, 2000);
