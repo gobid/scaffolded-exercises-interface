@@ -3,6 +3,7 @@ import './App.css';
 import Position17 from './components/position17';
 import Codeview1 from './components/codeview1';
 import Codeview2 from './components/codeview2';
+import Codeview3 from './components/codeview3';
 import $ from 'jquery';
 window.$ = $;
 
@@ -251,7 +252,7 @@ export default class App extends React.Component {
           scroll_delta = null;
           $('#modified-position0-code-1')[0].innerHTML = `position[0] = ${position[0]}`
           $('#modified-position1-code-1')[0].innerHTML = `position[1] = ${position[1]}`
-          $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/);
+          $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>';
         });
     };
 
@@ -282,9 +283,13 @@ export default class App extends React.Component {
 
     /* Opens code related to reflection questions */
     $('#reflection-q-code-chevron').click(() => {
-      let modalDisplay = $('#codeview1')[0].style.display;
-      (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
-      $('#codeview1')[0].style.display = modalDisplay;
+      let modalDisplay = $('#codeview3')[0].style.display;
+      (modalDisplay === "none") ? modalDisplay = "block" : modalDisplay = "none";
+      $('#codeview3')[0].style.display = modalDisplay;
+
+      let chevronDir = $('#reflection-q-code-chevron')[0].innerText;
+      (chevronDir === '▶') ? chevronDir = '▼' : chevronDir = '▶'
+      $('#reflection-q-code-chevron')[0].innerText = chevronDir;
     })
 
     /* Opens map div source code */
@@ -298,6 +303,10 @@ export default class App extends React.Component {
       let modalDisplay = $('#image-dropdown')[0].style.display;
       (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
       $('#image-dropdown')[0].style.display = modalDisplay;
+
+      let chevronDir = $('#image-instances-dropdown-chevron')[0].innerText;
+      (chevronDir === '▶') ? chevronDir = '▼' : chevronDir = '▶'
+      $('#image-instances-dropdown-chevron')[0].innerText = chevronDir;
     })
   }
   
@@ -387,12 +396,23 @@ export default class App extends React.Component {
               <p className="more-chevron" style={{display: 'none'}}id="position-nested-lvl-1-chevron">></p>
               <Position17 id="position-1" />
             </div>
-            <div id="map-elem"><b>$map</b> = <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645.4px; top: -27545.6px;">`}</span></div>
+            <div id="map-elem"><b>$map</b> =
+              <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645px; top: -27545px;">`}</span>
+              (see left)
+              <br></br>
+              <p id="map-nested-elems">
+                <em><b>$map</b> nested elements</em>
+                <span className="more-chevron" id="image-instances-dropdown-chevron"><b>▶</b></span>
+              </p>
+            </div>
+            <div id="image-dropdown">
+              <p><i>Click to inspect</i></p>
+            </div>
+
             <div id="image-elem">
-              <p><b>$image</b> = <span id="image-elem-val">9 instances</span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>></b></span></p>
-              <div id="image-dropdown">
-                <p><i>Click to inspect</i></p>
-              </div>
+              <p><b>$image</b> =
+                <span id="image-elem-val"> 9 instances (see left)</span>
+              </p>
             </div>
             <hr></hr>
             <div>
@@ -406,13 +426,13 @@ export default class App extends React.Component {
               <div className="ref-question">
                 <div id="code-question">
                   <span className="question-txt p1q2 reflection">What is happening in the code?</span>
-                  <span className="more-chevron" id="reflection-q-code-chevron"><b>></b></span>
-                  <Codeview2 id="codeview1" />
+                  <span className="more-chevron" id="reflection-q-code-chevron"><b>▼</b></span>
+                  <Codeview3 id="codeview3" />
                 </div>
                 <textarea className="response-area p1q2 reflection"></textarea>
               </div>
               <div className="ref-question">
-                <div className="question-txt reflection">What is the relationship between $map and $image?</div>
+                <div className="question-txt reflection">What is the relationship between $image and ((centre[1] + y) * tilesize) and ((centre[0] + x) * tilesize))?</div>
                 <textarea className="response-area reflection" id="p1q3"></textarea>
               </div>
               <button id="show-reflection-question" onClick={this.displayQuestions}>Next question</button>
