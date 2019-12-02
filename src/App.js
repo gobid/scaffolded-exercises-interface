@@ -108,13 +108,14 @@ export default class App extends React.Component {
               imageDropdownElem.addEventListener('click', (e) => {
                 var instances = Array.from($(`.${e.target.id}`))
                 instances.forEach((i) => {
-                  console.log(i)
-                  i.style.border = '4px lightgreen solid';
-                  e.target.style.backgroundColor = 'lightgreen';
-                  setTimeout(function () {
+                  if (i.style.borderColor === 'lightblue' || i.style.borderColor === '') {
+                    i.style.border = '4px lightgreen solid';
+                    e.target.style.backgroundColor = 'lightgreen';
+                  }
+                  else {
                     i.style.border = '1px lightblue solid';
                     e.target.style.backgroundColor = '#f8f8ff73';
-                  }, 2000);
+                  }
                 })
               })
 
@@ -194,6 +195,10 @@ export default class App extends React.Component {
       let modalDisplay = $('#codeview1')[0].style.display;
       (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
       $('#codeview1')[0].style.display = modalDisplay;
+
+      let chevronDir = $('#reflection-q-code-chevron')[0].innerText;
+      (chevronDir === '▶') ? chevronDir = '▼' : chevronDir = '▶'
+      $('#reflection-q-code-chevron')[0].innerText = chevronDir;
     })
 
     /* Opens map div source code */
@@ -203,10 +208,15 @@ export default class App extends React.Component {
       $('#codeview0')[0].style.display = modalDisplay;
     })
 
+    /* Opens image elements dropdown menu */
     $('#image-instances-dropdown-chevron').click(() => {
       let modalDisplay = $('#image-dropdown')[0].style.display;
       (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
       $('#image-dropdown')[0].style.display = modalDisplay;
+
+      let chevronDir = $('#image-instances-dropdown-chevron')[0].innerText;
+      (chevronDir === '▶') ? chevronDir = '▼' : chevronDir = '▶'
+      $('#image-instances-dropdown-chevron')[0].innerText = chevronDir;
     })
   }
   
@@ -298,7 +308,7 @@ export default class App extends React.Component {
             </div>
             <div id="map-elem"><b>$map</b> = <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645.4px; top: -27545.6px;">`}</span></div>
             <div id="image-elem">
-              <p><b>$image</b> = <span id="image-elem-val">9 instances</span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>></b></span></p>
+              <p><b>$image</b> = <span id="image-elem-val">9 instances</span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>&#x25B6;</b></span></p>
               <div id="image-dropdown"></div>
             </div>
             <hr></hr>
@@ -313,7 +323,7 @@ export default class App extends React.Component {
               <div className="ref-question">
                 <div id="code-question">
                   <span className="question-txt p1q2 reflection">What is happening in the code?</span>
-                  <span className="more-chevron" id="reflection-q-code-chevron"><b>></b></span>
+                  <span className="more-chevron" id="reflection-q-code-chevron"><b>▶</b></span>
                   <Codeview2 id="codeview1" />
                 </div>
                 <textarea className="response-area p1q2 reflection"></textarea>
