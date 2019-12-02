@@ -21,6 +21,10 @@
   display: none;
 }
 
+#codeview2 {
+  display: block;
+}
+
 .var-value-code-inspect {
   background-color: #0000ff8a;
   cursor: pointer;

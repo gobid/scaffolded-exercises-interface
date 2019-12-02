@@ -192,9 +192,9 @@ export default class App extends React.Component {
 
     /* Opens code related to reflection questions */
     $('#reflection-q-code-chevron').click(() => {
-      let modalDisplay = $('#codeview1')[0].style.display;
-      (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
-      $('#codeview1')[0].style.display = modalDisplay;
+      let modalDisplay = $('#codeview2')[0].style.display;
+      (modalDisplay === "none") ? modalDisplay = "block" : modalDisplay = "none";
+      $('#codeview2')[0].style.display = modalDisplay;
 
       let chevronDir = $('#reflection-q-code-chevron')[0].innerText;
       (chevronDir === '▶') ? chevronDir = '▼' : chevronDir = '▶'
@@ -333,8 +333,8 @@ export default class App extends React.Component {
               <div className="ref-question">
                 <div id="code-question">
                   <span className="question-txt p1q2 reflection">What is happening in the code?</span>
-                  <span className="more-chevron" id="reflection-q-code-chevron"><b>▶</b></span>
-                  <Codeview2 id="codeview1" />
+                  <span className="more-chevron" id="reflection-q-code-chevron"><b>▼</b></span>
+                  <Codeview2 id="codeview2" />
                 </div>
                 <textarea className="response-area p1q2 reflection"></textarea>
               </div>
