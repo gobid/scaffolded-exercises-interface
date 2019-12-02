@@ -43,7 +43,7 @@ export default class App extends React.Component {
       var centre = [-1, 0];
 
       var update = function () {
-        $('#position-0')[0].innerHTML = `<b>position</b> = [${position}]`; // CONSOLE HELP
+        $('#position-0')[0].innerHTML = `<b>position</b> = [${Math.round(position[0])}, ${Math.round(position[1])}]`; // CONSOLE HELP
         $map.css({
           left: position[0],
           top: position[1]
@@ -136,7 +136,7 @@ export default class App extends React.Component {
           scroll_delta = null;
           $('#modified-position0-code-1')[0].innerHTML = `position[0] = ${position[0]}`
           $('#modified-position1-code-1')[0].innerHTML = `position[1] = ${position[1]}`
-          $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/);
+          $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>';
         });
     };
 
@@ -251,7 +251,7 @@ export default class App extends React.Component {
                   <span className="more-chevron" id="map-elem-code-chevron"><b>></b></span>
                   <div className="code-editor-window" id="codeview0">
                     <div className="window-body" id="display-pane-map-code">
-                      {`<div class="map" style="position: absolute; left: -67645.4px; top: -27545.6px;">`}
+                      {`<div class="map" style="position: absolute; left: -67645px; top: -27545px;">`}
                     </div>
                   </div>
                 </div> 
@@ -274,7 +274,7 @@ export default class App extends React.Component {
               <p className="more-chevron" style={{display: 'none'}}id="position-nested-lvl-1-chevron">></p>
               <Position17 id="position-1" />
             </div>
-            <div id="map-elem"><b>$map</b> = <span id="map-elem-val">{`= <div class="map" style="position: absolute; left: -67645.4px; top: -27545.6px;">`}</span></div>
+            <div id="map-elem"><b>$map</b> = <span id="map-elem-val">{`= <div class="map" style="position: absolute; left: -67645px; top: -27545px;">`}</span></div>
             <hr></hr>
             <div>
               <b>Reflection Questions</b>
