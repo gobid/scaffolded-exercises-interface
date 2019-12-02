@@ -110,7 +110,7 @@ export default class App extends React.Component {
               var serverImgWithName = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + '"/&gt;</span>' + serverImg + '</div>';
 
               // for sub-outcome 2: small image loaded with elem tag + class name + css inline with html 
-              var serverImgWithCSS = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">style="top:' + ((centre[1] + y) * tilesize) + 'px; left:' + ((centre[0] + x) * tilesize) + 'px;"</span>' + serverImg + '</div>';
+              var serverImgWithCSS = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + ' style="top:' + ((centre[1] + y) * tilesize) + 'px; left:' + ((centre[0] + x) * tilesize) + 'px;"</span>' + serverImg + '</div>';
 
               // ALWAYS: append image (optionally labeled depending on sub-outcome) to the container
               $servImg.append(serverImgWithCSS);

@@ -54,10 +54,22 @@ export default class Codeview3 extends React.Component {
     return (
       <div className="code-editor code-editor-window" id={this.props.id}>
         <div className="window-body">
-          {`for (var y = -1; y <= +1; y++) {`}
+          {`for (var `}
+          <span className="var-value-code-inspect css-computation-code-display" onClick={this.clickToInspectCode}>y</span>
+          {` = -1; `}
+          <span className="var-value-code-inspect css-computation-code-display" onClick={this.clickToInspectCode}>y</span>
+          {` <= +1; `} 
+          <span className="var-value-code-inspect css-computation-code-display" onClick={this.clickToInspectCode}>y</span>
+          {`++) {`}
           <br></br>
           &nbsp;&nbsp;
-          {`for (var x = -1; x <= +1; x++) {`}
+          {`for (var `}
+          <span className="var-value-code-inspect css-computation-code-display" onClick={this.clickToInspectCode}>x</span>
+          {` = -1; `}
+          <span className="var-value-code-inspect css-computation-code-display" onClick={this.clickToInspectCode}>x</span>
+          {` <= +1; `}
+          <span className="var-value-code-inspect css-computation-code-display" onClick={this.clickToInspectCode}>x</span>
+          {`++) {`}
           <br></br>
           &nbsp;&nbsp;
           &nbsp;&nbsp;
