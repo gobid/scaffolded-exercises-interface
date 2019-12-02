@@ -294,7 +294,7 @@ export default class App extends React.Component {
                 <textarea className="response-area p1q2 reflection"></textarea>
               </div>
               <div className="ref-question">
-                <div className="question-txt reflection">What is the relationship between $map and $position?</div>
+                <div className="question-txt reflection">What is the relationship between $map and position?</div>
                 <textarea className="response-area reflection" id="p1q3"></textarea>
               </div>
               <button id="show-reflection-question" onClick={this.displayQuestions}>Next question</button>
