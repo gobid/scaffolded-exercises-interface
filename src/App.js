@@ -274,7 +274,7 @@ export default class App extends React.Component {
               <p className="more-chevron" style={{display: 'none'}}id="position-nested-lvl-1-chevron">></p>
               <Position17 id="position-1" />
             </div>
-            <div id="map-elem"><b>$map</b> = <span id="map-elem-val"><span className="var-name-1">{`<div class="map"`}</span> {`style="position: absolute; left: -67645.4px; top: -27545.6px;">`}</span></div>
+            <div id="map-elem"><b>$map</b> = <span id="map-elem-val">{`= <div class="map" style="position: absolute; left: -67645.4px; top: -27545.6px;">`}</span></div>
             <hr></hr>
             <div>
               <b>Reflection Questions</b>
