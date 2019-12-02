@@ -131,7 +131,7 @@ export default class Codeview1 extends React.Component {
             append
             <span
               className="tutorons-text">
-              Remove the set of matched elements from the DOM.
+              Insert content, specified by the parameter, to the end of each element in the set of matched elements.
             </span>
           </span>
           {`(`}
