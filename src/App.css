@@ -265,11 +265,14 @@ p {
 
 .reflection-questions {
   margin-top: 10px;
-  display: none;
 }
 
 .ref-question {
   display: none;
+}
+
+.first-question {
+  display: block;
 }
 
 .response-area {

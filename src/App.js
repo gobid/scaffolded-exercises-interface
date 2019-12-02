@@ -176,7 +176,7 @@ export default class App extends React.Component {
     /* Opens code related to reflection questions */
     $('#reflection-q-code-chevron').click(() => {
       let modalDisplay = $('#codeview1')[0].style.display;
-      (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
+      (modalDisplay === "none") ? modalDisplay = "block" : modalDisplay = "none";
       $('#codeview1')[0].style.display = modalDisplay;
     })
 
@@ -247,7 +247,7 @@ export default class App extends React.Component {
             <div id="server-images-wrapper">
               <span id="map-div-wrapper">
                 <div className="var-name-txt" id="display-pane-map-elem">
-                  <span class="var-name-1">{`<div class="map">`}</span>
+                  <span className="var-name-1">{`<div class="map">`}</span>
                   <span className="more-chevron" id="map-elem-code-chevron"><b>></b></span>
                   <div className="code-editor-window" id="codeview0">
                     <div className="window-body" id="display-pane-map-code">
@@ -274,19 +274,15 @@ export default class App extends React.Component {
               <p className="more-chevron" style={{display: 'none'}}id="position-nested-lvl-1-chevron">></p>
               <Position17 id="position-1" />
             </div>
-            <div id="map-elem"><b>$map</b> = <span id="map-elem-val">{`= <div class="map" style="position: absolute; left: -67645.4px; top: -27545.6px;">`}</span></div>
+            <div id="map-elem"><b>$map</b> = <span id="map-elem-val"><span className="var-name-1">{`<div class="map"`}</span> {`style="position: absolute; left: -67645.4px; top: -27545.6px;">`}</span></div>
             <hr></hr>
             <div>
               <b>Reflection Questions</b>
               <span className="more-chevron" id="reflection-q-more-chevron"><b>></b></span>
             </div>
             <div className="reflection-questions">
-              <div className="ref-question">
-                <div className="question-txt reflection">As you interact with the screen, what is happening visually?</div>
-                <textarea className="response-area reflection" id="p1q1"></textarea>
-              </div>
-              <div className="ref-question">
-                <div className="question-txt reflection">What is happening to the variable values shown above?</div>
+              <div className="ref-question first-question">
+                <div className="question-txt reflection">As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</div>
                 <textarea className="response-area reflection" id="p1q1"></textarea>
               </div>
               <div className="ref-question">
