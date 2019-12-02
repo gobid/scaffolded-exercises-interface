@@ -45,7 +45,7 @@ export default class App extends React.Component {
       var centre = [-1, 0];
 
       var update = function () {
-        $('#position-0')[0].innerHTML = `<b>position</b> = [${position}]`; // CONSOLE HELP
+        $('#position-0')[0].innerHTML = `<b>position</b> = [${Math.round(position[0])}, ${Math.round(position[1])}]`; // CONSOLE HELP
         $map.css({
           left: position[0],
           top: position[1]
@@ -161,7 +161,7 @@ export default class App extends React.Component {
           scroll_delta = null;
           $('#modified-position0-code-1')[0].innerHTML = `position[0] = ${position[0]}`
           $('#modified-position1-code-1')[0].innerHTML = `position[1] = ${position[1]}`
-          $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/);
+          $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>';
         });
     };
 
@@ -306,9 +306,9 @@ export default class App extends React.Component {
               <p className="more-chevron" style={{display: 'none'}}id="position-nested-lvl-1-chevron">></p>
               <Position17 id="position-1" />
             </div>
-            <div id="map-elem"><b>$map</b> = <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645.4px; top: -27545.6px;">`}</span></div>
+            <div id="map-elem"><b>$map</b> = <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645px; top: -27545px;">`}</span> (see left)</div>
             <div id="image-elem">
-              <p><b>$image</b> = <span id="image-elem-val">9 instances</span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>&#x25B6;</b></span></p>
+              <p><b>$image</b> = <span id="image-elem-val">9 instances (see left)</span><span className="more-chevron" id="image-instances-dropdown-chevron" style={{'display': 'none'}}><b>&#x25B6;</b></span></p>
               <div id="image-dropdown"></div>
             </div>
             <hr></hr>
