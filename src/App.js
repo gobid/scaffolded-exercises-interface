@@ -59,6 +59,7 @@ export default class App extends React.Component {
     var Map = function ($map) {
       var $servImg = $('#server-images');
       var imageDropdown = $('#image-dropdown');
+      var nameDropdown = $('#name-dropdown');
       var size = [14, 48, 25, 33];
       var tilesize = 2048;
       var scroll_delta = null;
@@ -93,6 +94,7 @@ export default class App extends React.Component {
           var $remove = $map.children();
           var $removeServerImgs = $servImg.children();
           var $removeImageDropdowns = imageDropdown.children().not(":first-child");
+          var $removeNameDropdowns = nameDropdown.children();
 
           let allNames = [];
           let ctr = 0;
@@ -133,11 +135,13 @@ export default class App extends React.Component {
               // for sub-outcome 2: small image loaded with elem tag + class name + css inline with html 
               var serverImgWithCSS = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + ' style="top:' + ((centre[1] + y) * tilesize) + 'px; left:' + ((centre[0] + x) * tilesize) + 'px;"</span>' + serverImg + '</div>';
 
+              // for sub-outcome 3: small image loaded with elem tag + class name + src 
+              var serverImgWithSrc = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png"</span>' + serverImg + '</div>';
+
               // ALWAYS: append image (optionally labeled depending on sub-outcome) to the container
-              $servImg.append(serverImgWithCSS);
+              $servImg.append(serverImgWithSrc);
 
               // for sub-outcome 2: create image instance dropdown menu with inspectable variable values
-              // custom data attributes used for possible inline state switching (see 3 state situation explanation below)
               var imageDropdownElem = document.createElement('p');
               imageDropdownElem.classList.add('image-dropdown-elem')
               imageDropdownElem.id = `server-${name}`;
@@ -210,11 +214,34 @@ export default class App extends React.Component {
 
               appendCode(imageDropdownElem, imageCodeDisplay);
 
+              var nameDropdownElem = document.createElement('p');
+              nameDropdownElem.classList.add('name-dropdown-elem');
+              nameDropdownElem.setAttribute('data-name', name);
+              nameDropdownElem.innerHTML = name;
+
+              nameDropdownElem.addEventListener('click', (e) => {
+                let elem = e.target;
+                // change colors of code snippet + image display
+                var instances = Array.from($(`.server-${e.target.dataset.name}`))
+                instances.forEach((i) => {
+                  if (i.style.borderColor === 'lightgreen') {
+                    i.style.border = '1px lightblue solid';
+                    elem.style.backgroundColor = '#f8f8ff73';
+                  } else {
+                    i.style.border = '4px lightgreen solid';
+                    elem.style.backgroundColor = 'lightgreen';
+                  };
+                })
+              });
+
+              nameDropdown.append(nameDropdownElem);
+
               ctr++
             }
             $remove.remove();
             $removeServerImgs.remove();
             $removeImageDropdowns.remove();
+            $removeNameDropdowns.remove();
           }
         }
       }
@@ -299,6 +326,16 @@ export default class App extends React.Component {
       let chevronDir = $('#image-instances-dropdown-chevron')[0].innerText;
       (chevronDir === '▶') ? chevronDir = '▼' : chevronDir = '▶'
       $('#image-instances-dropdown-chevron')[0].innerText = chevronDir;
+    })
+
+    $('#name-instances-dropdown-chevron').click(() => {
+      let modalDisplay = $('#name-dropdown')[0].style.display;
+      (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
+      $('#name-dropdown')[0].style.display = modalDisplay;
+
+      let chevronDir = $('#name-instances-dropdown-chevron')[0].innerText;
+      (chevronDir === '▶') ? chevronDir = '▼' : chevronDir = '▶'
+      $('#name-instances-dropdown-chevron')[0].innerText = chevronDir;
     })
   }
   
@@ -386,11 +423,19 @@ export default class App extends React.Component {
             </div>
             <div id="image-elem">
               <p><b>$image</b> =
-                <span id="image-elem-val"> 9 instances</span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>▶</b></span>
+                <span id="image-elem-val"> <em>local var. 9 instances</em></span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>▶</b></span>
               </p>
             </div>
             <div id="image-dropdown">
               <p><i>Click to inspect</i></p>
+            </div>
+            <div id="name-elem">
+              <p><b>name</b> =
+                <span id="name-elem-val"> <em>local var. 9 instances</em></span><span className="more-chevron" id="name-instances-dropdown-chevron"><b>▶</b></span>
+              </p>
+            </div>
+            <div id="name-dropdown">
+              {/* <p><i>Click to inspect</i></p> */}
             </div>
             <hr></hr>
             <div>

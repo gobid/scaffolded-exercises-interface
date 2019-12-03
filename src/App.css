@@ -63,7 +63,7 @@
   margin-right: 5px;
 }
 
-#image-dropdown {
+#image-dropdown, #name-dropdown {
   display: none;
 }
 
@@ -139,6 +139,7 @@
   width: 130px;
   margin-left: 10px;
   font-size: 14px;
+  word-break: break-all;
 }
 
 /************/
@@ -298,7 +299,7 @@ p {
   height: 75px;
 }
 
-.image-dropdown-elem {
+.image-dropdown-elem, .name-dropdown-elem {
   cursor: pointer;
   word-wrap: break-word;
   font-family: 'PT Mono', monospace;
