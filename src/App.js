@@ -23,6 +23,29 @@ export default class App extends React.Component {
       parent.insertAdjacentElement('afterend', child);
     }
 
+    function handleInspectionClick(e) {
+      let h = e.target;
+      const codeVals = h.dataset;
+      if (h.style.backgroundColor === 'yellow') {
+        h.style.backgroundColor = '#0000ff8a';
+        h.style.color = 'white';
+        h.innerHTML = codeVals.default;
+      }
+      else {
+        if (h.classList.contains('top')) {
+          h.innerHTML = `(${codeVals["centre1"]} + ${codeVals["y"]}) * ${codeVals["tilesize"]}`;
+        }
+        else if (h.classList.contains('left')) {
+          h.innerHTML = `(${codeVals["centre0"]} + ${codeVals["x"]}) * ${codeVals["tilesize"]}`;
+        }
+        else {
+          h.innerHTML = `${codeVals["name"]}`;
+        }
+        h.style.backgroundColor = 'yellow';
+        h.style.color = 'black';
+      }
+    }
+
     function eventPos(e) {
       if (e.type.match(/^touch/)) {
         e = e.originalEvent.changedTouches[0];
@@ -144,8 +167,6 @@ export default class App extends React.Component {
               })
 
               imageDropdown.append(imageDropdownElem);
-              // this should be appending a Codeview component
-              // imageDropdownElem.appendChild(imageCodeDisplay);
 
               let imageCodeDisplay = document.createElement('div');
               imageCodeDisplay.classList.add('image-dropdown-elem-code', 'code-editor', 'code-editor-window');
@@ -157,6 +178,7 @@ export default class App extends React.Component {
               varInspect1.setAttribute('data-centre1', centre[1]);
               varInspect1.setAttribute('data-y', y);
               varInspect1.setAttribute('data-tilesize', tilesize);
+              varInspect1.setAttribute('data-default', '(centre[1] + y) * tilesize');
               varInspect1.innerText = `(centre[1] + y) * tilesize`;
 
               let varInspect2 = document.createElement('span');
@@ -165,52 +187,27 @@ export default class App extends React.Component {
               varInspect2.setAttribute('data-centre0', centre[0]);
               varInspect2.setAttribute('data-x', x);
               varInspect2.setAttribute('data-tilesize', tilesize);
+              varInspect2.setAttribute('data-default', '(centre[0] + x) * tilesize');
               varInspect2.innerText = `(centre[0] + x) * tilesize`;
 
-              imageCodeDisplay.innerHTML = `&lt;img class="img-tile tile${name}" src = "http://imgs.xkcd.com/clickdrag/${name}.png" style = "top:`;
+              let nameInspect = document.createElement('span');
+              nameInspect.classList.add('image-dropdown-elem-code-variable', 'var-value-code-inspect', `${name}-code-css-var-inspection`);
+              nameInspect.setAttribute('data-default', 'name');
+              nameInspect.setAttribute('data-name', name);
+              nameInspect.id = `${name}-1-code-name-inspection`;
+              nameInspect.innerText = `name`;
+
+              imageCodeDisplay.innerHTML = `&lt;img class="img-tile tile`
+              imageCodeDisplay.appendChild(nameInspect);
+              imageCodeDisplay.innerHTML += `" src = "http://imgs.xkcd.com/clickdrag/`;
+              imageCodeDisplay.appendChild(nameInspect);
+              imageCodeDisplay.innerHTML += `.png" style = "top:`;
               imageCodeDisplay.appendChild(varInspect1);
               imageCodeDisplay.innerHTML += `px; left:`;
               imageCodeDisplay.appendChild(varInspect2);
               imageCodeDisplay.innerHTML += `px; z-index: -1; position: absolute;;" /&gt;`
               imageCodeDisplay.style.display = 'none';
 
-              // imageCodeDisplay.innerHTML = `&lt;img class="img-tile tile${name}" src="http://imgs.xkcd.com/clickdrag/${name}.png" style="top:<span class="image-dropdown-elem-code-variable var-value-code-inspect top" data-centre[1]=${centre[1]} data-y=${y} data-tilesize=${tilesize}>${`(centre[1] + y) * tilesize`}</span>px; left:<span class="image-dropdown-elem-code-variable var-value-code-inspect left" data-centre[0]=${centre[0]} data-x=${x} data-tilesize=${tilesize}>${`(centre[0] + x) * tilesize`}</span>px; z-index: -1; position: absolute;;" /&gt;`
-
-              let nameHold = name;
-              $(document).on('click', `#${nameHold}-code-css-top-var`, function (e) {
-                let h = document.getElementById(`${nameHold}-code-css-top-var`);
-                console.log('clicked whooohoo')
-                if (h.classList.contains('var-value-code-inspect')) {
-                  h.classList.remove('var-value-code-inspect');
-                  h.classList.add('var-value-show');
-
-                  const codeVals = h.dataset;
-                  h.innerHTML = `(${codeVals["centre1"]} + ${codeVals["y"]}) * ${codeVals["tilesize"]}`;
-                }
-                else {
-                  h.classList.remove('var-value-show');
-                  h.classList.add('var-value-code-inspect');
-                  h.innerHTML = `(centre[1] + y) * tilesize`;
-                }
-              })
-
-              $(document).on('click', `#${nameHold}-code-css-left-var`, function (e) {
-                let h = document.getElementById(`${nameHold}-code-css-left-var`);
-                console.log('clicked whooohoo')
-                if (h.classList.contains('var-value-code-inspect')) {
-                  h.classList.remove('var-value-code-inspect');
-                  h.classList.add('var-value-show');
-
-                  const codeVals = h.dataset;
-                  h.innerHTML = `(${codeVals["centre0"]} + ${codeVals["x"]}) * ${codeVals["tilesize"]}`
-                }
-                else {
-                  h.classList.remove('var-value-show');
-                  h.classList.add('var-value-code-inspect');
-                  h.innerHTML = `(centre[0] + x) * tilesize`;
-                }
-              })
-              
               appendCode(imageDropdownElem, imageCodeDisplay);
 
               ctr++
@@ -221,6 +218,7 @@ export default class App extends React.Component {
           }
         }
       }
+      $('#change-console').on('click', '.image-dropdown-elem-code-variable', e => handleInspectionClick(e));
 
       update();
 
@@ -381,7 +379,7 @@ export default class App extends React.Component {
             <div className="content-descriptions">Below: showing program variables and their values given current state of page.</div>
             <p><b>Interact with the screen!</b></p>
             <hr></hr>
-            <b class="section-header">Variables</b>
+            <b className="section-header">Variables</b>
             <p id="position-0"></p>
             <div id="map-elem"><b>$map</b> =
               <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645px; top: -27545px;">`}</span>
@@ -396,7 +394,7 @@ export default class App extends React.Component {
             </div>
             <hr></hr>
             <div>
-              <b class="section-header">Reflection Questions</b>
+              <b className="section-header">Reflection Questions</b>
             </div>
             <div className="reflection-questions">
               <div className="ref-question first-question">
