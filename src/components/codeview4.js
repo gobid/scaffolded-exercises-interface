@@ -17,6 +17,18 @@ export default class Codeview4 extends React.Component {
       }, 2000);
     }
 
+    if (e.target.classList.contains('name-code-display')) {
+      let elem = e.target;
+      $('#name-elem')[0].style.backgroundColor = 'yellow';
+      elem.style.backgroundColor = 'yellow';
+      elem.style.color = 'black';
+      setTimeout(function () {
+        $('#name-elem')[0].style.backgroundColor = 'initial';
+        elem.style.backgroundColor = '#0000ff8a';
+        elem.style.color = 'white';
+      }, 2000);
+    }
+
     if (e.target.classList.contains('css-computation-code-display')) {
       let elem = e.target;
       $('#image-elem-val')[0].style.backgroundColor = 'yellow';
@@ -80,9 +92,13 @@ export default class Codeview4 extends React.Component {
           &nbsp;&nbsp;
           &nbsp;&nbsp;
           <span className="var-value-code-inspect image-code-display" onClick={this.clickToInspectCode}>$image</span>
-          {` = $('<img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + `}
+          {` = $('<img class="img-tile tile' + `}
+          <span className="var-value-code-inspect name-code-display" onClick={this.clickToInspectCode}>name</span>
+          {` + " src="http://imgs.xkcd.com/clickdrag/' + `}
+          <span className="var-value-code-inspect name-code-display" onClick={this.clickToInspectCode}>name</span>
+          {` + '.png" style="top:' + `}
           <span className="var-value-code-inspect css-computation-code-display" onClick={this.clickToInspectCode}>((centre[1] + <span className="y-iter">y</span>) * tilesize)</span>
-          {`'+ px;left:' + `}
+          {` + 'px; left:' + `}
           <span className="var-value-code-inspect css-computation-code-display" onClick={this.clickToInspectCode}>((centre[0] + <span className="x-iter">x</span>) * tilesize)</span>
           {` + 'px; z-index: -1; position: absolute;;" style="display:none" />');`}
           <br></br>
