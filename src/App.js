@@ -5,6 +5,8 @@ import Codeview1 from './components/codeview1';
 import Codeview2 from './components/codeview2';
 import Codeview3 from './components/codeview3';
 import Codeview4 from './components/codeview4';
+import html2canvas from 'html2canvas';
+
 import $ from 'jquery';
 window.$ = $;
 
@@ -357,6 +359,32 @@ export default class App extends React.Component {
     }
   }
 
+  async captureState(e) {
+    // figuring out how to take screenshot of window to "freeze" state for comparison
+    let scaffoldsWindow = document.getElementById('change-demos-wrapper');
+    // https://stackoverflow.com/questions/1248081/get-the-browser-viewport-dimensions-with-javascript
+    // scrollWidth will include overflow (code pop-ups), clientWidth will not)
+    var w = scaffoldsWindow.clientWidth || 0;
+    var h = scaffoldsWindow.clientHeight || 0;
+    await html2canvas(document.documentElement, {
+      windowWidth: w,
+      windowHeight: h,
+      // proxy: 'http://localhost:8080',
+      useCORS: true
+    }).then(function (canvas) {
+      // canvas.style.width = '100px';
+      // canvas.style.height = '100px';
+      canvas.id = 'prev-state-here'
+      canvas.style.display = 'none';
+      $('#show-prev-state').children().remove();
+      $('#show-prev-state')[0].appendChild(canvas);
+    });
+  }
+
+  showState() {
+    $('#prev-state-here').css('display', 'block')
+  }
+
   downloadResponses() {
     const reflections = Array.from($('.reflection'));
     let data = '';
@@ -393,7 +421,11 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <div id="app-title">Scaffolded Exercises <button id="toggle-console">Show</button></div>
+        <div id="app-title">Scaffolded Exercises 
+          <button id="toggle-console">Show</button>
+          <button id="capture-prev-state" onClick={this.captureState}>capture prev state</button>
+          <button id="show-prev-state" onClick={this.showState}>show prev state</button>
+        </div>
         <div id="change-demos-wrapper">
           <div id="display-pane">
             <div className="content-descriptions">Below: Showing all elements currently loaded on page.</div>
@@ -470,48 +502,3 @@ export default class App extends React.Component {
     )
   }
 }
-
-/* 3 states of image CSS left/top position value inspection:
-  - rendered value (some large #)
-  - variable names (centre, x/y, tilesize)
-  - variable values (33, -1, 2048)
-
-  Idea: keep track of which state you are in with a custom data attribute and just cycle to the next one with each click
-*/
-/*
-
-              $('.var-value-code-inspect').click((e) => {
-                console.log('clicked yep')
-                let customData = e.target.dataset;
-                console.log('custom data', customData)
-                // let state = customData.clicks;
-                let state = e.target.innerHTML;
-
-                const centre1 = customData["centre[1]"];
-                const yHere = customData["y"];
-                const tilesize = customData["tilesize"];
-
-                // `<span className="tutorons-code-inspect">(${centre1} + ${y}) * ${tilesize}<span className="tutorons-text">(centre[1] + y) * tilesize</span></span>`
-
-                if (state === customData.val) {
-                  e.target.innerHTML = `(${centre1} + ${yHere}) * ${tilesize}`;
-                  e.target.dataset.clicks = "1";
-                  return;
-                }
-                else if (state === `(${centre1} + ${yHere}) * ${tilesize}`) {
-                  e.target.innerHTML = `(centre[1] + y) * tilesize`;
-                  e.target.dataset.clicks = "2";
-                  return;
-                }
-                else { // state = `(centre[1] + y) * tilesize`
-                  e.target.innerHTML = customData.val;
-                  e.target.dataset.clicks = "0";
-                  return;
-                }
-              })
-*/
-              // this should be appending a Codeview component
-              // let imageCodeDisplay = document.createElement('div');
-              // imageCodeDisplay.classList.add('code-editor-window');
-              // imageCodeDisplay.innerHTML = '<div className="window-body">HEYYYYYY </div>'
-              // console.log(imageCodeDisplay)
