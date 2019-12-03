@@ -308,16 +308,17 @@ export default class App extends React.Component {
     let questions = Array.from($('.ref-question'));
 
     for (let q = 1; q < questions.length; q++) {
+      if (q === questions.length - 1) {
+        // if there are no more questions to show,
+        // disable "next" button and download responses
+        $('#show-reflection-question')[0].disabled = true;
+        $('#save-responses')[0].style.display = 'inline';
+      }
       if (questions[q].style.display === 'none' || questions[q].style.display === '') {
         questions[q].style.display = 'block';
         return;
       }
     }
-
-    // if there are no more questions to show,
-    // disable "next" button and download responses
-    $('#show-reflection-question')[0].disabled = true;
-    $('#save-responses')[0].style.display = 'inline';
   }
 
   downloadResponses() {
@@ -378,9 +379,9 @@ export default class App extends React.Component {
           <div id="change-console">
             {/* Step 1 */}
             <div className="content-descriptions">Below: showing program variables and their values given current state of page.</div>
+            <p><b>Interact with the screen!</b></p>
             <hr></hr>
-            <p><b>Interact with screen!</b></p>
-            <hr></hr>
+            <b class="section-header">Variables</b>
             <p id="position-0"></p>
             <div id="map-elem"><b>$map</b> =
               <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645px; top: -27545px;">`}</span>
@@ -395,7 +396,7 @@ export default class App extends React.Component {
             </div>
             <hr></hr>
             <div>
-              <b>Reflection Questions</b>
+              <b class="section-header">Reflection Questions</b>
             </div>
             <div className="reflection-questions">
               <div className="ref-question first-question">
@@ -415,7 +416,7 @@ export default class App extends React.Component {
                 <textarea className="response-area reflection" id="p1q3"></textarea>
               </div>
               <button id="show-reflection-question" onClick={this.displayQuestions}>Next question</button>
-              <button id="save-responses" onClick={this.downloadResponses}>Save responses</button>
+              <button id="save-responses" onClick={this.downloadResponses}>Complete reflection</button>
             </div>
             <br></br>
           </div>
