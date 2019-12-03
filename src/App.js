@@ -40,8 +40,6 @@ export default class App extends React.Component {
       });
 
       var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
-      $('#modified-position0-code-1')[0].innerHTML = `position[0] = ${position[0]}`
-      $('#modified-position1-code-1')[0].innerHTML = `position[1] = ${position[1]}`
       var centre = [-1, 0];
 
       var update = function () {
@@ -65,7 +63,7 @@ export default class App extends React.Component {
 
           var $remove = $map.children();
           var $removeServerImgs = $servImg.children();
-          var $removeImageDropdowns = imageDropdown.children();
+          var $removeImageDropdowns = imageDropdown.children().not(":first-child");
 
           let allNames = [];
           let ctr = 0;
@@ -140,8 +138,6 @@ export default class App extends React.Component {
           var pos = eventPos(e);
           position[0] = Math.round(pos.pageX + scroll_delta[0])
           position[1] = Math.round(pos.pageY + scroll_delta[1])
-          $('#modified-position0-code-1')[0].innerHTML = `position[0] = Math.round(${pos.pageX} + ${scroll_delta[0]})`
-          $('#modified-position1-code-1')[0].innerHTML = `position[1] = Math.round(${pos.pageY} + ${scroll_delta[1]})`
           $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>';
           $('#display-pane-map-code')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>';
           update();
@@ -159,8 +155,6 @@ export default class App extends React.Component {
         .on('mouseup touchend', function (e) {
           $(document).off('mousemove touchmove', drag)
           scroll_delta = null;
-          $('#modified-position0-code-1')[0].innerHTML = `position[0] = ${position[0]}`
-          $('#modified-position1-code-1')[0].innerHTML = `position[1] = ${position[1]}`
           $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>';
         });
     };
@@ -224,16 +218,17 @@ export default class App extends React.Component {
     let questions = Array.from($('.ref-question'));
 
     for (let q = 1; q < questions.length; q++) {
+      if (q === questions.length - 1) {
+        // if there are no more questions to show,
+        // disable "next" button and download responses
+        $('#show-reflection-question')[0].disabled = true;
+        $('#save-responses')[0].style.display = 'inline';
+      }
       if (questions[q].style.display === 'none' || questions[q].style.display === '') {
         questions[q].style.display = 'block';
         return;
       }
     }
-
-    // if there are no more questions to show,
-    // disable "next" button and download responses
-    $('#show-reflection-question')[0].disabled = true;
-    $('#save-responses')[0].style.display = 'inline';
   }
 
   downloadResponses() {
@@ -294,36 +289,28 @@ export default class App extends React.Component {
           <div id="change-console">
             {/* Step 1 */}
             <div className="content-descriptions">Below: showing program variables and their values given current state of page.</div>
+            <p><b>Interact with the screen!</b></p>
             <hr></hr>
-            <p><b>Interact with screen!</b></p>
-            <hr></hr>
-            {/* <div className="var-defns">
-              <div className="var-def">var name</div>
-              <div className="var-def">var value</div>
-            </div> */}
+            <b class="section-header">Variables</b>
             <div className="value-def">
               <p id="position-0"></p>
-              <p className="more-chevron" style={{display: 'none'}}id="position-nested-lvl-1-chevron">></p>
-              <Position17 id="position-1" />
             </div>
             <div id="map-elem"><b>$map</b> = 
               <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645px; top: -27545px;">`}</span> 
-              (see left) 
-              <br></br>
-              <br></br>
-              <em><b>$map</b> nested elements</em> <span className="more-chevron" id="image-instances-dropdown-chevron"><b>&#x25B6;</b></span></div>
-            <div id="image-dropdown"></div>
+            </div>
 
             <div id="image-elem">
               <p><b>$image</b> = 
-                <span id="image-elem-val"> 9 instances (see left)</span>
-                {/* <span className="more-chevron" id="image-instances-dropdown-chevron" style={{'display': 'none'}}><b>&#x25B6;</b></span> */}
+                <span id="image-elem-val"> <em>local var. 9 instances</em></span>
+                <span className="more-chevron" id="image-instances-dropdown-chevron"><b>&#x25B6;</b></span>
               </p>
-              {/* <div id="image-dropdown"></div> */}
+              <div id="image-dropdown">
+                <p><i>Click to inspect</i></p>
+              </div>
             </div>
             <hr></hr>
             <div>
-              <b>Reflection Questions</b>
+              <b class="section-header">Reflection Questions</b>
             </div>
             <div className="reflection-questions">
               <div className="ref-question first-question">
@@ -343,7 +330,7 @@ export default class App extends React.Component {
                 <textarea className="response-area reflection" id="p1q3"></textarea>
               </div>
               <button id="show-reflection-question" onClick={this.displayQuestions}>Next question</button>
-              <button id="save-responses" onClick={this.downloadResponses}>Save responses</button>
+              <button id="save-responses" onClick={this.downloadResponses}>Complete reflection</button>
             </div>
             <br></br>
           </div>
