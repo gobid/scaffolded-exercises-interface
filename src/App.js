@@ -229,8 +229,6 @@ export default class App extends React.Component {
           var pos = eventPos(e);
           position[0] = Math.round(pos.pageX + scroll_delta[0])
           position[1] = Math.round(pos.pageY + scroll_delta[1])
-          $('#modified-position0-code-1')[0].innerHTML = `position[0] = Math.round(${pos.pageX} + ${scroll_delta[0]})`
-          $('#modified-position1-code-1')[0].innerHTML = `position[1] = Math.round(${pos.pageY} + ${scroll_delta[1]})`
           $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>';
           $('#display-pane-map-code')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>';
           update();
