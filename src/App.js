@@ -190,18 +190,7 @@ export default class App extends React.Component {
               varInspect2.setAttribute('data-default', '(centre[0] + x) * tilesize');
               varInspect2.innerText = `(centre[0] + x) * tilesize`;
 
-              let nameInspect = document.createElement('span');
-              nameInspect.classList.add('image-dropdown-elem-code-variable', 'var-value-code-inspect', `${name}-code-css-var-inspection`);
-              nameInspect.setAttribute('data-default', 'name');
-              nameInspect.setAttribute('data-name', name);
-              nameInspect.id = `${name}-1-code-name-inspection`;
-              nameInspect.innerText = `name`;
-
-              imageCodeDisplay.innerHTML = `&lt;img class="img-tile tile`
-              imageCodeDisplay.appendChild(nameInspect);
-              imageCodeDisplay.innerHTML += `" src = "http://imgs.xkcd.com/clickdrag/`;
-              imageCodeDisplay.appendChild(nameInspect);
-              imageCodeDisplay.innerHTML += `.png" style = "top:`;
+              imageCodeDisplay.innerHTML = `&lt;img class="img-tile tile${name}" src = "http://imgs.xkcd.com/clickdrag/${name}.png" style = "top:`;
               imageCodeDisplay.appendChild(varInspect1);
               imageCodeDisplay.innerHTML += `px; left:`;
               imageCodeDisplay.appendChild(varInspect2);
@@ -386,7 +375,7 @@ export default class App extends React.Component {
             </div>
             <div id="image-elem">
               <p><b>$image</b> =
-                <span id="image-elem-val"> 9 instances</span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>▶</b></span>
+                <span id="image-elem-val"><em>local var. 9 instances</em></span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>▶</b></span>
               </p>
             </div>
             <div id="image-dropdown">
@@ -424,48 +413,3 @@ export default class App extends React.Component {
     )
   }
 }
-
-/* 3 states of image CSS left/top position value inspection:
-  - rendered value (some large #)
-  - variable names (centre, x/y, tilesize)
-  - variable values (33, -1, 2048)
-
-  Idea: keep track of which state you are in with a custom data attribute and just cycle to the next one with each click
-*/
-/*
-
-              $('.var-value-code-inspect').click((e) => {
-                console.log('clicked yep')
-                let customData = e.target.dataset;
-                console.log('custom data', customData)
-                // let state = customData.clicks;
-                let state = e.target.innerHTML;
-
-                const centre1 = customData["centre[1]"];
-                const yHere = customData["y"];
-                const tilesize = customData["tilesize"];
-
-                // `<span className="tutorons-code-inspect">(${centre1} + ${y}) * ${tilesize}<span className="tutorons-text">(centre[1] + y) * tilesize</span></span>`
-
-                if (state === customData.val) {
-                  e.target.innerHTML = `(${centre1} + ${yHere}) * ${tilesize}`;
-                  e.target.dataset.clicks = "1";
-                  return;
-                }
-                else if (state === `(${centre1} + ${yHere}) * ${tilesize}`) {
-                  e.target.innerHTML = `(centre[1] + y) * tilesize`;
-                  e.target.dataset.clicks = "2";
-                  return;
-                }
-                else { // state = `(centre[1] + y) * tilesize`
-                  e.target.innerHTML = customData.val;
-                  e.target.dataset.clicks = "0";
-                  return;
-                }
-              })
-*/
-              // this should be appending a Codeview component
-              // let imageCodeDisplay = document.createElement('div');
-              // imageCodeDisplay.classList.add('code-editor-window');
-              // imageCodeDisplay.innerHTML = '<div className="window-body">HEYYYYYY </div>'
-              // console.log(imageCodeDisplay)
