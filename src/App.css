@@ -34,6 +34,12 @@
   padding-bottom: 1px;
 }
 
+.section-header {
+  color: white;
+  font-family: 'PT Mono', monosppace;
+  font-weight: bold;
+}
+
 .content-descriptions {
   font-style: italic;
   width: fit-content;

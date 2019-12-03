@@ -275,13 +275,9 @@ export default class App extends React.Component {
           <div id="change-console">
             {/* Step 1 */}
             <div className="content-descriptions">Below: showing program variables and their values given current state of page.</div>
+            <p><b>Interact with the screen!</b></p>
             <hr></hr>
-            <p><b>Interact with screen!</b></p>
-            <hr></hr>
-            {/* <div className="var-defns">
-              <div className="var-def">var name</div>
-              <div className="var-def">var value</div>
-            </div> */}
+            <b class="section-header">Variables</b>
             <div className="value-def">
               <p id="position-0"></p>
               <p className="more-chevron" style={{display: 'none'}}id="position-nested-lvl-1-chevron">></p>
@@ -290,7 +286,7 @@ export default class App extends React.Component {
             <div id="map-elem"><b>$map</b> = <span id="map-elem-val">{`= <div class="map" style="position: absolute; left: -67645px; top: -27545px;">`}</span></div>
             <hr></hr>
             <div>
-              <b>Reflection Questions</b>
+              <b className="section-header">Reflection Questions</b>
               <span className="more-chevron" id="reflection-q-more-chevron"><b>▼</b></span>
             </div>
             <div className="reflection-questions">
