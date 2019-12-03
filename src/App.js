@@ -4,6 +4,7 @@ import Position17 from './components/position17';
 import Codeview1 from './components/codeview1';
 import Codeview2 from './components/codeview2';
 import Codeview3 from './components/codeview3';
+import Codeview4 from './components/codeview4';
 import $ from 'jquery';
 window.$ = $;
 
@@ -302,9 +303,9 @@ export default class App extends React.Component {
 
     /* Opens code related to reflection questions */
     $('#reflection-q-code-chevron').click(() => {
-      let modalDisplay = $('#codeview3')[0].style.display;
+      let modalDisplay = $('#codeview4')[0].style.display;
       (modalDisplay === "none") ? modalDisplay = "block" : modalDisplay = "none";
-      $('#codeview3')[0].style.display = modalDisplay;
+      $('#codeview4')[0].style.display = modalDisplay;
 
       let chevronDir = $('#reflection-q-code-chevron')[0].innerText;
       (chevronDir === '▶') ? chevronDir = '▼' : chevronDir = '▶'
@@ -450,12 +451,12 @@ export default class App extends React.Component {
                 <div id="code-question">
                   <span className="question-txt p1q2 reflection">What is happening in the code?</span>
                   <span className="more-chevron" id="reflection-q-code-chevron"><b>▼</b></span>
-                  <Codeview3 id="codeview3" />
+                  <Codeview4 id="codeview4" />
                 </div>
                 <textarea className="response-area p1q2 reflection"></textarea>
               </div>
               <div className="ref-question">
-                <div className="question-txt reflection">What is the relationship between $image and ((centre[1] + y) * tilesize) and ((centre[0] + x) * tilesize))?</div>
+                <div className="question-txt reflection">What is the relationship between $image and name?</div>
                 <textarea className="response-area reflection" id="p1q3"></textarea>
               </div>
               <button id="show-reflection-question" onClick={this.displayQuestions}>Next question</button>

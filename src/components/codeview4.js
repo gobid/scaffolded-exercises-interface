@@ -3,7 +3,7 @@ import $ from 'jquery';
 import './styles/codeview.css';
 window.$ = $;
 
-export default class Codeview3 extends React.Component {
+export default class Codeview4 extends React.Component {
   clickToInspectCode(e) {
     if (e.target.classList.contains('image-code-display')) {
       let elem = e.target;
@@ -26,15 +26,6 @@ export default class Codeview3 extends React.Component {
         $('#image-elem-val')[0].style.backgroundColor = 'initial';
         elem.style.backgroundColor = '#0000ff8a';
         elem.style.color = 'white';
-        /* this code was opening the $image dropdown menu + a code pop-up to display a specific rendered instance of this code, but I think it's confusing and it's easier just to be directed to  that dropdown via highlighting instead of having a single instance open for you, which may make it seem like there's something particularly special about that one instance. */
-        // let imageElemClass = `.${$('.image-dropdown-elem')[0].id}`;
-        // $(imageElemClass)[0].style.border = '4px lightgreen solid';
-        // $('#image-dropdown').css('display', 'block');
-        // $('#image-instances-dropdown-chevron')[0].innerText = '▼';
-        // $('.image-dropdown-elem')[0].style.backgroundColor = 'lightgreen';
-        // let codeDisplayId = `#${$('.image-dropdown-elem')[0].id}-code`;
-        // $(codeDisplayId).css('top', $('.image-dropdown-elem')[0].getBoundingClientRect().top);
-        // $(codeDisplayId).css('display', 'block');
       }, 2000);
     }
 
