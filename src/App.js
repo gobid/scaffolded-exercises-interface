@@ -324,7 +324,7 @@ export default class App extends React.Component {
 
     // Convert the text to BLOB.
     const textToBLOB = new Blob([data], { type: 'text/plain' });
-    const sFileName = 'part1reflections.txt'; // The file to save the data.
+    const sFileName = 'part3reflections.txt'; // The file to save the data.
 
     let newLink = document.createElement("a");
     newLink.download = sFileName;
