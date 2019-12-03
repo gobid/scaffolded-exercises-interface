@@ -46,8 +46,6 @@ export default class App extends React.Component {
       });
 
       var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
-      $('#modified-position0-code-1')[0].innerHTML = `position[0] = ${position[0]}`
-      $('#modified-position1-code-1')[0].innerHTML = `position[1] = ${position[1]}`
       var centre = [-1, 0];
 
       var update = function () {
@@ -250,8 +248,6 @@ export default class App extends React.Component {
         .on('mouseup touchend', function (e) {
           $(document).off('mousemove touchmove', drag)
           scroll_delta = null;
-          $('#modified-position0-code-1')[0].innerHTML = `position[0] = ${position[0]}`
-          $('#modified-position1-code-1')[0].innerHTML = `position[1] = ${position[1]}`
           $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>';
         });
     };
@@ -387,32 +383,17 @@ export default class App extends React.Component {
             <hr></hr>
             <p><b>Interact with screen!</b></p>
             <hr></hr>
-            {/* <div className="var-defns">
-              <div className="var-def">var name</div>
-              <div className="var-def">var value</div>
-            </div> */}
-            <div className="value-def">
-              <p id="position-0"></p>
-              <p className="more-chevron" style={{display: 'none'}}id="position-nested-lvl-1-chevron">></p>
-              <Position17 id="position-1" />
-            </div>
+            <p id="position-0"></p>
             <div id="map-elem"><b>$map</b> =
               <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645px; top: -27545px;">`}</span>
-              (see left)
-              <br></br>
-              <p id="map-nested-elems">
-                <em><b>$map</b> nested elements</em>
-                <span className="more-chevron" id="image-instances-dropdown-chevron"><b>▶</b></span>
+            </div>
+            <div id="image-elem">
+              <p><b>$image</b> =
+                <span id="image-elem-val"> 9 instances</span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>▶</b></span>
               </p>
             </div>
             <div id="image-dropdown">
               <p><i>Click to inspect</i></p>
-            </div>
-
-            <div id="image-elem">
-              <p><b>$image</b> =
-                <span id="image-elem-val"> 9 instances (see left)</span>
-              </p>
             </div>
             <hr></hr>
             <div>
