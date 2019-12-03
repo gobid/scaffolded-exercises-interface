@@ -185,7 +185,7 @@ export default class App extends React.Component {
     /* Opens code related to reflection questions */
     $('#reflection-q-code-chevron').click(() => {
       let modalDisplay = $('#codeview1')[0].style.display;
-      (modalDisplay === "none") ? modalDisplay = "block" : modalDisplay = "none";
+      (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
       $('#codeview1')[0].style.display = modalDisplay;
 
       let chevronDir = $('#reflection-q-code-chevron')[0].innerText;
