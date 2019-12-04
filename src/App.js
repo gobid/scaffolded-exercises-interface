@@ -20,30 +20,73 @@ export default class App extends React.Component {
   */
 
   componentDidMount() {
+    // const script = document.createElement("script");
+    // script.src = "//tutorons.com/static/tutorons-library.js";
+    // script.async = true;
+    // document.head.appendChild(script);
+
     function appendCode(parent, child) {
       parent.insertAdjacentElement('afterend', child);
     }
 
-    function handleInspectionClick(e) {
+    function handleNameInspectionClick(e) {
       let h = e.target;
-      const codeVals = h.dataset;
-      if (h.style.backgroundColor === 'yellow') {
-        h.style.backgroundColor = '#0000ff8a';
-        h.style.color = 'white';
-        h.innerHTML = codeVals.default;
-      }
-      else {
-        if (h.classList.contains('top')) {
-          h.innerHTML = `(${codeVals["centre1"]} + ${codeVals["y"]}) * ${codeVals["tilesize"]}`;
-        }
-        else if (h.classList.contains('left')) {
-          h.innerHTML = `(${codeVals["centre0"]} + ${codeVals["x"]}) * ${codeVals["tilesize"]}`;
+      const codePopupNameToggles = Array.from($(`.${h.dataset["name"]}-code-css-var-inspection`));
+      codePopupNameToggles.forEach((h) => {
+        if (h.style.backgroundColor === 'yellow') {
+          h.style.backgroundColor = '#0000ff8a';
+          h.style.color = 'white';
+          h.innerHTML = `${h.dataset["default"]}`;
         }
         else {
-          h.innerHTML = `${codeVals["name"]}`;
+          h.style.backgroundColor = 'yellow';
+          h.style.color = 'black';
+          h.innerHTML = `${h.dataset["name"]}`;
         }
-        h.style.backgroundColor = 'yellow';
-        h.style.color = 'black';
+      })
+    }
+
+    function handleCodeInspectionClick(e) {
+      let h = e.target;
+      if (h.classList.contains(`${h.dataset["name"]}-code-css-var-inspection`)) {
+        handleNameInspectionClick(e);
+        return;
+      }
+      const codePopupPositionToggles = Array.from($(`.${h.dataset["name"]}-code-css-var`));
+      console.log(codePopupPositionToggles)
+      if (!h.classList.contains('top') && !h.classList.contains('left')) {
+        if (h.style.backgroundColor === 'yellow') {
+          h.innerHTML = `${h.dataset["default"]}`;
+        }
+        h.innerHTML = `${h.dataset["name"]}`;
+      }
+      else {
+        codePopupPositionToggles.forEach((h) => {
+          if (h.classList.contains('top')) {
+            const codeVals = h.dataset;
+            if (h.style.backgroundColor === 'yellow') {
+              h.style.backgroundColor = '#0000ff8a';
+              h.style.color = 'white';
+              h.innerHTML = codeVals.default;
+            } else {
+              h.innerHTML = `(${codeVals["centre1"]} + ${codeVals["y"]}) * ${codeVals["tilesize"]}`;
+              h.style.backgroundColor = 'yellow';
+              h.style.color = 'black';
+            }
+          }
+          else if (h.classList.contains('left')) {
+            const codeVals2 = h.dataset;
+            if (h.style.backgroundColor === 'yellow') {
+              h.style.backgroundColor = '#0000ff8a';
+              h.style.color = 'white';
+              h.innerHTML = codeVals2.default;
+            } else {
+              h.innerHTML = `(${codeVals2["centre0"]} + ${codeVals2["x"]}) * ${codeVals2["tilesize"]}`;
+              h.style.backgroundColor = 'yellow';
+              h.style.color = 'black';
+            }
+          }
+        })
       }
     }
 
@@ -178,25 +221,27 @@ export default class App extends React.Component {
               imageCodeDisplay.id = `server-${name}-code`;
 
               let varInspect1 = document.createElement('span');
-              varInspect1.classList.add('image-dropdown-elem-code-variable', 'var-value-code-inspect', 'top');
+              varInspect1.classList.add('image-dropdown-elem-code-variable', 'var-value-code-inspect', 'top', `${name}-code-css-var`);
               varInspect1.id = `${name}-code-css-top-var`;
               varInspect1.setAttribute('data-centre1', centre[1]);
               varInspect1.setAttribute('data-y', y);
               varInspect1.setAttribute('data-tilesize', tilesize);
+              varInspect1.setAttribute('data-name', name);
               varInspect1.setAttribute('data-default', '(centre[1] + y) * tilesize');
               varInspect1.innerText = `(centre[1] + y) * tilesize`;
 
               let varInspect2 = document.createElement('span');
-              varInspect2.classList.add('image-dropdown-elem-code-variable', 'var-value-code-inspect', 'left');
+              varInspect2.classList.add('image-dropdown-elem-code-variable', 'var-value-code-inspect', 'left', `${name}-code-css-var`);
               varInspect2.id = `${name}-code-css-left-var`;
               varInspect2.setAttribute('data-centre0', centre[0]);
               varInspect2.setAttribute('data-x', x);
               varInspect2.setAttribute('data-tilesize', tilesize);
+              varInspect2.setAttribute('data-name', name);
               varInspect2.setAttribute('data-default', '(centre[0] + x) * tilesize');
               varInspect2.innerText = `(centre[0] + x) * tilesize`;
 
               let nameInspect = document.createElement('span');
-              nameInspect.classList.add('image-dropdown-elem-code-variable', 'var-value-code-inspect', `${name}-code-css-var-inspection`);
+              nameInspect.classList.add('image-dropdown-elem-code-variable', 'var-value-code-inspect', `${name}-code-css-var-inspection`, `${name}-code-css-var`);
               nameInspect.setAttribute('data-default', 'name');
               nameInspect.setAttribute('data-name', name);
               nameInspect.id = `${name}-1-code-name-inspection`;
@@ -246,7 +291,7 @@ export default class App extends React.Component {
           }
         }
       }
-      $('#change-console').on('click', '.image-dropdown-elem-code-variable', e => handleInspectionClick(e));
+      $('#change-console').on('click', '.image-dropdown-elem-code-variable', e => handleCodeInspectionClick(e));
 
       update();
 
