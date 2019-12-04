@@ -88,7 +88,7 @@ export default class App extends React.Component {
 
         var centre_last = centre;
         centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];
-        $('#centre-elem-val')[0].innerText = `[${centre}]`;
+        $('#centre-elem-val')[0].innerText = ` [${centre}]`;
 
         const tile_name = function (x, y) {
           x -= size[3];
@@ -389,7 +389,7 @@ export default class App extends React.Component {
             </p>
             <div id="image-elem">
               <p><b>$image</b> =
-                <span id="image-elem-val"><em>local var. 9 instances</em></span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>▶</b></span>
+                <span id="image-elem-val"><em> local var. 9 instances</em></span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>▶</b></span>
               </p>
             </div>
             <div id="image-dropdown">
