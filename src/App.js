@@ -125,6 +125,7 @@ export default class App extends React.Component {
 
         var centre_last = centre;
         centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];
+        $('#centre-elem-val')[0].innerText = ` [${centre}]`
 
         const tile_name = function (x, y) {
           x -= size[3];
@@ -467,6 +468,9 @@ export default class App extends React.Component {
             <div id="map-elem"><b>$map</b> =
               <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645px; top: -27545px;">`}</span>
             </div>
+            <p id="centre-elem"><b>centre</b> = 
+             <span id="centre-elem-val">[-1, 0]</span>
+            </p>
             <div id="image-elem">
               <p><b>$image</b> =
                 <span id="image-elem-val"> <em>local var. 9 instances</em></span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>▶</b></span>
