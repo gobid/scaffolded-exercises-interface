@@ -25,25 +25,33 @@ export default class App extends React.Component {
 
     function handleInspectionClick(e) {
       let h = e.target;
-      const codeVals = h.dataset;
-      if (h.style.backgroundColor === 'yellow') {
-        h.style.backgroundColor = '#0000ff8a';
-        h.style.color = 'white';
-        h.innerHTML = codeVals.default;
-      }
-      else {
+      const codePopupPositionToggles = Array.from($(`.${h.dataset["name"]}-code-css-var`));
+      codePopupPositionToggles.forEach((h) => {
         if (h.classList.contains('top')) {
-          h.innerHTML = `(${codeVals["centre1"]} + ${codeVals["y"]}) * ${codeVals["tilesize"]}`;
+          const codeVals = h.dataset;
+          if (h.style.backgroundColor === 'yellow') {
+            h.style.backgroundColor = '#0000ff8a';
+            h.style.color = 'white';
+            h.innerHTML = codeVals.default;
+          } else {
+            h.innerHTML = `(${codeVals["centre1"]} + ${codeVals["y"]}) * ${codeVals["tilesize"]}`;
+            h.style.backgroundColor = 'yellow';
+            h.style.color = 'black';
+          }
         }
         else if (h.classList.contains('left')) {
-          h.innerHTML = `(${codeVals["centre0"]} + ${codeVals["x"]}) * ${codeVals["tilesize"]}`;
+          const codeVals2 = h.dataset;
+          if (h.style.backgroundColor === 'yellow') {
+            h.style.backgroundColor = '#0000ff8a';
+            h.style.color = 'white';
+            h.innerHTML = codeVals2.default;
+          } else {
+            h.innerHTML = `(${codeVals2["centre0"]} + ${codeVals2["x"]}) * ${codeVals2["tilesize"]}`;
+            h.style.backgroundColor = 'yellow';
+            h.style.color = 'black';
+          }
         }
-        else {
-          h.innerHTML = `${codeVals["name"]}`;
-        }
-        h.style.backgroundColor = 'yellow';
-        h.style.color = 'black';
-      }
+      })
     }
 
     function eventPos(e) {
@@ -173,20 +181,22 @@ export default class App extends React.Component {
               imageCodeDisplay.id = `server-${name}-code`;
 
               let varInspect1 = document.createElement('span');
-              varInspect1.classList.add('image-dropdown-elem-code-variable', 'var-value-code-inspect', 'top');
+              varInspect1.classList.add('image-dropdown-elem-code-variable', 'var-value-code-inspect', 'top', `${name}-code-css-var`);
               varInspect1.id = `${name}-code-css-top-var`;
               varInspect1.setAttribute('data-centre1', centre[1]);
               varInspect1.setAttribute('data-y', y);
               varInspect1.setAttribute('data-tilesize', tilesize);
+              varInspect1.setAttribute('data-name', name);
               varInspect1.setAttribute('data-default', '(centre[1] + y) * tilesize');
               varInspect1.innerText = `(centre[1] + y) * tilesize`;
 
               let varInspect2 = document.createElement('span');
-              varInspect2.classList.add('image-dropdown-elem-code-variable', 'var-value-code-inspect', 'left');
+              varInspect2.classList.add('image-dropdown-elem-code-variable', 'var-value-code-inspect', 'left', `${name}-code-css-var`);
               varInspect2.id = `${name}-code-css-left-var`;
               varInspect2.setAttribute('data-centre0', centre[0]);
               varInspect2.setAttribute('data-x', x);
               varInspect2.setAttribute('data-tilesize', tilesize);
+              varInspect2.setAttribute('data-name', name);
               varInspect2.setAttribute('data-default', '(centre[0] + x) * tilesize');
               varInspect2.innerText = `(centre[0] + x) * tilesize`;
 
