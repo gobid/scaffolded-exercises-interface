@@ -9,6 +9,7 @@ export default class Home extends React.Component {
             <div id='container'>
                 <a href="step-one">step one</a>
                 <a href="step-two" >step two</a>
+                <a href="step-three" >step three</a>
             </div>
         )
     }

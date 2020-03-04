@@ -90,7 +90,7 @@
 }
 
 #server-images-wrapper {
-  border: 4px yellow solid;
+  border: 4px orange solid;
   padding: 5px;
   margin: 0px 5px;
 }
@@ -135,7 +135,7 @@
   flex-direction: column;
   z-index: 2;
   position: absolute;
-  margin-top: 115px;
+  margin-top: 85px;
   width: 130px;
   margin-left: 10px;
   font-size: 14px;
