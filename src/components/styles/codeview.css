@@ -17,6 +17,10 @@
   width: 500px;
 }
 
+#codeview2 {
+  display: block;
+}
+
 #map-elem-code-chevron, #codeview0 {
   display: none;
 }
