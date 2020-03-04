@@ -300,7 +300,7 @@ p {
   height: 75px;
 }
 
-.image-dropdown-elem {
+.image-dropdown-elem, .name-dropdown-elem {
   cursor: pointer;
   word-wrap: break-word;
   font-family: 'PT Mono', monospace;
