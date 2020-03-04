@@ -1,6 +1,6 @@
 import React from 'react';
 import './../App.css';
-import Codeview4 from './components/codeview4';
+import Codeview4 from './../components/codeview4';
 import $ from 'jquery';
 window.$ = $;
 

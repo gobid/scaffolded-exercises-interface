@@ -138,6 +138,7 @@
   margin-top: 85px;
   width: 130px;
   margin-left: 10px;
+  word-break: break-all;
   font-size: 14px;
 }
 
