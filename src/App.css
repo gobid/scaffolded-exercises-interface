@@ -63,7 +63,7 @@
   margin-right: 5px;
 }
 
-#image-dropdown {
+#image-dropdown, #remove-dropdown {
   display: none;
 }
 
@@ -74,7 +74,7 @@
   z-index: 1000;
   text-align: left;
   padding-left: 10px;
-  height: 800px;
+  height: 750px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -301,7 +301,11 @@ p {
   height: 75px;
 }
 
-.image-dropdown-elem, .name-dropdown-elem {
+#name-dropdown {
+  display: none;
+}
+
+.image-dropdown-elem, .name-dropdown-elem, .remove-dropdown-elem {
   cursor: pointer;
   word-wrap: break-word;
   font-family: 'PT Mono', monospace;

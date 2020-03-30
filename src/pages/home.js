@@ -6,11 +6,14 @@ export default class Home extends React.Component {
     }
     render() {
         return (
-            <div id='container'>
-                <a href="step-one">step one</a>
-                <a href="step-two">step two</a>
-                <a href="step-three">step three</a>
-                <a href="step-three">step four</a>
+            <div id='homepage-container'>
+                <h1>Scaffolded Exercises Fall 2019 Prototype</h1>
+                <ul style={{textAlign: 'left'}}>
+                    <li><a href="exercise-one">Exercise one</a></li>
+                    <li><a href="exercise-two">Exercise two</a></li>
+                    <li><a href="exercise-three">Exercise three</a></li>
+                    <li><a href="exercise-three">Exercise four</a></li >
+                </ul>
             </div>
         )
     }

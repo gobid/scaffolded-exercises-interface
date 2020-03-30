@@ -1,10 +1,11 @@
 import React from 'react';
 import './../App.css';
-import Codeview2 from './../components/codeview2';
+import Position17 from './../components/position17';
+import Codeview1 from './../components/codeview1';
 import $ from 'jquery';
 window.$ = $;
 
-export default class Step2 extends React.Component {
+export default class Exercise1 extends React.Component {
     componentDidMount() {
         function eventPos(e) {
             if (e.type.match(/^touch/)) {
@@ -18,7 +19,6 @@ export default class Step2 extends React.Component {
 
         var Map = function ($map) {
             var $servImg = $('#server-images');
-            var imageDropdown = $('#image-dropdown');
             var size = [14, 48, 25, 33];
             var tilesize = 2048;
             var scroll_delta = null;
@@ -29,10 +29,12 @@ export default class Step2 extends React.Component {
             });
 
             var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
+            $('#modified-position0-code-1')[0].innerHTML = `position[0] = ${position[0]}`
+            $('#modified-position1-code-1')[0].innerHTML = `position[1] = ${position[1]}`
             var centre = [-1, 0];
 
             var update = function () {
-                $('#position-0')[0].innerHTML = `<b>position</b> = [${Math.round(position[0])}, ${Math.round(position[1])}]`; // CONSOLE HELP
+                $('#position-0')[0].innerHTML = `<b>position</b> = [${position}]`; // CONSOLE HELP
                 $map.css({
                     left: position[0],
                     top: position[1]
@@ -52,7 +54,6 @@ export default class Step2 extends React.Component {
 
                     var $remove = $map.children();
                     var $removeServerImgs = $servImg.children();
-                    var $removeImageDropdowns = imageDropdown.children().not(":first-child");
 
                     let allNames = [];
                     let ctr = 0;
@@ -82,40 +83,18 @@ export default class Step2 extends React.Component {
                             // step 0: no decoration/labeling. Just small image. 
                             var serverImageElem = '<img alt="img not found"class="server-img-tile server-' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" />'
 
-                            // step 1: variable name label
-                            var serverImgWithName = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + '"/&gt;</span>' + serverImageElem + '</div>';
+                            /*
+                              // step 1: variable name label
+                              var serverImgWithName = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">var name: $image</span>' + serverImageElem + '</div>';
+                            */
 
-                            // append loaded (optionally labeled) image to the container
-                            $servImg.append(serverImgWithName);
-
-                            // for sub-outcome 2: create image instance dropdown menu;
-                            var imageDropdownElem = document.createElement('p');
-                            imageDropdownElem.classList.add('image-dropdown-elem')
-                            imageDropdownElem.id = `server-${name}`;
-                            imageDropdownElem.addEventListener('click', (e) => {
-                                var instances = Array.from($(`.${e.target.id}`))
-                                instances.forEach((i) => {
-                                    if (i.style.borderColor === 'lightblue' || i.style.borderColor === '') {
-                                        i.style.border = '4px lightgreen solid';
-                                        e.target.style.backgroundColor = 'lightgreen';
-                                    }
-                                    else {
-                                        i.style.border = '1px lightblue solid';
-                                        e.target.style.backgroundColor = '#f8f8ff73';
-                                    }
-                                })
-                            })
-
-                            // fIX THIS TO BE ACT IMAGE CODE ONCE LOADED (bc display isn't none once it's loaded even tho it is in original code generation)
-                            imageDropdownElem.innerText = '<img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + ((centre[1] + y) * tilesize) + 'px;left:' + ((centre[0] + x) * tilesize) + 'px; z-index: -1; position: absolute;;" />';
-
-                            imageDropdown.append(imageDropdownElem);
+                            // append it to the container
+                            $servImg.append(serverImageElem);
 
                             ctr++
                         }
                         $remove.remove();
                         $removeServerImgs.remove();
-                        $removeImageDropdowns.remove();
                     }
                 }
             }
@@ -127,6 +106,8 @@ export default class Step2 extends React.Component {
                     var pos = eventPos(e);
                     position[0] = Math.round(pos.pageX + scroll_delta[0])
                     position[1] = Math.round(pos.pageY + scroll_delta[1])
+                    $('#modified-position0-code-1')[0].innerHTML = `position[0] = Math.round(${pos.pageX} + ${scroll_delta[0]})`
+                    $('#modified-position1-code-1')[0].innerHTML = `position[1] = Math.round(${pos.pageY} + ${scroll_delta[1]})`
                     $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>';
                     $('#display-pane-map-code')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>';
                     update();
@@ -144,7 +125,9 @@ export default class Step2 extends React.Component {
                 .on('mouseup touchend', function (e) {
                     $(document).off('mousemove touchmove', drag)
                     scroll_delta = null;
-                    $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>';
+                    $('#modified-position0-code-1')[0].innerHTML = `position[0] = ${position[0]}`
+                    $('#modified-position1-code-1')[0].innerHTML = `position[1] = ${position[1]}`
+                    $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/);
                 });
         };
 
@@ -173,15 +156,19 @@ export default class Step2 extends React.Component {
             $('#position-1')[0].style.display = modalDisplay;
         })
 
+        /* Opens reflection questions */
+        $('#reflection-q-more-chevron').click(() => {
+            let modalDisplay = $('.reflection-questions')[0].style.display;
+            (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
+            $('.reflection-questions')[0].style.display = modalDisplay;
+            $('.ref-question')[0].style.display = "block";
+        })
+
         /* Opens code related to reflection questions */
         $('#reflection-q-code-chevron').click(() => {
-            let modalDisplay = $('#codeview2')[0].style.display;
+            let modalDisplay = $('#codeview1')[0].style.display;
             (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
-            $('#codeview2')[0].style.display = modalDisplay;
-
-            let chevronDir = $('#reflection-q-code-chevron')[0].innerText;
-            (chevronDir === '▶') ? chevronDir = '▼' : chevronDir = '▶'
-            $('#reflection-q-code-chevron')[0].innerText = chevronDir;
+            $('#codeview1')[0].style.display = modalDisplay;
         })
 
         /* Opens map div source code */
@@ -190,34 +177,22 @@ export default class Step2 extends React.Component {
             (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
             $('#codeview0')[0].style.display = modalDisplay;
         })
-
-        /* Opens image elements dropdown menu */
-        $('#image-instances-dropdown-chevron').click(() => {
-            let modalDisplay = $('#image-dropdown')[0].style.display;
-            (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
-            $('#image-dropdown')[0].style.display = modalDisplay;
-
-            let chevronDir = $('#image-instances-dropdown-chevron')[0].innerText;
-            (chevronDir === '▶') ? chevronDir = '▼' : chevronDir = '▶'
-            $('#image-instances-dropdown-chevron')[0].innerText = chevronDir;
-        })
     }
 
     displayQuestions() {
         let questions = Array.from($('.ref-question'));
 
         for (let q = 1; q < questions.length; q++) {
-            if (q === questions.length - 1) {
-                // if there are no more questions to show,
-                // disable "next" button and download responses
-                $('#show-reflection-question')[0].disabled = true;
-                $('#save-responses')[0].style.display = 'inline';
-            }
             if (questions[q].style.display === 'none' || questions[q].style.display === '') {
                 questions[q].style.display = 'block';
                 return;
             }
         }
+
+        // if there are no more questions to show,
+        // disable "next" button and download responses
+        $('#show-reflection-question')[0].disabled = true;
+        $('#save-responses')[0].style.display = 'inline';
     }
 
     downloadResponses() {
@@ -236,7 +211,7 @@ export default class Step2 extends React.Component {
 
         // Convert the text to BLOB.
         const textToBLOB = new Blob([data], { type: 'text/plain' });
-        const sFileName = 'part2reflections.txt'; // The file to save the data.
+        const sFileName = 'part1reflections.txt'; // The file to save the data.
 
         let newLink = document.createElement("a");
         newLink.download = sFileName;
@@ -278,48 +253,47 @@ export default class Step2 extends React.Component {
                     <div id="change-console">
                         {/* Step 1 */}
                         <div className="content-descriptions">Below: showing program variables and their values given current state of page.</div>
-                        <p><b>Interact with the screen!</b></p>
                         <hr></hr>
-                        <b class="section-header">Variables</b>
+                        <p><b>Interact with screen!</b></p>
+                        <hr></hr>
+                        {/* <div className="var-defns">
+              <div className="var-def">var name</div>
+              <div className="var-def">var value</div>
+            </div> */}
                         <div className="value-def">
                             <p id="position-0"></p>
+                            <p className="more-chevron" style={{ display: 'none' }} id="position-nested-lvl-1-chevron">></p>
+                            <Position17 id="position-1" />
                         </div>
-                        <div id="map-elem"><b>$map</b> =
-              <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645px; top: -27545px;">`}</span>
-                        </div>
-
-                        <div id="image-elem">
-                            <p><b>$image</b> =
-                <span id="image-elem-val"> <em>local var. 9 instances</em></span>
-                                <span className="more-chevron" id="image-instances-dropdown-chevron"><b>&#x25B6;</b></span>
-                            </p>
-                            <div id="image-dropdown">
-                                <p><i>Click to inspect</i></p>
-                            </div>
-                        </div>
+                        <div id="map-elem"><b>$map</b> = <span id="map-elem-val">{`= <div class="map" style="position: absolute; left: -67645.4px; top: -27545.6px;">`}</span></div>
                         <hr></hr>
                         <div>
-                            <b class="section-header">Reflection Questions</b>
+                            <b>Reflection Questions</b>
+                            <span className="more-chevron" id="reflection-q-more-chevron"><b>></b></span>
                         </div>
                         <div className="reflection-questions">
-                            <div className="ref-question first-question">
-                                <div className="question-txt reflection">As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</div>
+                            <div className="ref-question">
+                                <div className="question-txt reflection">As you interact with the screen, what is happening visually?</div>
+                                <textarea className="response-area reflection" id="p1q1"></textarea>
+                            </div>
+                            <div className="ref-question">
+                                <div className="question-txt reflection">What is happening to the variable values shown above?</div>
                                 <textarea className="response-area reflection" id="p1q1"></textarea>
                             </div>
                             <div className="ref-question">
                                 <div id="code-question">
                                     <span className="question-txt p1q2 reflection">What is happening in the code?</span>
-                                    <span className="more-chevron" id="reflection-q-code-chevron"><b>▼</b></span>
-                                    <Codeview2 id="codeview2" />
+                                    <span className="more-chevron" id="reflection-q-code-chevron"><b>></b></span>
+                                    <Codeview1 id="codeview1" />
                                 </div>
                                 <textarea className="response-area p1q2 reflection"></textarea>
                             </div>
                             <div className="ref-question">
-                                <div className="question-txt reflection">What is the relationship between $map and $image?</div>
+                                <div className="question-txt reflection">What is the relationship between $map and $position?</div>
                                 <textarea className="response-area reflection" id="p1q3"></textarea>
                             </div>
                             <button id="show-reflection-question" onClick={this.displayQuestions}>Next question</button>
-                            <button id="save-responses" onClick={this.downloadResponses}>Complete reflection</button>
+                            <button id="save-responses" onClick={this.downloadResponses}>Save responses</button>
                         </div>
                         <br></br>
                     </div>

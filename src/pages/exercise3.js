@@ -1,6 +1,6 @@
 import React from 'react';
 import './../App.css';
-import Codeview3 from './../components/codeview3';
+import Codeview3 from '../components/codeview3';
 import $ from 'jquery';
 window.$ = $;
 
