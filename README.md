@@ -1,7 +1,21 @@
-## Scaffolded Exercises prototype (W20 updates)
-- `w20-combining-suboutcomes` branch makes exercises 1-4 into pages (merging all features from `step<0-4>-suboutcome-rebuild` branches)
-- using simple react-router-dom setup: https://blog.cloudboost.io/creating-a-react-js-app-from-scratch-part-3-routing-basics-edfb4c10346d
+# Scaffolded Exercises prototype
 
+## Setup
+```
+git clone https://github.com/NUDelta/scaffolded-exercises-tools.git
+cd scaffolded-exercises-tools
+git checkout w20-combining-suboutcomes
+npm install
+npm start
+```
+The page that will show up at `localhost:3000` will have links to the four exercises used in the Fall 2019 user study (originally used separate branches for each exercise).
+
+## Winter 2020 updates
+- `w20-combining-suboutcomes` branch makes exercises 1-4 into pages (merging all features from `step<0-4>-suboutcome-rebuild` branches)
+- using simple [react-router-dom setup](https://blog.cloudboost.io/creating-a-react-js-app-from-scratch-part-3-routing-basics-edfb4c10346d)
+
+
+-----------------------------------
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
