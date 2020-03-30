@@ -272,12 +272,8 @@ export default class Exercise1 extends React.Component {
                             <span className="more-chevron" id="reflection-q-more-chevron"><b>></b></span>
                         </div>
                         <div className="reflection-questions">
-                            <div className="ref-question">
-                                <div className="question-txt reflection">As you interact with the screen, what is happening visually?</div>
-                                <textarea className="response-area reflection" id="p1q1"></textarea>
-                            </div>
-                            <div className="ref-question">
-                                <div className="question-txt reflection">What is happening to the variable values shown above?</div>
+                            <div className="ref-question first-question">
+                                <div className="question-txt reflection">As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</div>
                                 <textarea className="response-area reflection" id="p1q1"></textarea>
                             </div>
                             <div className="ref-question">
