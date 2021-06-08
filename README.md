@@ -9,6 +9,9 @@ npm start
 ```
 The page that will show up at `localhost:3000` will have links to the four exercises used in the Fall 2019 user study (originally used separate branches for each exercise).
 
+## Spring 2021 updates
+- implemented various features that are focused on helping users understand the semantics behind variabes (e.g. tilesize is used to convert from tile coordinates to pixel coordinates). These features include code isolation (exercise 3.6), code exploration (exercise 3.5), and referencing previous reflection answers.
+
 ## Winter 2020 updates
 - `w20-combining-suboutcomes` branch makes exercises 1-4 into pages (merging all features from `step<0-4>-suboutcome-rebuild` branches into one React app using simple [react-router-dom setup](https://blog.cloudboost.io/creating-a-react-js-app-from-scratch-part-3-routing-basics-edfb4c10346d))
 
