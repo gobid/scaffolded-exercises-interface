@@ -1,18 +1,99 @@
 import React from 'react';
 import './../App.css';
-import Codeview2 from '../components/codeview2';
+import Codeview3 from '../components/codeview3';
+import Codeview31 from '../components/codeview31';
+import Codeview35 from '../components/codeview35';
 import $ from 'jquery';
 window.$ = $;
 
-export default class Exercise2 extends React.Component {
+export default class Step35 extends React.Component {
     componentDidMount() {
+        function appendCode(parent, child) {
+            parent.insertAdjacentElement('afterend', child);
+        }
 
-        // check for file...
+        // ========= new user interface interactions ==========
+
+        $('#codeview31')[0].style.display = "none";
+
+        document.getElementById("position-0").onclick = function() {myFunction2()};
+
+        function myFunction2() {
+            // instead show a code popup...
+            let h = document.getElementById("position-0")
+            if (h.style.backgroundColor === 'yellow') {
+                h.style.backgroundColor = 'initial';
+                let modalDisplay = $('#codeview31')[0].style.display;
+                (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
+                $('#codeview31')[0].style.display = modalDisplay
+            }
+            else {
+                h.style.backgroundColor = 'yellow'
+                let modalDisplay = $('#codeview31')[0].style.display;
+                (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
+                $('#codeview31')[0].style.display = modalDisplay;
+
+            }
+
+        }
 
 
-        var exercise1_data = localStorage.getItem("exercise1");
+
+        $('#codeview35')[0].style.display = "none";
+
+        document.getElementById("centre-text").onclick = function() {myFunction()};
+
+        function myFunction() {
+            // instead show a code popup...
+            let h = document.getElementById("centre-elem")
+            if (h.style.backgroundColor === 'yellow') {
+                h.style.backgroundColor = 'initial';
+                let modalDisplay = $('#codeview35')[0].style.display;
+                (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
+                $('#codeview35')[0].style.display = modalDisplay
+            }
+            else {
+                h.style.backgroundColor = 'yellow'
+                let modalDisplay = $('#codeview35')[0].style.display;
+                (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
+                $('#codeview35')[0].style.display = modalDisplay;
+
+            }
+
+        }
 
 
+
+        function handleInspectionClick(e) {
+            let h = e.target;
+            const codePopupPositionToggles = Array.from($(`.${h.dataset["name"]}-code-css-var`));
+            codePopupPositionToggles.forEach((h) => {
+                if (h.classList.contains('top')) {
+                    const codeVals = h.dataset;
+                    if (h.style.backgroundColor === 'yellow') {
+                        h.style.backgroundColor = '#0000ff8a';
+                        h.style.color = 'white';
+                        h.innerHTML = codeVals.default;
+                    } else {
+                        h.innerHTML = `(${codeVals["centre1"]} + ${codeVals["y"]}) * ${codeVals["tilesize"]}`;
+                        h.style.backgroundColor = 'yellow';
+                        h.style.color = 'black';
+                    }
+                }
+                else if (h.classList.contains('left')) {
+                    const codeVals2 = h.dataset;
+                    if (h.style.backgroundColor === 'yellow') {
+                        h.style.backgroundColor = '#0000ff8a';
+                        h.style.color = 'white';
+                        h.innerHTML = codeVals2.default;
+                    } else {
+                        h.innerHTML = `(${codeVals2["centre0"]} + ${codeVals2["x"]}) * ${codeVals2["tilesize"]}`;
+                        h.style.backgroundColor = 'yellow';
+                        h.style.color = 'black';
+                    }
+                }
+            })
+        }
 
         function eventPos(e) {
             if (e.type.match(/^touch/)) {
@@ -22,7 +103,7 @@ export default class Exercise2 extends React.Component {
                 pageX: e.pageX,
                 pageY: e.pageY
             };
-        }
+        } 
 
         var Map = function ($map) {
             var $servImg = $('#server-images');
@@ -40,7 +121,7 @@ export default class Exercise2 extends React.Component {
             var centre = [-1, 0];
 
             var update = function () {
-                $('#position-0')[0].innerHTML = `<b>position</b> = [${Math.round(position[0])}, ${Math.round(position[1])}]`; // CONSOLE HELP
+                $('#position-0')[0].innerHTML = `<b>position</b> = [${position}]`; // CONSOLE HELP
                 $map.css({
                     left: position[0],
                     top: position[1]
@@ -48,6 +129,7 @@ export default class Exercise2 extends React.Component {
 
                 var centre_last = centre;
                 centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];
+                $('#centre-elem-val')[0].innerText = ` [${centre}]`;
 
                 const tile_name = function (x, y) {
                     x -= size[3];
@@ -86,38 +168,88 @@ export default class Exercise2 extends React.Component {
                             }
                             serverImages[ctr].push(name);
 
-                            // create new elem to be added to area showing "loaded" items
-                            // step 0: no decoration/labeling. Just small image. 
-                            var serverImageElem = '<img alt="img not found"class="server-img-tile server-' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" />'
+                            /***************************************/
+                            /***************************************/
+                            /* BELOW: creating img elements to be added to area showing "loaded" items + information about the $image var instances to show/be inspected in the change console */
+                            /***************************************/
+                            /***************************************/
 
-                            // step 1: variable name label
-                            var serverImgWithName = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + '"/&gt;</span>' + serverImageElem + '</div>';
+                            // for sub-outcome 0: small image loaded without any label/decoration
+                            var serverImg = '<img alt="img not found"class="server-img-tile server-' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" />'
 
-                            // append loaded (optionally labeled) image to the container
-                            $servImg.append(serverImgWithName);
+                            // for sub-outcome 1: small image loaded with elem tag + class name
+                            var serverImgWithName = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + '"/&gt;</span>' + serverImg + '</div>';
 
-                            // for sub-outcome 2: create image instance dropdown menu;
+                            // for sub-outcome 2: small image loaded with elem tag + class name + css inline with html 
+                            var serverImgWithCSS = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + ' style="top:' + ((centre[1] + y) * tilesize) + 'px; left:' + ((centre[0] + x) * tilesize) + 'px;"</span>' + serverImg + '</div>';
+
+                            // ALWAYS: append image (optionally labeled depending on sub-outcome) to the container
+                            $servImg.append(serverImgWithCSS);
+
+                            // for sub-outcome 2: create image instance dropdown menu with inspectable variable values
+                            // custom data attributes used for possible inline state switching (see 3 state situation explanation below)
                             var imageDropdownElem = document.createElement('p');
                             imageDropdownElem.classList.add('image-dropdown-elem')
                             imageDropdownElem.id = `server-${name}`;
+                            // Fix the element creation to pull from the HTML for the actual rendered images because this display shows "artificially" created code right now
+                            imageDropdownElem.innerHTML = '&lt;img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + '(('+centre[1] +'+('+ y+'))'+ '*'+ tilesize+')' + 'px;left:' + '(('+centre[0]+ '+(' + x+'))' + '*' + tilesize + ')' + 'px; z-index: -1; position: absolute;;" /&gt;';
+
                             imageDropdownElem.addEventListener('click', (e) => {
+                                let elem = e.target;
+                                // change colors of code snippet + image display
                                 var instances = Array.from($(`.${e.target.id}`))
                                 instances.forEach((i) => {
-                                    if (i.style.borderColor === 'lightblue' || i.style.borderColor === '') {
-                                        i.style.border = '4px lightgreen solid';
-                                        e.target.style.backgroundColor = 'lightgreen';
-                                    }
-                                    else {
+                                    if (i.style.borderColor === 'lightgreen') {
                                         i.style.border = '1px lightblue solid';
-                                        e.target.style.backgroundColor = '#f8f8ff73';
-                                    }
+                                        elem.style.backgroundColor = '#f8f8ff73';
+                                    } else {
+                                        i.style.border = '4px lightgreen solid';
+                                        elem.style.backgroundColor = 'lightgreen';
+                                    };
                                 })
+
+                                if ($(`#${e.target.id}-code`)[0].style.display === 'none') {
+                                    $(`#${e.target.id}-code`).css('top', e.target.getBoundingClientRect().top);
+                                    $(`#${e.target.id}-code`)[0].style.display = 'block';
+                                } else {
+                                    $(`#${e.target.id}-code`)[0].style.display = 'none';
+                                }
                             })
 
-                            // fIX THIS TO BE ACT IMAGE CODE ONCE LOADED (bc display isn't none once it's loaded even tho it is in original code generation)
-                            imageDropdownElem.innerText = '<img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + ((centre[1] + y) * tilesize) + 'px;left:' + ((centre[0] + x) * tilesize) + 'px; z-index: -1; position: absolute;;" />';
-
                             imageDropdown.append(imageDropdownElem);
+
+                            let imageCodeDisplay = document.createElement('div');
+                            imageCodeDisplay.classList.add('image-dropdown-elem-code', 'code-editor', 'code-editor-window');
+                            imageCodeDisplay.id = `server-${name}-code`;
+
+                            let varInspect1 = document.createElement('span');
+                            varInspect1.classList.add('image-dropdown-elem-code-variable', 'var-value-code-inspect', 'top', `${name}-code-css-var`);
+                            varInspect1.id = `${name}-code-css-top-var`;
+                            varInspect1.setAttribute('data-centre1', centre[1]);
+                            varInspect1.setAttribute('data-y', y);
+                            varInspect1.setAttribute('data-tilesize', tilesize);
+                            varInspect1.setAttribute('data-name', name);
+                            varInspect1.setAttribute('data-default', '(centre[1] + y) * tilesize');
+                            varInspect1.innerText = `(centre[1] + y) * tilesize`;
+
+                            let varInspect2 = document.createElement('span');
+                            varInspect2.classList.add('image-dropdown-elem-code-variable', 'var-value-code-inspect', 'left', `${name}-code-css-var`);
+                            varInspect2.id = `${name}-code-css-left-var`;
+                            varInspect2.setAttribute('data-centre0', centre[0]);
+                            varInspect2.setAttribute('data-x', x);
+                            varInspect2.setAttribute('data-tilesize', tilesize);
+                            varInspect2.setAttribute('data-name', name);
+                            varInspect2.setAttribute('data-default', '(centre[0] + x) * tilesize');
+                            varInspect2.innerText = `(centre[0] + x) * tilesize`;
+
+                            imageCodeDisplay.innerHTML = `&lt;img class="img-tile tile${name}" src = "http://imgs.xkcd.com/clickdrag/${name}.png" style = "top:`;
+                            imageCodeDisplay.appendChild(varInspect1);
+                            imageCodeDisplay.innerHTML += `px; left:`;
+                            imageCodeDisplay.appendChild(varInspect2);
+                            imageCodeDisplay.innerHTML += `px; z-index: -1; position: absolute;;" /&gt;`
+                            imageCodeDisplay.style.display = 'none';
+
+                            appendCode(imageDropdownElem, imageCodeDisplay);
 
                             ctr++
                         }
@@ -127,6 +259,7 @@ export default class Exercise2 extends React.Component {
                     }
                 }
             }
+            $('#change-console').on('click', '.image-dropdown-elem-code-variable', e => handleInspectionClick(e));
 
             update();
 
@@ -183,9 +316,9 @@ export default class Exercise2 extends React.Component {
 
         /* Opens code related to reflection questions */
         $('#reflection-q-code-chevron').click(() => {
-            let modalDisplay = $('#codeview2')[0].style.display;
+            let modalDisplay = $('#codeview3')[0].style.display;
             (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
-            $('#codeview2')[0].style.display = modalDisplay;
+            $('#codeview3')[0].style.display = modalDisplay;
 
             let chevronDir = $('#reflection-q-code-chevron')[0].innerText;
             (chevronDir === '▶') ? chevronDir = '▼' : chevronDir = '▶'
@@ -199,7 +332,6 @@ export default class Exercise2 extends React.Component {
             $('#codeview0')[0].style.display = modalDisplay;
         })
 
-        /* Opens image elements dropdown menu */
         $('#image-instances-dropdown-chevron').click(() => {
             let modalDisplay = $('#image-dropdown')[0].style.display;
             (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
@@ -231,25 +363,20 @@ export default class Exercise2 extends React.Component {
     downloadResponses() {
         const reflections = Array.from($('.reflection'));
         let data = '';
-        let local_data = ''
 
         // Get the data from each element on the form.
         reflections.forEach((r) => {
             if (r.innerHTML !== undefined) {
                 data += ' \r\n ' + r.innerHTML;
-                local_data += '<br/>' + "<span>"+ r.innerHTML+"</span>";
             }
             if (r.value !== undefined) {
-                data += r.value +' \r\n ';
-                local_data += '<br/>' + "<span>"+r.value + "</span>";
+                data += ' \r\n ' + r.value;
             }
         })
-        localStorage.setItem("exercise2", data);
-
 
         // Convert the text to BLOB.
         const textToBLOB = new Blob([data], { type: 'text/plain' });
-        const sFileName = 'part2reflections.txt'; // The file to save the data.
+        const sFileName = 'part3reflections.txt'; // The file to save the data.
 
         let newLink = document.createElement("a");
         newLink.download = sFileName;
@@ -278,7 +405,7 @@ export default class Exercise2 extends React.Component {
                                 <div className="var-name-txt" id="display-pane-map-elem">
                                     <span className="var-name-1">{`<div class="map">`}</span>
                                     <span className="more-chevron" id="map-elem-code-chevron"><b>></b></span>
-                                    <div className="code-editor-window" id="codeview0">
+                                    <div className="code-editor code-editor-window" id="codeview0">
                                         <div className="window-body" id="display-pane-map-code">
                                             {`<div class="map" style="position: absolute; left: -67645.4px; top: -27545.6px;">`}
                                         </div>
@@ -294,21 +421,20 @@ export default class Exercise2 extends React.Component {
                         <p><b>Interact with the screen!</b></p>
                         <hr></hr>
                         <b className="section-header">Variables</b>
-                        <div className="value-def">
-                            <p id="position-0"></p>
-                        </div>
+                        <p style={{color: "blue"}} id="position-0"></p> <Codeview31 id="codeview31"/>
                         <div id="map-elem"><b>$map</b> =
               <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645px; top: -27545px;">`}</span>
                         </div>
-
+                        <p id="centre-elem"><b style={{color: "blue"}} id="centre-text" >centre</b> <Codeview35 id="codeview35" />  =
+              <span id="centre-elem-val">[-1, 0]</span>
+                        </p>
                         <div id="image-elem">
                             <p><b>$image</b> =
-                <span id="image-elem-val"> <em>local var. 9 instances</em></span>
-                                <span className="more-chevron" id="image-instances-dropdown-chevron"><b>&#x25B6;</b></span>
+                <span id="image-elem-val"><em> local var. 9 instances</em></span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>▶</b></span>
                             </p>
-                            <div id="image-dropdown">
-                                <p><i>Click to inspect</i></p>
-                            </div>
+                        </div>
+                        <div id="image-dropdown">
+                            <p><i>Click to inspect</i></p>
                         </div>
                         <hr></hr>
                         <div>
@@ -316,31 +442,25 @@ export default class Exercise2 extends React.Component {
                         </div>
                         <div className="reflection-questions">
                             <div className="ref-question first-question">
-                                <div className="question-txt reflection">As you interact with the screen, what is happening visually? What is happening to the $image instances?</div>
+                                <div className="question-txt reflection">As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</div>
                                 <textarea className="response-area reflection" id="p1q1"></textarea>
                             </div>
                             <div className="ref-question">
                                 <div id="code-question">
                                     <span className="question-txt p1q2 reflection">What is happening in the code?</span>
                                     <span className="more-chevron" id="reflection-q-code-chevron"><b>▼</b></span>
-                                    <Codeview2 id="codeview2" />
+                                    <Codeview3 id="codeview3" />
                                 </div>
                                 <textarea className="response-area p1q2 reflection"></textarea>
                             </div>
                             <div className="ref-question">
-                                <div className="question-txt reflection">What is the relationship between $map and $image?</div>
+                                <div className="question-txt reflection">What is the relationship between $image and ((centre[1] + y) * tilesize) and ((centre[0] + x) * tilesize))?</div>
                                 <textarea className="response-area reflection" id="p1q3"></textarea>
                             </div>
                             <button id="show-reflection-question" onClick={this.displayQuestions}>Next question</button>
                             <button id="save-responses" onClick={this.downloadResponses}>Complete reflection</button>
                         </div>
                         <br></br>
-                    </div>
-                    <div id="reflection-console" style={{left:'80px'}}>
-                        Reflections from previous exercises<br/> <br/>
-                        Exercise 1: <br/>
-
-                        <pre>{localStorage.getItem("exercise1")}</pre>
                     </div>
                 </div> {/* closes div that wraps the entire information pane */}
                 <div className="map"></div>

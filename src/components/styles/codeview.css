@@ -31,6 +31,38 @@
   display: none;
 }
 
+#codeview36 {
+  display: none;
+}
+
+#codeview32 {
+  display: none;
+}
+
+#codeview33 {
+  display: none;
+}
+
+#codeview34 {
+  display: none;
+}
+
+#codeview341 {
+  display: none;
+}
+
+#codeview3411 {
+  display: none;
+}
+
+#codeview342 {
+  display: none;
+}
+
+#codeview345 {
+  display: none;
+}
+
 .var-value-code-inspect {
   background-color: #0000ff8a;
   cursor: pointer;
@@ -49,7 +81,7 @@
   /* color: white; */
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted black; 
+  border-bottom: 1px dotted black;
 }
 
 /* Tooltip text */
@@ -61,7 +93,7 @@
   padding: 5px 0;
   border-radius: 6px;
   padding: 5px;
- 
+
   /* Position the tooltip text */
   position: absolute;
   z-index: 1;

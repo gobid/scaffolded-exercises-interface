@@ -5,10 +5,116 @@ import Codeview35 from '../components/codeview35';
 import $ from 'jquery';
 window.$ = $;
 
-export default class Step3 extends React.Component {
+export default class Step36 extends React.Component {
+
+
     componentDidMount() {
         function appendCode(parent, child) {
             parent.insertAdjacentElement('afterend', child);
+        }
+
+        // ========= new user interface interactions ==========
+
+
+
+
+        $('#codeview35')[0].style.display = "none";
+
+        document.getElementById("centre-text").onclick = function() {myFunction()};
+
+        function myFunction() {
+            // instead show a code popup...
+            let h = document.getElementById("centre-elem")
+            if (h.style.backgroundColor === 'yellow') {
+                h.style.backgroundColor = 'initial';
+                let modalDisplay = $('#codeview35')[0].style.display;
+                (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
+                $('#codeview35')[0].style.display = modalDisplay
+            }
+            else {
+                h.style.backgroundColor = 'yellow'
+                let modalDisplay = $('#codeview35')[0].style.display;
+                (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
+                $('#codeview35')[0].style.display = modalDisplay;
+
+            }
+
+        }
+
+        document.getElementById("center").onclick = function() {myFunction_center()};
+        function myFunction_center() {
+            // instead show a code popup...
+            let h = document.getElementById("center")
+            //let image_code =
+            if (h.style.color === 'yellow') {
+                h.style.color = 'purple';
+
+            }
+            else {
+                h.style.color = 'yellow'
+            }
+
+        }
+        document.getElementById("xy").onclick = function() {myFunction_xy()};
+        function myFunction_xy() {
+            // instead show a code popup...
+            let h = document.getElementById("xy")
+            //let image_code =
+            if (h.style.color === 'yellow') {
+                h.style.color = 'purple';
+
+            }
+            else {
+                h.style.color = 'yellow'
+            }
+
+        }
+        document.getElementById("tilesize").onclick = function() {myFunction_tilesize()};
+        function myFunction_tilesize() {
+            // instead show a code popup...
+            let h = document.getElementById("tilesize")
+            //let image_code =
+            if (h.style.color === 'yellow') {
+                h.style.color = 'purple';
+
+            }
+            else {
+                h.style.color = 'yellow'
+            }
+
+        }
+
+
+
+        function handleInspectionClick(e) {
+            let h = e.target;
+            const codePopupPositionToggles = Array.from($(`.${h.dataset["name"]}-code-css-var`));
+            codePopupPositionToggles.forEach((h) => {
+                if (h.classList.contains('top')) {
+                    const codeVals = h.dataset;
+                    if (h.style.backgroundColor === 'yellow') {
+                        h.style.backgroundColor = '#0000ff8a';
+                        h.style.color = 'white';
+                        h.innerHTML = codeVals.default;
+                    } else {
+                        h.innerHTML = `(${codeVals["centre1"]} + ${codeVals["y"]}) * ${codeVals["tilesize"]}`;
+                        h.style.backgroundColor = 'yellow';
+                        h.style.color = 'black';
+                    }
+                }
+                else if (h.classList.contains('left')) {
+                    const codeVals2 = h.dataset;
+                    if (h.style.backgroundColor === 'yellow') {
+                        h.style.backgroundColor = '#0000ff8a';
+                        h.style.color = 'white';
+                        h.innerHTML = codeVals2.default;
+                    } else {
+                        h.innerHTML = `(${codeVals2["centre0"]} + ${codeVals2["x"]}) * ${codeVals2["tilesize"]}`;
+                        h.style.backgroundColor = 'yellow';
+                        h.style.color = 'black';
+                    }
+                }
+            })
         }
 
         function eventPos(e) {
@@ -19,7 +125,7 @@ export default class Step3 extends React.Component {
                 pageX: e.pageX,
                 pageY: e.pageY
             };
-        }
+        } 
 
         var Map = function ($map) {
             var $servImg = $('#server-images');
@@ -37,7 +143,6 @@ export default class Step3 extends React.Component {
             var centre = [-1, 0];
 
             var update = function () {
-                $('#position-0')[0].innerHTML = `<b>position</b> = [${position}]`; // CONSOLE HELP
                 $map.css({
                     left: position[0],
                     top: position[1]
@@ -100,7 +205,7 @@ export default class Step3 extends React.Component {
                             var serverImgWithCSS = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + ' style="top:' + ((centre[1] + y) * tilesize) + 'px; left:' + ((centre[0] + x) * tilesize) + 'px;"</span>' + serverImg + '</div>';
 
                             // ALWAYS: append image (optionally labeled depending on sub-outcome) to the container
-                            $servImg.append(serverImgWithCSS);
+
 
                             // for sub-outcome 2: create image instance dropdown menu with inspectable variable values
                             // custom data attributes used for possible inline state switching (see 3 state situation explanation below)
@@ -108,7 +213,31 @@ export default class Step3 extends React.Component {
                             imageDropdownElem.classList.add('image-dropdown-elem')
                             imageDropdownElem.id = `server-${name}`;
                             // Fix the element creation to pull from the HTML for the actual rendered images because this display shows "artificially" created code right now
-                            imageDropdownElem.innerHTML = '&lt;img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + ((centre[1] + y) * tilesize) + 'px;left:' + ((centre[0] + x) * tilesize) + 'px; z-index: -1; position: absolute;;" /&gt;';
+
+                            let h = document.getElementById("center")
+                            let hh = document.getElementById("xy")
+                            let hhh = document.getElementById("tilesize")
+                            //let image_code =
+                            if (h.style.color === 'yellow') {
+                                serverImgWithCSS= '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + '((centre[1]' +'+('+ y+'))'+ '*'+ tilesize+')' + 'px;left:' + '((+centre[0]'+ '+(' + x+'))' + '*' + tilesize + ')' + 'px"</span>' + serverImg + '</div>';
+
+                            }
+                            else if (hh.style.color === 'yellow') {
+                                serverImgWithCSS= '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + '(('+centre[1] +'+('+ 'y'+'))'+ '*'+ tilesize+')' + 'px;left:' + '(('+centre[0]+ '+(' + 'x'+'))' + '*' + tilesize + ')' + 'px"</span>' + serverImg + '</div>';
+
+                            }
+                            else if (hhh.style.color === 'yellow') {
+                                serverImgWithCSS= '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + '(('+centre[1] +'+('+ y+'))'+ '*'+ 'tilesize'+')' + 'px;left:' + '(('+centre[0]+ '+(' + x+'))' + '*' + 'tilesize' + ')' + 'px"</span>' + serverImg + '</div>';
+
+                            }
+                            else {
+                                serverImgWithCSS = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + ' style="top:' + ((centre[1] + y) * tilesize) + 'px; left:' + ((centre[0] + x) * tilesize) + 'px;"</span>' + serverImg + '</div>';
+
+                            }
+
+
+                            $servImg.append(serverImgWithCSS);
+
 
                             imageDropdownElem.addEventListener('click', (e) => {
                                 let elem = e.target;
@@ -175,6 +304,7 @@ export default class Step3 extends React.Component {
                     }
                 }
             }
+            $('#change-console').on('click', '.image-dropdown-elem-code-variable', e => handleInspectionClick(e));
 
             update();
 
@@ -183,7 +313,6 @@ export default class Step3 extends React.Component {
                     var pos = eventPos(e);
                     position[0] = Math.round(pos.pageX + scroll_delta[0])
                     position[1] = Math.round(pos.pageY + scroll_delta[1])
-                    $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>';
                     $('#display-pane-map-code')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>';
                     update();
                 }
@@ -200,7 +329,6 @@ export default class Step3 extends React.Component {
                 .on('mouseup touchend', function (e) {
                     $(document).off('mousemove touchmove', drag)
                     scroll_delta = null;
-                    $('#map-elem-val')[0].innerText = $map[0].outerHTML.match(/.+?(?=>)/) + '>';
                 });
         };
 
@@ -240,12 +368,6 @@ export default class Step3 extends React.Component {
             $('#reflection-q-code-chevron')[0].innerText = chevronDir;
         })
 
-        /* Opens map div source code */
-        $('#map-elem-code-chevron').click(() => {
-            let modalDisplay = $('#codeview0')[0].style.display;
-            (modalDisplay === "none" || modalDisplay === "") ? modalDisplay = "block" : modalDisplay = "none";
-            $('#codeview0')[0].style.display = modalDisplay;
-        })
 
         $('#image-instances-dropdown-chevron').click(() => {
             let modalDisplay = $('#image-dropdown')[0].style.display;
@@ -336,20 +458,22 @@ export default class Step3 extends React.Component {
                         <p><b>Interact with the screen!</b></p>
                         <hr></hr>
                         <b className="section-header">Variables</b>
-                        <p id="position-0"></p>
-                        <div id="map-elem"><b>$map</b> =
-              <span id="map-elem-val">{`<div class="map" style="position: absolute; left: -67645px; top: -27545px;">`}</span>
-                        </div>
-                        <p id="centre-elem"><b  id="centre-text" >centre</b>  =
+                        <p id="centre-elem"><b style={{color: "blue"}} id="centre-text" >centre</b> <Codeview35 id="codeview35" />  =
               <span id="centre-elem-val">[-1, 0]</span>
                         </p>
+
                         <div id="image-elem">
                             <p><b>$image</b> =
                 <span id="image-elem-val"><em> local var. 9 instances</em></span><span className="more-chevron" id="image-instances-dropdown-chevron"><b>▶</b></span>
                             </p>
                         </div>
                         <div id="image-dropdown">
-                            <p><i>Click to inspect</i></p>
+                            <div>Click to toggle variable name/value<br/>
+                                <div id='center' style={{color: "purple"}}>center</div><br/>
+                                <div id='xy' style={{color: "purple"}}>x, y</div><br/>
+                                <div id='tilesize' style={{color: "purple"}}>tilesize</div><br/>
+                                <i>Click to inspect</i></div>
+
                         </div>
                         <hr></hr>
                         <div>
