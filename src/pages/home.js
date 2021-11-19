@@ -10,7 +10,6 @@ export default class Home extends React.Component {
                 <h1>Scaffolded Exercises Fall 2019 Prototype</h1>
                 <ul style={{textAlign: 'left'}}>
                     <li><a href="exercise-one">Exercise one</a></li>
-                    <li><a href="exercise-one-one">Exercise one.one</a></li>
                     <li><a href="exercise-two">Exercise two</a></li>
                     <li><a href="exercise-three">Exercise three</a></li>
                     <li><a href="exercise-three-five">Exercise three.five</a></li>
