@@ -38,9 +38,7 @@ export default class Step35 extends React.Component {
         }
 
 
-
         $('#codeview35')[0].style.display = "none";
-
         document.getElementById("centre-text").onclick = function() {myFunction()};
 
         function myFunction() {
@@ -61,6 +59,50 @@ export default class Step35 extends React.Component {
             }
 
         }
+
+        document.getElementById("center").onclick = function() {myFunction_center()};
+        function myFunction_center() {
+            // instead show a code popup...
+            let h = document.getElementById("center")
+            //let image_code =
+            if (h.style.color === 'yellow') {
+                h.style.color = 'purple';
+
+            }
+            else {
+                h.style.color = 'yellow'
+            }
+
+        }
+        document.getElementById("xy").onclick = function() {myFunction_xy()};
+        function myFunction_xy() {
+            // instead show a code popup...
+            let h = document.getElementById("xy")
+            //let image_code =
+            if (h.style.color === 'yellow') {
+                h.style.color = 'purple';
+
+            }
+            else {
+                h.style.color = 'yellow'
+            }
+
+        }
+        document.getElementById("tilesize").onclick = function() {myFunction_tilesize()};
+        function myFunction_tilesize() {
+            // instead show a code popup...
+            let h = document.getElementById("tilesize")
+            //let image_code =
+            if (h.style.color === 'yellow') {
+                h.style.color = 'purple';
+
+            }
+            else {
+                h.style.color = 'yellow'
+            }
+
+        }
+
 
 
 
@@ -184,6 +226,37 @@ export default class Step35 extends React.Component {
                             var serverImgWithCSS = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + ' style="top:' + ((centre[1] + y) * tilesize) + 'px; left:' + ((centre[0] + x) * tilesize) + 'px;"</span>' + serverImg + '</div>';
 
                             // ALWAYS: append image (optionally labeled depending on sub-outcome) to the container
+
+
+                            // for sub-outcome 2: create image instance dropdown menu with inspectable variable values
+                            // custom data attributes used for possible inline state switching (see 3 state situation explanation below)
+                            var imageDropdownElem = document.createElement('p');
+                            imageDropdownElem.classList.add('image-dropdown-elem')
+                            imageDropdownElem.id = `server-${name}`;
+                            // Fix the element creation to pull from the HTML for the actual rendered images because this display shows "artificially" created code right now
+
+                            let h = document.getElementById("center")
+                            let hh = document.getElementById("xy")
+                            let hhh = document.getElementById("tilesize")
+                            //let image_code =
+                            if (h.style.color === 'yellow') {
+                                serverImgWithCSS= '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + '((centre[1]' +'+('+ y+'))'+ '*'+ tilesize+')' + 'px;left:' + '((+centre[0]'+ '+(' + x+'))' + '*' + tilesize + ')' + 'px"</span>' + serverImg + '</div>';
+
+                            }
+                            else if (hh.style.color === 'yellow') {
+                                serverImgWithCSS= '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + '(('+centre[1] +'+('+ 'y'+'))'+ '*'+ tilesize+')' + 'px;left:' + '(('+centre[0]+ '+(' + 'x'+'))' + '*' + tilesize + ')' + 'px"</span>' + serverImg + '</div>';
+
+                            }
+                            else if (hhh.style.color === 'yellow') {
+                                serverImgWithCSS= '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + '" src="http://imgs.xkcd.com/clickdrag/' + name + '.png" style="top:' + '(('+centre[1] +'+('+ y+'))'+ '*'+ 'tilesize'+')' + 'px;left:' + '(('+centre[0]+ '+(' + x+'))' + '*' + 'tilesize' + ')' + 'px"</span>' + serverImg + '</div>';
+
+                            }
+                            else {
+                                serverImgWithCSS = '<div class="serv-img-container"><span class="var-name var-name-txt var-name-2">&lt;img class="img-tile tile' + name + ' style="top:' + ((centre[1] + y) * tilesize) + 'px; left:' + ((centre[0] + x) * tilesize) + 'px;"</span>' + serverImg + '</div>';
+
+                            }
+
+
                             $servImg.append(serverImgWithCSS);
 
                             // for sub-outcome 2: create image instance dropdown menu with inspectable variable values
@@ -434,7 +507,12 @@ export default class Step35 extends React.Component {
                             </p>
                         </div>
                         <div id="image-dropdown">
-                            <p><i>Click to inspect</i></p>
+                            <div>Click to toggle variable name/value<br/>
+                                <div id='center' style={{color: "purple"}}>center</div><br/>
+                                <div id='xy' style={{color: "purple"}}>x, y</div><br/>
+                                <div id='tilesize' style={{color: "purple"}}>tilesize</div><br/>
+                                <i>Click to inspect</i></div>
+
                         </div>
                         <hr></hr>
                         <div>

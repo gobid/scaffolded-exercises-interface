@@ -209,6 +209,8 @@ export default class Exercise1 extends React.Component {
             }
         })
 
+        localStorage.setItem("exercise1", data);
+        
         // Convert the text to BLOB.
         const textToBLOB = new Blob([data], { type: 'text/plain' });
         const sFileName = 'part1reflections.txt'; // The file to save the data.
