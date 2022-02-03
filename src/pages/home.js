@@ -12,8 +12,6 @@ export default class Home extends React.Component {
                     <li><a href="exercise-one">Exercise one</a></li>
                     <li><a href="exercise-two">Exercise two</a></li>
                     <li><a href="exercise-three">Exercise three</a></li>
-                    <li><a href="exercise-three-five">Exercise three.five</a></li>
-                    <li><a href="exercise-three-five-six">Exercise three.five.six</a></li>
                     <li><a href="exercise-three">Exercise four</a></li >
                 </ul>
             </div>
