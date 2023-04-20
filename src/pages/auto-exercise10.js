@@ -46,6 +46,7 @@ var Map = function ($container) {
 
     var padding_top = 200;
     var size = [14, 48, 25, 33];
+$('#size')[0].innerHTML = `size = ${size}`
     var tilesize = 2048;
     var visible = [];
     var container_size = [$container.width(), $container.height()];
@@ -85,7 +86,9 @@ var Map = function ($container) {
 
         var tile_name = function (x, y) {
             x -= size[3];
+$('#x')[0].innerHTML = `x = ${x}`
             y -= size[0];
+$('#y')[0].innerHTML = `y = ${y}`
             return (y >= 0 ? y + 1 + "s" : -y + "n") + (x >= 0 ? x + 1 + "e" : -x + "w");
         };
 
@@ -120,7 +123,9 @@ var Map = function ($container) {
                         $map.append($image);
                     }
                 }
+$('#x')[0].innerHTML = `x = ${x}`
             }
+$('#y')[0].innerHTML = `y = ${y}`
 
             $remove.remove();
         }

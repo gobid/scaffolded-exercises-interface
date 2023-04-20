@@ -27,10 +27,12 @@ var Map = function ($container) {
     }); /** another comment */
 
     var $overlay = $container.children("img");
+$('#$overlay')[0].innerHTML = `$overlay = ${$overlay}`
     $overlay.css({
         background: "transparent",
         position: "relative"
     });
+$('#$overlay')[0].innerHTML = `$overlay = ${$overlay}`
 
     var sign = function (x) {
         return x > 0 ? +1 : x < 0 ? -1 : 0;
@@ -52,6 +54,7 @@ var Map = function ($container) {
     var scroll_delta = null;
 
     var $map = $container.children(".map");
+$('#$map')[0].innerHTML = `$map = ${$map}`
 
     var map_size = [(size[1] + size[3]) * tilesize, (size[0] + size[2]) * tilesize];
     $map.css({
@@ -60,6 +63,7 @@ var Map = function ($container) {
         position: "absolute",
         zIndex: -1
     });
+$('#$map')[0].innerHTML = `$map = ${$map}`
 
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
 
@@ -79,6 +83,7 @@ var Map = function ($container) {
             left: position[0],
             top: position[1]
         });
+$('#$map')[0].innerHTML = `$map = ${$map}`
 
         var centre_last = centre;
         centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];
@@ -96,6 +101,7 @@ var Map = function ($container) {
                 for (var x = -1; x <= +1; x++) {
                     var name = tile_name(centre[0] + x, centre[1] + y);
                     var tile = $map.find(".tile" + name);
+$('#tile')[0].innerHTML = `tile = ${tile}`
                     if (tile.length) {
                         $remove = $remove.not(tile);
                     } else {
@@ -110,6 +116,7 @@ var Map = function ($container) {
                                 (centre[0] + x) * tilesize +
                                 'px; z-index: -1; position: absolute;;" style="display:none" />'
                         );
+$('#$image')[0].innerHTML = `$image = ${$image}`
                         $image
                             .load(function () {
                                 $(this).show();
@@ -118,6 +125,7 @@ var Map = function ($container) {
                                 $(this).remove();
                             });
                         $map.append($image);
+$('#$map')[0].innerHTML = `$map = ${$map}`
                     }
                 }
             }

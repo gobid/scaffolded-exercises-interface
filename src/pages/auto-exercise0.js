@@ -91,6 +91,7 @@ var Map = function ($container) {
 
         if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {
             var $remove = $map.children().not(".ground");
+$('#$remove')[0].innerHTML = `$remove = ${$remove}`
 
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
@@ -98,6 +99,7 @@ var Map = function ($container) {
                     var tile = $map.find(".tile" + name);
                     if (tile.length) {
                         $remove = $remove.not(tile);
+$('#$remove')[0].innerHTML = `$remove = ${$remove}`
                     } else {
                         var $image = $(
                             '<img class="tile' +
@@ -123,6 +125,7 @@ var Map = function ($container) {
             }
 
             $remove.remove();
+$('#$remove')[0].innerHTML = `$remove = ${$remove}`
         }
     };
 

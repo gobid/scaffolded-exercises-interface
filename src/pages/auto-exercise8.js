@@ -27,10 +27,12 @@ var Map = function ($container) {
     }); /** another comment */
 
     var $overlay = $container.children("img");
+$('#$overlay')[0].innerHTML = `$overlay = ${$overlay}`
     $overlay.css({
         background: "transparent",
         position: "relative"
     });
+$('#$overlay')[0].innerHTML = `$overlay = ${$overlay}`
 
     var sign = function (x) {
         return x > 0 ? +1 : x < 0 ? -1 : 0;

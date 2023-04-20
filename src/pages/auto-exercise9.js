@@ -46,12 +46,15 @@ var Map = function ($container) {
 
     var padding_top = 200;
     var size = [14, 48, 25, 33];
+$('#size')[0].innerHTML = `size = ${size}`
     var tilesize = 2048;
+$('#tilesize')[0].innerHTML = `tilesize = ${tilesize}`
     var visible = [];
     var container_size = [$container.width(), $container.height()];
     var scroll_delta = null;
 
     var $map = $container.children(".map");
+$('#$map')[0].innerHTML = `$map = ${$map}`
 
     var map_size = [(size[1] + size[3]) * tilesize, (size[0] + size[2]) * tilesize];
     $map.css({
@@ -60,8 +63,10 @@ var Map = function ($container) {
         position: "absolute",
         zIndex: -1
     });
+$('#$map')[0].innerHTML = `$map = ${$map}`
 
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
+$('#position')[0].innerHTML = `position = ${position}`
 
     $map.find(".ground").css({
         top: size[0] * tilesize,
@@ -73,31 +78,41 @@ var Map = function ($container) {
     });
 
     var centre = [-1, 0];
+$('#centre')[0].innerHTML = `centre = ${centre}`
 
     var update = function () {
         $map.css({
             left: position[0],
             top: position[1]
         });
+$('#$map')[0].innerHTML = `$map = ${$map}`
 
         var centre_last = centre;
+$('#centre_last')[0].innerHTML = `centre_last = ${centre_last}`
         centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];
+$('#centre')[0].innerHTML = `centre = ${centre}`
 
         var tile_name = function (x, y) {
             x -= size[3];
+$('#x')[0].innerHTML = `x = ${x}`
             y -= size[0];
+$('#y')[0].innerHTML = `y = ${y}`
             return (y >= 0 ? y + 1 + "s" : -y + "n") + (x >= 0 ? x + 1 + "e" : -x + "w");
         };
 
         if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {
             var $remove = $map.children().not(".ground");
+$('#$remove')[0].innerHTML = `$remove = ${$remove}`
 
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
                     var name = tile_name(centre[0] + x, centre[1] + y);
+$('#name')[0].innerHTML = `name = ${name}`
                     var tile = $map.find(".tile" + name);
+$('#tile')[0].innerHTML = `tile = ${tile}`
                     if (tile.length) {
                         $remove = $remove.not(tile);
+$('#$remove')[0].innerHTML = `$remove = ${$remove}`
                     } else {
                         var $image = $(
                             '<img class="tile' +
@@ -110,6 +125,7 @@ var Map = function ($container) {
                                 (centre[0] + x) * tilesize +
                                 'px; z-index: -1; position: absolute;;" style="display:none" />'
                         );
+$('#$image')[0].innerHTML = `$image = ${$image}`
                         $image
                             .load(function () {
                                 $(this).show();
@@ -118,11 +134,15 @@ var Map = function ($container) {
                                 $(this).remove();
                             });
                         $map.append($image);
+$('#$map')[0].innerHTML = `$map = ${$map}`
                     }
                 }
+$('#x')[0].innerHTML = `x = ${x}`
             }
+$('#y')[0].innerHTML = `y = ${y}`
 
             $remove.remove();
+$('#$remove')[0].innerHTML = `$remove = ${$remove}`
         }
     };
 
@@ -134,9 +154,11 @@ var Map = function ($container) {
             position[0] = Math.round(
                 clamp(pos.pageX + scroll_delta[0], -(size[1] + size[3]) * tilesize + container_size[0], 0)
             );
+$('#position')[0].innerHTML = `position = ${position}`
             position[1] = Math.round(
                 clamp(pos.pageY + scroll_delta[1], -(size[0] + size[2]) * tilesize + container_size[1], 0)
             );
+$('#position')[0].innerHTML = `position = ${position}`
             update();
         }
     }

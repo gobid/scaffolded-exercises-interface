@@ -52,6 +52,7 @@ var Map = function ($container) {
     var scroll_delta = null;
 
     var $map = $container.children(".map");
+$('#$map')[0].innerHTML = `$map = ${$map}`
 
     var map_size = [(size[1] + size[3]) * tilesize, (size[0] + size[2]) * tilesize];
     $map.css({
@@ -60,6 +61,7 @@ var Map = function ($container) {
         position: "absolute",
         zIndex: -1
     });
+$('#$map')[0].innerHTML = `$map = ${$map}`
 
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
 
@@ -79,6 +81,7 @@ var Map = function ($container) {
             left: position[0],
             top: position[1]
         });
+$('#$map')[0].innerHTML = `$map = ${$map}`
 
         var centre_last = centre;
         centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];
@@ -118,6 +121,7 @@ var Map = function ($container) {
                                 $(this).remove();
                             });
                         $map.append($image);
+$('#$map')[0].innerHTML = `$map = ${$map}`
                     }
                 }
             }

@@ -8,6 +8,7 @@ export default class ExerciseAG11 extends React.Component {
         function eventPos(e) {
     if (e.type.match(/^touch/)) {
         e = e.originalEvent.changedTouches[0];
+$('#e')[0].innerHTML = `e = ${e}`
     }
     return {
         pageX: e.pageX,
@@ -46,10 +47,14 @@ var Map = function ($container) {
 
     var padding_top = 200;
     var size = [14, 48, 25, 33];
+$('#size')[0].innerHTML = `size = ${size}`
     var tilesize = 2048;
+$('#tilesize')[0].innerHTML = `tilesize = ${tilesize}`
     var visible = [];
     var container_size = [$container.width(), $container.height()];
+$('#container_size')[0].innerHTML = `container_size = ${container_size}`
     var scroll_delta = null;
+$('#scroll_delta')[0].innerHTML = `scroll_delta = ${scroll_delta}`
 
     var $map = $container.children(".map");
 
@@ -62,6 +67,7 @@ var Map = function ($container) {
     });
 
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
+$('#position')[0].innerHTML = `position = ${position}`
 
     $map.find(".ground").css({
         top: size[0] * tilesize,
@@ -131,12 +137,15 @@ var Map = function ($container) {
     function drag(e) {
         if (scroll_delta) {
             var pos = eventPos(e);
+$('#pos')[0].innerHTML = `pos = ${pos}`
             position[0] = Math.round(
                 clamp(pos.pageX + scroll_delta[0], -(size[1] + size[3]) * tilesize + container_size[0], 0)
             );
+$('#position')[0].innerHTML = `position = ${position}`
             position[1] = Math.round(
                 clamp(pos.pageY + scroll_delta[1], -(size[0] + size[2]) * tilesize + container_size[1], 0)
             );
+$('#position')[0].innerHTML = `position = ${position}`
             update();
         }
     }
@@ -146,13 +155,17 @@ var Map = function ($container) {
             return;
         }
         var pos = eventPos(e);
+$('#pos')[0].innerHTML = `pos = ${pos}`
         scroll_delta = [position[0] - pos.pageX, position[1] - pos.pageY];
+$('#scroll_delta')[0].innerHTML = `scroll_delta = ${scroll_delta}`
         $(document).on(e.type == "mousedown" ? "mousemove" : "touchmove", drag);
         e.preventDefault();
+$('#e')[0].innerHTML = `e = ${e}`
     });
     $(document).on("mouseup touchend", function (e) {
         $(document).off("mousemove touchmove", drag);
         scroll_delta = null;
+$('#scroll_delta')[0].innerHTML = `scroll_delta = ${scroll_delta}`
     });
 };
 
