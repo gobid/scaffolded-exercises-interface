@@ -187,10 +187,11 @@ $(function () {
                     Variables:
                     <br/><br/>
                     <p>$remove = <span id='dremove'> </span> </p>
-                    <p>$map = <span id='dmap'> </span> </p>
-                    <p>$image = <span id='dimage'> </span> </p>
-                    <p>tile = <span id='tile'> </span> </p>
-                    <p>$overlay = <span id='doverlay'> </span> </p>
+<p>$map = <span id='dmap'> </span> </p>
+<p>$image = <span id='dimage'> </span> </p>
+<p>tile = <span id='tile'> </span> </p>
+<p>$overlay = <span id='doverlay'> </span> </p>
+
                 </div>
             </div>
         )

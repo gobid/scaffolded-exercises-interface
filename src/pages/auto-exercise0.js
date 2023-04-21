@@ -1,9 +1,6 @@
 import React from 'react';
 import './../App.css';
 import $ from 'jquery';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 window.$ = $;
 
 export default class ExerciseAG0 extends React.Component {
@@ -174,19 +171,16 @@ $(function () {
         return (
             <div className="App">
                 <div id="app-title">Scaffolded Exercises</div>
-                <Container>
-                    <Row>
-                        <Col>
-                            DOM
-                            <div id="comic"><div class="map"><div class="ground"></div></div></div>
-                        </Col>
-                        <Col>
-                            Variables:
-                            <p>$remove = <span id='dremove'> </span> </p>
+                <br/><br/><br/>
+                DOM
+                <div id="comic"><div class="map"><div class="ground"></div></div></div>
+                <br/>
+                <div class="exercises">
+                    Variables:
+                    <br/><br/>
+                    <p>$remove = <span id='dremove'> </span> </p>
 
-                        </Col>
-                    </Row>
-                </Container>
+                </div>
             </div>
         )
     }
