@@ -741,3 +741,9 @@ ul.comicNav a:hover, ul.comicNav a:focus {
   font-family: 'xkcd-Regular';
   src: url('//xkcd.com/fonts/xkcd-Regular.eot?') format('eot'), url('//xkcd.com/fonts/xkcd-Regular.otf') format('opentype');
 } */
+
+.exercises {
+  position: absolute;
+  top: 100px;
+  right: -300px;
+}
