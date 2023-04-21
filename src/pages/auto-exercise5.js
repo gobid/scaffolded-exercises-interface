@@ -27,12 +27,12 @@ var Map = function ($container) {
     }); /** another comment */
 
     var $overlay = $container.children("img");
-$('#doverlay')[0].innerHTML = `${$overlay}`
+$('#doverlay')[0].innerHTML = JSON.stringify(`${$overlay}`)
     $overlay.css({
         background: "transparent",
         position: "relative"
     });
-$('#doverlay')[0].innerHTML = `${$overlay}`
+$('#doverlay')[0].innerHTML = JSON.stringify(`${$overlay}`)
 
     var sign = function (x) {
         return x > 0 ? +1 : x < 0 ? -1 : 0;
@@ -54,7 +54,7 @@ $('#doverlay')[0].innerHTML = `${$overlay}`
     var scroll_delta = null;
 
     var $map = $container.children(".map");
-$('#dmap')[0].innerHTML = `${$map}`
+$('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
 
     var map_size = [(size[1] + size[3]) * tilesize, (size[0] + size[2]) * tilesize];
     $map.css({
@@ -63,7 +63,7 @@ $('#dmap')[0].innerHTML = `${$map}`
         position: "absolute",
         zIndex: -1
     });
-$('#dmap')[0].innerHTML = `${$map}`
+$('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
 
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
 
@@ -83,7 +83,7 @@ $('#dmap')[0].innerHTML = `${$map}`
             left: position[0],
             top: position[1]
         });
-$('#dmap')[0].innerHTML = `${$map}`
+$('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
 
         var centre_last = centre;
         centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];
@@ -101,7 +101,7 @@ $('#dmap')[0].innerHTML = `${$map}`
                 for (var x = -1; x <= +1; x++) {
                     var name = tile_name(centre[0] + x, centre[1] + y);
                     var tile = $map.find(".tile" + name);
-$('#tile')[0].innerHTML = `${tile}`
+$('#tile')[0].innerHTML = JSON.stringify(`${tile}`)
                     if (tile.length) {
                         $remove = $remove.not(tile);
                     } else {
@@ -116,7 +116,7 @@ $('#tile')[0].innerHTML = `${tile}`
                                 (centre[0] + x) * tilesize +
                                 'px; z-index: -1; position: absolute;;" style="display:none" />'
                         );
-$('#dimage')[0].innerHTML = `${$image}`
+$('#dimage')[0].innerHTML = JSON.stringify(`${$image}`)
                         $image
                             .load(function () {
                                 $(this).show();
@@ -125,7 +125,7 @@ $('#dimage')[0].innerHTML = `${$image}`
                                 $(this).remove();
                             });
                         $map.append($image);
-$('#dmap')[0].innerHTML = `${$map}`
+$('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
                     }
                 }
             }
@@ -188,7 +188,16 @@ $(function () {
 <p>tile = <span id='tile'> </span> </p>
 <p>$overlay = <span id='doverlay'> </span> </p>
 
+                    <div className="reflection-area">
+                        <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                        <p>What is happening in the code?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                        <p>What is the relationship between the following variables: $map?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                    </div>
                 </div>
+                <a href='/exercise-auto6'>Next Exercise</a>
             </div>
         )
     }

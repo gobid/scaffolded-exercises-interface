@@ -91,7 +91,7 @@ var Map = function ($container) {
 
         if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {
             var $remove = $map.children().not(".ground");
-$('#dremove')[0].innerHTML = `${$remove}`
+$('#dremove')[0].innerHTML = JSON.stringify(`${$remove}`)
 
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
@@ -99,7 +99,7 @@ $('#dremove')[0].innerHTML = `${$remove}`
                     var tile = $map.find(".tile" + name);
                     if (tile.length) {
                         $remove = $remove.not(tile);
-$('#dremove')[0].innerHTML = `${$remove}`
+$('#dremove')[0].innerHTML = JSON.stringify(`${$remove}`)
                     } else {
                         var $image = $(
                             '<img class="tile' +
@@ -125,7 +125,7 @@ $('#dremove')[0].innerHTML = `${$remove}`
             }
 
             $remove.remove();
-$('#dremove')[0].innerHTML = `${$remove}`
+$('#dremove')[0].innerHTML = JSON.stringify(`${$remove}`)
         }
     };
 
@@ -180,7 +180,16 @@ $(function () {
                     <br/><br/>
                     <p>$remove = <span id='dremove'> </span> </p>
 
+                    <div className="reflection-area">
+                        <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                        <p>What is happening in the code?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                        <p>What is the relationship between the following variables: $remove?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                    </div>
                 </div>
+                <a href='/exercise-auto1'>Next Exercise</a>
             </div>
         )
     }

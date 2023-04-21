@@ -8,7 +8,7 @@ export default class ExerciseAG11 extends React.Component {
         function eventPos(e) {
     if (e.type.match(/^touch/)) {
         e = e.originalEvent.changedTouches[0];
-$('#e')[0].innerHTML = `${e}`
+$('#e')[0].innerHTML = JSON.stringify(`${e}`)
     }
     return {
         pageX: e.pageX,
@@ -47,14 +47,14 @@ var Map = function ($container) {
 
     var padding_top = 200;
     var size = [14, 48, 25, 33];
-$('#size')[0].innerHTML = `${size}`
+$('#size')[0].innerHTML = JSON.stringify(`${size}`)
     var tilesize = 2048;
-$('#tilesize')[0].innerHTML = `${tilesize}`
+$('#tilesize')[0].innerHTML = JSON.stringify(`${tilesize}`)
     var visible = [];
     var container_size = [$container.width(), $container.height()];
-$('#container_size')[0].innerHTML = `${container_size}`
+$('#container_size')[0].innerHTML = JSON.stringify(`${container_size}`)
     var scroll_delta = null;
-$('#scroll_delta')[0].innerHTML = `${scroll_delta}`
+$('#scroll_delta')[0].innerHTML = JSON.stringify(`${scroll_delta}`)
 
     var $map = $container.children(".map");
 
@@ -67,7 +67,7 @@ $('#scroll_delta')[0].innerHTML = `${scroll_delta}`
     });
 
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
-$('#position')[0].innerHTML = `${position}`
+$('#position')[0].innerHTML = JSON.stringify(`${position}`)
 
     $map.find(".ground").css({
         top: size[0] * tilesize,
@@ -137,15 +137,15 @@ $('#position')[0].innerHTML = `${position}`
     function drag(e) {
         if (scroll_delta) {
             var pos = eventPos(e);
-$('#pos')[0].innerHTML = `${pos}`
+$('#pos')[0].innerHTML = JSON.stringify(`${pos}`)
             position[0] = Math.round(
                 clamp(pos.pageX + scroll_delta[0], -(size[1] + size[3]) * tilesize + container_size[0], 0)
             );
-$('#position')[0].innerHTML = `${position}`
+$('#position')[0].innerHTML = JSON.stringify(`${position}`)
             position[1] = Math.round(
                 clamp(pos.pageY + scroll_delta[1], -(size[0] + size[2]) * tilesize + container_size[1], 0)
             );
-$('#position')[0].innerHTML = `${position}`
+$('#position')[0].innerHTML = JSON.stringify(`${position}`)
             update();
         }
     }
@@ -155,17 +155,17 @@ $('#position')[0].innerHTML = `${position}`
             return;
         }
         var pos = eventPos(e);
-$('#pos')[0].innerHTML = `${pos}`
+$('#pos')[0].innerHTML = JSON.stringify(`${pos}`)
         scroll_delta = [position[0] - pos.pageX, position[1] - pos.pageY];
-$('#scroll_delta')[0].innerHTML = `${scroll_delta}`
+$('#scroll_delta')[0].innerHTML = JSON.stringify(`${scroll_delta}`)
         $(document).on(e.type == "mousedown" ? "mousemove" : "touchmove", drag);
         e.preventDefault();
-$('#e')[0].innerHTML = `${e}`
+$('#e')[0].innerHTML = JSON.stringify(`${e}`)
     });
     $(document).on("mouseup touchend", function (e) {
         $(document).off("mousemove touchmove", drag);
         scroll_delta = null;
-$('#scroll_delta')[0].innerHTML = `${scroll_delta}`
+$('#scroll_delta')[0].innerHTML = JSON.stringify(`${scroll_delta}`)
     });
 };
 
@@ -196,7 +196,16 @@ $(function () {
 <p>tilesize = <span id='tilesize'> </span> </p>
 <p>container_size = <span id='container_size'> </span> </p>
 
+                    <div className="reflection-area">
+                        <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                        <p>What is happening in the code?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                        <p>What is the relationship between the following variables: e?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                    </div>
                 </div>
+                <a href='/exercise-auto12'>Next Exercise</a>
             </div>
         )
     }

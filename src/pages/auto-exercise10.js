@@ -46,7 +46,7 @@ var Map = function ($container) {
 
     var padding_top = 200;
     var size = [14, 48, 25, 33];
-$('#size')[0].innerHTML = `${size}`
+$('#size')[0].innerHTML = JSON.stringify(`${size}`)
     var tilesize = 2048;
     var visible = [];
     var container_size = [$container.width(), $container.height()];
@@ -86,9 +86,9 @@ $('#size')[0].innerHTML = `${size}`
 
         var tile_name = function (x, y) {
             x -= size[3];
-$('#x')[0].innerHTML = `${x}`
+$('#x')[0].innerHTML = JSON.stringify(`${x}`)
             y -= size[0];
-$('#y')[0].innerHTML = `${y}`
+$('#y')[0].innerHTML = JSON.stringify(`${y}`)
             return (y >= 0 ? y + 1 + "s" : -y + "n") + (x >= 0 ? x + 1 + "e" : -x + "w");
         };
 
@@ -123,9 +123,9 @@ $('#y')[0].innerHTML = `${y}`
                         $map.append($image);
                     }
                 }
-$('#x')[0].innerHTML = `${x}`
+$('#x')[0].innerHTML = JSON.stringify(`${x}`)
             }
-$('#y')[0].innerHTML = `${y}`
+$('#y')[0].innerHTML = JSON.stringify(`${y}`)
 
             $remove.remove();
         }
@@ -184,7 +184,16 @@ $(function () {
 <p>y = <span id='y'> </span> </p>
 <p>size = <span id='size'> </span> </p>
 
+                    <div className="reflection-area">
+                        <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                        <p>What is happening in the code?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                        <p>What is the relationship between the following variables: x?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                    </div>
                 </div>
+                <a href='/exercise-auto11'>Next Exercise</a>
             </div>
         )
     }

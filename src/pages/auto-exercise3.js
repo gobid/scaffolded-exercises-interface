@@ -52,7 +52,7 @@ var Map = function ($container) {
     var scroll_delta = null;
 
     var $map = $container.children(".map");
-$('#dmap')[0].innerHTML = `${$map}`
+$('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
 
     var map_size = [(size[1] + size[3]) * tilesize, (size[0] + size[2]) * tilesize];
     $map.css({
@@ -61,7 +61,7 @@ $('#dmap')[0].innerHTML = `${$map}`
         position: "absolute",
         zIndex: -1
     });
-$('#dmap')[0].innerHTML = `${$map}`
+$('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
 
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
 
@@ -81,7 +81,7 @@ $('#dmap')[0].innerHTML = `${$map}`
             left: position[0],
             top: position[1]
         });
-$('#dmap')[0].innerHTML = `${$map}`
+$('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
 
         var centre_last = centre;
         centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];
@@ -121,7 +121,7 @@ $('#dmap')[0].innerHTML = `${$map}`
                                 $(this).remove();
                             });
                         $map.append($image);
-$('#dmap')[0].innerHTML = `${$map}`
+$('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
                     }
                 }
             }
@@ -181,7 +181,16 @@ $(function () {
                     <br/><br/>
                     <p>$map = <span id='dmap'> </span> </p>
 
+                    <div className="reflection-area">
+                        <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                        <p>What is happening in the code?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                        <p>What is the relationship between the following variables: $map?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                    </div>
                 </div>
+                <a href='/exercise-auto4'>Next Exercise</a>
             </div>
         )
     }

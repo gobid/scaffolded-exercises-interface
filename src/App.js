@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import ExerciseAG0 from './pages/auto-exercise0.js';
 import ExerciseAG1 from './pages/auto-exercise1.js';
 import ExerciseAG2 from './pages/auto-exercise2.js';
 import ExerciseAG3 from './pages/auto-exercise3.js';
@@ -31,6 +32,11 @@ export default class App extends React.Component {
           <Route exact={true} path='/' render={() => (
             <div className="App">
               <Home />
+            </div>
+          )} />
+          <Route exact={true} path='/exercise-auto0' render={() => (
+            <div className="App">
+              <ExerciseAG0 />
             </div>
           )} />
           <Route exact={true} path='/exercise-auto1' render={() => (

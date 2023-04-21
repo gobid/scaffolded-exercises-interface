@@ -746,4 +746,14 @@ ul.comicNav a:hover, ul.comicNav a:focus {
   position: absolute;
   top: 100px;
   right: -300px;
+  width: 300px;
+}
+
+.reflection-area {
+  position: absolute;
+  right: 0px;
+}
+
+.reflection-textarea {
+  width: 100%;
 }

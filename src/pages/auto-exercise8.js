@@ -27,12 +27,12 @@ var Map = function ($container) {
     }); /** another comment */
 
     var $overlay = $container.children("img");
-$('#doverlay')[0].innerHTML = `${$overlay}`
+$('#doverlay')[0].innerHTML = JSON.stringify(`${$overlay}`)
     $overlay.css({
         background: "transparent",
         position: "relative"
     });
-$('#doverlay')[0].innerHTML = `${$overlay}`
+$('#doverlay')[0].innerHTML = JSON.stringify(`${$overlay}`)
 
     var sign = function (x) {
         return x > 0 ? +1 : x < 0 ? -1 : 0;
@@ -179,7 +179,16 @@ $(function () {
                     <br/><br/>
                     <p>$overlay = <span id='doverlay'> </span> </p>
 
+                    <div className="reflection-area">
+                        <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                        <p>What is happening in the code?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                        <p>What is the relationship between the following variables: $overlay?</p>
+                        <textarea className="reflection-textarea" rows="6"></textarea>
+                    </div>
                 </div>
+                <a href='/exercise-auto9'>Next Exercise</a>
             </div>
         )
     }
