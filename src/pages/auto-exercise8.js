@@ -27,12 +27,12 @@ var Map = function ($container) {
     }); /** another comment */
 
     var $overlay = $container.children("img");
-$('#doverlay')[0].innerHTML = `$overlay = ${$overlay}`
+$('#doverlay')[0].innerHTML = `${$overlay}`
     $overlay.css({
         background: "transparent",
         position: "relative"
     });
-$('#doverlay')[0].innerHTML = `$overlay = ${$overlay}`
+$('#doverlay')[0].innerHTML = `${$overlay}`
 
     var sign = function (x) {
         return x > 0 ? +1 : x < 0 ? -1 : 0;
@@ -172,9 +172,9 @@ $(function () {
                 <div id="app-title">Scaffolded Exercises</div>
                 <br/><br/><br/>
                 DOM
-                <div id="comic"><div class="map"><div class="ground"></div></div></div>
+                <div id="comic"><div className="map"><div className="ground"></div></div></div>
                 <br/>
-                <div class="exercises">
+                <div className="exercises">
                     Variables:
                     <br/><br/>
                     <p>$overlay = <span id='doverlay'> </span> </p>

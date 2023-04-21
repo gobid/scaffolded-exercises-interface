@@ -46,7 +46,7 @@ var Map = function ($container) {
 
     var padding_top = 200;
     var size = [14, 48, 25, 33];
-$('#size')[0].innerHTML = `size = ${size}`
+$('#size')[0].innerHTML = `${size}`
     var tilesize = 2048;
     var visible = [];
     var container_size = [$container.width(), $container.height()];
@@ -86,9 +86,9 @@ $('#size')[0].innerHTML = `size = ${size}`
 
         var tile_name = function (x, y) {
             x -= size[3];
-$('#x')[0].innerHTML = `x = ${x}`
+$('#x')[0].innerHTML = `${x}`
             y -= size[0];
-$('#y')[0].innerHTML = `y = ${y}`
+$('#y')[0].innerHTML = `${y}`
             return (y >= 0 ? y + 1 + "s" : -y + "n") + (x >= 0 ? x + 1 + "e" : -x + "w");
         };
 
@@ -123,9 +123,9 @@ $('#y')[0].innerHTML = `y = ${y}`
                         $map.append($image);
                     }
                 }
-$('#x')[0].innerHTML = `x = ${x}`
+$('#x')[0].innerHTML = `${x}`
             }
-$('#y')[0].innerHTML = `y = ${y}`
+$('#y')[0].innerHTML = `${y}`
 
             $remove.remove();
         }
@@ -175,9 +175,9 @@ $(function () {
                 <div id="app-title">Scaffolded Exercises</div>
                 <br/><br/><br/>
                 DOM
-                <div id="comic"><div class="map"><div class="ground"></div></div></div>
+                <div id="comic"><div className="map"><div className="ground"></div></div></div>
                 <br/>
-                <div class="exercises">
+                <div className="exercises">
                     Variables:
                     <br/><br/>
                     <p>x = <span id='x'> </span> </p>

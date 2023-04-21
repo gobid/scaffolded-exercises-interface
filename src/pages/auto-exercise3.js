@@ -52,7 +52,7 @@ var Map = function ($container) {
     var scroll_delta = null;
 
     var $map = $container.children(".map");
-$('#dmap')[0].innerHTML = `$map = ${$map}`
+$('#dmap')[0].innerHTML = `${$map}`
 
     var map_size = [(size[1] + size[3]) * tilesize, (size[0] + size[2]) * tilesize];
     $map.css({
@@ -61,7 +61,7 @@ $('#dmap')[0].innerHTML = `$map = ${$map}`
         position: "absolute",
         zIndex: -1
     });
-$('#dmap')[0].innerHTML = `$map = ${$map}`
+$('#dmap')[0].innerHTML = `${$map}`
 
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
 
@@ -81,7 +81,7 @@ $('#dmap')[0].innerHTML = `$map = ${$map}`
             left: position[0],
             top: position[1]
         });
-$('#dmap')[0].innerHTML = `$map = ${$map}`
+$('#dmap')[0].innerHTML = `${$map}`
 
         var centre_last = centre;
         centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];
@@ -121,7 +121,7 @@ $('#dmap')[0].innerHTML = `$map = ${$map}`
                                 $(this).remove();
                             });
                         $map.append($image);
-$('#dmap')[0].innerHTML = `$map = ${$map}`
+$('#dmap')[0].innerHTML = `${$map}`
                     }
                 }
             }
@@ -174,9 +174,9 @@ $(function () {
                 <div id="app-title">Scaffolded Exercises</div>
                 <br/><br/><br/>
                 DOM
-                <div id="comic"><div class="map"><div class="ground"></div></div></div>
+                <div id="comic"><div className="map"><div className="ground"></div></div></div>
                 <br/>
-                <div class="exercises">
+                <div className="exercises">
                     Variables:
                     <br/><br/>
                     <p>$map = <span id='dmap'> </span> </p>

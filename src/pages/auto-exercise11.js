@@ -8,7 +8,7 @@ export default class ExerciseAG11 extends React.Component {
         function eventPos(e) {
     if (e.type.match(/^touch/)) {
         e = e.originalEvent.changedTouches[0];
-$('#e')[0].innerHTML = `e = ${e}`
+$('#e')[0].innerHTML = `${e}`
     }
     return {
         pageX: e.pageX,
@@ -47,14 +47,14 @@ var Map = function ($container) {
 
     var padding_top = 200;
     var size = [14, 48, 25, 33];
-$('#size')[0].innerHTML = `size = ${size}`
+$('#size')[0].innerHTML = `${size}`
     var tilesize = 2048;
-$('#tilesize')[0].innerHTML = `tilesize = ${tilesize}`
+$('#tilesize')[0].innerHTML = `${tilesize}`
     var visible = [];
     var container_size = [$container.width(), $container.height()];
-$('#container_size')[0].innerHTML = `container_size = ${container_size}`
+$('#container_size')[0].innerHTML = `${container_size}`
     var scroll_delta = null;
-$('#scroll_delta')[0].innerHTML = `scroll_delta = ${scroll_delta}`
+$('#scroll_delta')[0].innerHTML = `${scroll_delta}`
 
     var $map = $container.children(".map");
 
@@ -67,7 +67,7 @@ $('#scroll_delta')[0].innerHTML = `scroll_delta = ${scroll_delta}`
     });
 
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
-$('#position')[0].innerHTML = `position = ${position}`
+$('#position')[0].innerHTML = `${position}`
 
     $map.find(".ground").css({
         top: size[0] * tilesize,
@@ -137,15 +137,15 @@ $('#position')[0].innerHTML = `position = ${position}`
     function drag(e) {
         if (scroll_delta) {
             var pos = eventPos(e);
-$('#pos')[0].innerHTML = `pos = ${pos}`
+$('#pos')[0].innerHTML = `${pos}`
             position[0] = Math.round(
                 clamp(pos.pageX + scroll_delta[0], -(size[1] + size[3]) * tilesize + container_size[0], 0)
             );
-$('#position')[0].innerHTML = `position = ${position}`
+$('#position')[0].innerHTML = `${position}`
             position[1] = Math.round(
                 clamp(pos.pageY + scroll_delta[1], -(size[0] + size[2]) * tilesize + container_size[1], 0)
             );
-$('#position')[0].innerHTML = `position = ${position}`
+$('#position')[0].innerHTML = `${position}`
             update();
         }
     }
@@ -155,17 +155,17 @@ $('#position')[0].innerHTML = `position = ${position}`
             return;
         }
         var pos = eventPos(e);
-$('#pos')[0].innerHTML = `pos = ${pos}`
+$('#pos')[0].innerHTML = `${pos}`
         scroll_delta = [position[0] - pos.pageX, position[1] - pos.pageY];
-$('#scroll_delta')[0].innerHTML = `scroll_delta = ${scroll_delta}`
+$('#scroll_delta')[0].innerHTML = `${scroll_delta}`
         $(document).on(e.type == "mousedown" ? "mousemove" : "touchmove", drag);
         e.preventDefault();
-$('#e')[0].innerHTML = `e = ${e}`
+$('#e')[0].innerHTML = `${e}`
     });
     $(document).on("mouseup touchend", function (e) {
         $(document).off("mousemove touchmove", drag);
         scroll_delta = null;
-$('#scroll_delta')[0].innerHTML = `scroll_delta = ${scroll_delta}`
+$('#scroll_delta')[0].innerHTML = `${scroll_delta}`
     });
 };
 
@@ -183,9 +183,9 @@ $(function () {
                 <div id="app-title">Scaffolded Exercises</div>
                 <br/><br/><br/>
                 DOM
-                <div id="comic"><div class="map"><div class="ground"></div></div></div>
+                <div id="comic"><div className="map"><div className="ground"></div></div></div>
                 <br/>
-                <div class="exercises">
+                <div className="exercises">
                     Variables:
                     <br/><br/>
                     <p>e = <span id='e'> </span> </p>

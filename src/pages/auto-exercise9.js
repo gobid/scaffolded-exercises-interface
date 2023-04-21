@@ -46,15 +46,15 @@ var Map = function ($container) {
 
     var padding_top = 200;
     var size = [14, 48, 25, 33];
-$('#size')[0].innerHTML = `size = ${size}`
+$('#size')[0].innerHTML = `${size}`
     var tilesize = 2048;
-$('#tilesize')[0].innerHTML = `tilesize = ${tilesize}`
+$('#tilesize')[0].innerHTML = `${tilesize}`
     var visible = [];
     var container_size = [$container.width(), $container.height()];
     var scroll_delta = null;
 
     var $map = $container.children(".map");
-$('#dmap')[0].innerHTML = `$map = ${$map}`
+$('#dmap')[0].innerHTML = `${$map}`
 
     var map_size = [(size[1] + size[3]) * tilesize, (size[0] + size[2]) * tilesize];
     $map.css({
@@ -63,10 +63,10 @@ $('#dmap')[0].innerHTML = `$map = ${$map}`
         position: "absolute",
         zIndex: -1
     });
-$('#dmap')[0].innerHTML = `$map = ${$map}`
+$('#dmap')[0].innerHTML = `${$map}`
 
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
-$('#position')[0].innerHTML = `position = ${position}`
+$('#position')[0].innerHTML = `${position}`
 
     $map.find(".ground").css({
         top: size[0] * tilesize,
@@ -78,41 +78,42 @@ $('#position')[0].innerHTML = `position = ${position}`
     });
 
     var centre = [-1, 0];
-$('#centre')[0].innerHTML = `centre = ${centre}`
+$('#centre')[0].innerHTML = `${centre}`
 
     var update = function () {
         $map.css({
             left: position[0],
             top: position[1]
         });
-$('#dmap')[0].innerHTML = `$map = ${$map}`
+$('#dmap')[0].innerHTML = `${$map}`
 
         var centre_last = centre;
-$('#centre_last')[0].innerHTML = `centre_last = ${centre_last}`
+$('#centre_last')[0].innerHTML = `${centre_last}`
         centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];
-$('#centre')[0].innerHTML = `centre = ${centre}`
+$('#centre')[0].innerHTML = `${centre}`
 
         var tile_name = function (x, y) {
             x -= size[3];
-$('#x')[0].innerHTML = `x = ${x}`
+$('#x')[0].innerHTML = `${x}`
             y -= size[0];
-$('#y')[0].innerHTML = `y = ${y}`
+$('#y')[0].innerHTML = `${y}`
             return (y >= 0 ? y + 1 + "s" : -y + "n") + (x >= 0 ? x + 1 + "e" : -x + "w");
         };
 
         if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {
             var $remove = $map.children().not(".ground");
-$('#dremove')[0].innerHTML = `$remove = ${$remove}`
+$('#dremove')[0].innerHTML = `${$remove}`
 
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
                     var name = tile_name(centre[0] + x, centre[1] + y);
-$('#name')[0].innerHTML = `name = ${name}`
+$('#name')[0].innerHTML = `${name}`
                     var tile = $map.find(".tile" + name);
-$('#tile')[0].innerHTML = `tile = ${tile}`
+$('#tile')[0].innerHTML = `${tile}`
                     if (tile.length) {
                         $remove = $remove.not(tile);
-$('#dremove')[0].innerHTML = `$remove = ${$remove}`
+                        console.log("updating remove: ", $remove);
+$('#dremove')[0].innerHTML = `${$remove}`
                     } else {
                         var $image = $(
                             '<img class="tile' +
@@ -125,7 +126,8 @@ $('#dremove')[0].innerHTML = `$remove = ${$remove}`
                                 (centre[0] + x) * tilesize +
                                 'px; z-index: -1; position: absolute;;" style="display:none" />'
                         );
-$('#dimage')[0].innerHTML = `$image = ${$image}`
+$('#dimage')[0].innerHTML = `<plaintext>${$image[0].innerHTML}</plaintext>`
+console.log("updating image: ", $image[0]);
                         $image
                             .load(function () {
                                 $(this).show();
@@ -134,15 +136,15 @@ $('#dimage')[0].innerHTML = `$image = ${$image}`
                                 $(this).remove();
                             });
                         $map.append($image);
-$('#dmap')[0].innerHTML = `$map = ${$map}`
+$('#dmap')[0].innerHTML = `${$map}`
                     }
                 }
-$('#x')[0].innerHTML = `x = ${x}`
+$('#x')[0].innerHTML = `${x}`
             }
-$('#y')[0].innerHTML = `y = ${y}`
+$('#y')[0].innerHTML = `${y}`
 
             $remove.remove();
-$('#dremove')[0].innerHTML = `$remove = ${$remove}`
+$('#dremove')[0].innerHTML = `${$remove}`
         }
     };
 
@@ -154,11 +156,11 @@ $('#dremove')[0].innerHTML = `$remove = ${$remove}`
             position[0] = Math.round(
                 clamp(pos.pageX + scroll_delta[0], -(size[1] + size[3]) * tilesize + container_size[0], 0)
             );
-$('#position')[0].innerHTML = `position = ${position}`
+$('#position')[0].innerHTML = `${position}`
             position[1] = Math.round(
                 clamp(pos.pageY + scroll_delta[1], -(size[0] + size[2]) * tilesize + container_size[1], 0)
             );
-$('#position')[0].innerHTML = `position = ${position}`
+$('#position')[0].innerHTML = `${position}`
             update();
         }
     }
@@ -192,9 +194,9 @@ $(function () {
                 <div id="app-title">Scaffolded Exercises</div>
                 <br/><br/><br/>
                 DOM
-                <div id="comic"><div class="map"><div class="ground"></div></div></div>
+                <div id="comic"><div className="map"><div className="ground"></div></div></div>
                 <br/>
-                <div class="exercises">
+                <div className="exercises">
                     Variables:
                     <br/><br/>
                     <p>$map = <span id='dmap'> </span> </p>

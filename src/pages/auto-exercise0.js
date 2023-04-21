@@ -91,7 +91,7 @@ var Map = function ($container) {
 
         if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {
             var $remove = $map.children().not(".ground");
-$('#dremove')[0].innerHTML = `$remove = ${$remove}`
+$('#dremove')[0].innerHTML = `${$remove}`
 
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
@@ -99,7 +99,7 @@ $('#dremove')[0].innerHTML = `$remove = ${$remove}`
                     var tile = $map.find(".tile" + name);
                     if (tile.length) {
                         $remove = $remove.not(tile);
-$('#dremove')[0].innerHTML = `$remove = ${$remove}`
+$('#dremove')[0].innerHTML = `${$remove}`
                     } else {
                         var $image = $(
                             '<img class="tile' +
@@ -125,7 +125,7 @@ $('#dremove')[0].innerHTML = `$remove = ${$remove}`
             }
 
             $remove.remove();
-$('#dremove')[0].innerHTML = `$remove = ${$remove}`
+$('#dremove')[0].innerHTML = `${$remove}`
         }
     };
 
@@ -173,9 +173,9 @@ $(function () {
                 <div id="app-title">Scaffolded Exercises</div>
                 <br/><br/><br/>
                 DOM
-                <div id="comic"><div class="map"><div class="ground"></div></div></div>
+                <div id="comic"><div className="map"><div className="ground"></div></div></div>
                 <br/>
-                <div class="exercises">
+                <div className="exercises">
                     Variables:
                     <br/><br/>
                     <p>$remove = <span id='dremove'> </span> </p>

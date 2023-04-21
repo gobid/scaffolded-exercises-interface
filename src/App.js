@@ -1,6 +1,17 @@
 import React from 'react';
 import './App.css';
 import ExerciseAG1 from './pages/auto-exercise1.js';
+import ExerciseAG2 from './pages/auto-exercise2.js';
+import ExerciseAG3 from './pages/auto-exercise3.js';
+import ExerciseAG4 from './pages/auto-exercise4.js';
+import ExerciseAG5 from './pages/auto-exercise5.js';
+import ExerciseAG6 from './pages/auto-exercise6.js';
+import ExerciseAG7 from './pages/auto-exercise7.js';
+import ExerciseAG8 from './pages/auto-exercise8.js';
+import ExerciseAG9 from './pages/auto-exercise9.js';
+import ExerciseAG10 from './pages/auto-exercise10.js';
+import ExerciseAG11 from './pages/auto-exercise11.js';
+
 import ExerciseG from './pages/exerciseg';
 import Exercise1 from './pages/exercise1';
 import Exercise2 from './pages/exercise2';
@@ -27,6 +38,62 @@ export default class App extends React.Component {
               <ExerciseAG1 />
             </div>
           )} />
+          <Route exact={true} path='/exercise-auto2' render={() => (
+            <div className="App">
+              <ExerciseAG2 />
+            </div>
+          )} />
+          <Route exact={true} path='/exercise-auto2' render={() => (
+            <div className="App">
+              <ExerciseAG2 />
+            </div>
+          )} />
+          <Route exact={true} path='/exercise-auto3' render={() => (
+            <div className="App">
+              <ExerciseAG3 />
+            </div>
+          )} />
+          <Route exact={true} path='/exercise-auto4' render={() => (
+            <div className="App">
+              <ExerciseAG4 />
+            </div>
+          )} />
+          <Route exact={true} path='/exercise-auto5' render={() => (
+            <div className="App">
+              <ExerciseAG5 />
+            </div>
+          )} />
+          <Route exact={true} path='/exercise-auto6' render={() => (
+            <div className="App">
+              <ExerciseAG6 />
+            </div>
+          )} />
+          <Route exact={true} path='/exercise-auto7' render={() => (
+            <div className="App">
+              <ExerciseAG7 />
+            </div>
+          )} />
+          <Route exact={true} path='/exercise-auto8' render={() => (
+            <div className="App">
+              <ExerciseAG8 />
+            </div>
+          )} />
+          <Route exact={true} path='/exercise-auto9' render={() => (
+            <div className="App">
+              <ExerciseAG9 />
+            </div>
+          )} />
+          <Route exact={true} path='/exercise-auto10' render={() => (
+            <div className="App">
+              <ExerciseAG10 />
+            </div>
+          )} />
+          <Route exact={true} path='/exercise-auto11' render={() => (
+            <div className="App">
+              <ExerciseAG11 />
+            </div>
+          )} />
+
           <Route exact={true} path='/exercise-general' render={() => (
             <div className="App">
               <ExerciseG />
