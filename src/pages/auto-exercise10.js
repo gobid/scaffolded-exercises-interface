@@ -1,6 +1,9 @@
 import React from 'react';
 import './../App.css';
 import $ from 'jquery';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 window.$ = $;
 
 export default class ExerciseAG10 extends React.Component {
@@ -167,6 +170,29 @@ $(function () {
     var map = new Map($("#comic"));
 });
 
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <div id="app-title">Scaffolded Exercises</div>
+                <Container>
+                    <Row>
+                        <Col>
+                            DOM
+                            <div id="comic"><div class="map"><div class="ground"></div></div></div>
+                        </Col>
+                        <Col>
+                            Variables:
+                            <p>x = <span id='x'> </span> </p>
+<p>y = <span id='y'> </span> </p>
+<p>size = <span id='size'> </span> </p>
+
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+        )
     }
 }
     

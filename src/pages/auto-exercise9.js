@@ -1,6 +1,9 @@
 import React from 'react';
 import './../App.css';
 import $ from 'jquery';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 window.$ = $;
 
 export default class ExerciseAG9 extends React.Component {
@@ -54,7 +57,7 @@ $('#tilesize')[0].innerHTML = `tilesize = ${tilesize}`
     var scroll_delta = null;
 
     var $map = $container.children(".map");
-$('#$map')[0].innerHTML = `$map = ${$map}`
+$('#dmap')[0].innerHTML = `$map = ${$map}`
 
     var map_size = [(size[1] + size[3]) * tilesize, (size[0] + size[2]) * tilesize];
     $map.css({
@@ -63,7 +66,7 @@ $('#$map')[0].innerHTML = `$map = ${$map}`
         position: "absolute",
         zIndex: -1
     });
-$('#$map')[0].innerHTML = `$map = ${$map}`
+$('#dmap')[0].innerHTML = `$map = ${$map}`
 
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
 $('#position')[0].innerHTML = `position = ${position}`
@@ -85,7 +88,7 @@ $('#centre')[0].innerHTML = `centre = ${centre}`
             left: position[0],
             top: position[1]
         });
-$('#$map')[0].innerHTML = `$map = ${$map}`
+$('#dmap')[0].innerHTML = `$map = ${$map}`
 
         var centre_last = centre;
 $('#centre_last')[0].innerHTML = `centre_last = ${centre_last}`
@@ -102,7 +105,7 @@ $('#y')[0].innerHTML = `y = ${y}`
 
         if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {
             var $remove = $map.children().not(".ground");
-$('#$remove')[0].innerHTML = `$remove = ${$remove}`
+$('#dremove')[0].innerHTML = `$remove = ${$remove}`
 
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
@@ -112,7 +115,7 @@ $('#name')[0].innerHTML = `name = ${name}`
 $('#tile')[0].innerHTML = `tile = ${tile}`
                     if (tile.length) {
                         $remove = $remove.not(tile);
-$('#$remove')[0].innerHTML = `$remove = ${$remove}`
+$('#dremove')[0].innerHTML = `$remove = ${$remove}`
                     } else {
                         var $image = $(
                             '<img class="tile' +
@@ -125,7 +128,7 @@ $('#$remove')[0].innerHTML = `$remove = ${$remove}`
                                 (centre[0] + x) * tilesize +
                                 'px; z-index: -1; position: absolute;;" style="display:none" />'
                         );
-$('#$image')[0].innerHTML = `$image = ${$image}`
+$('#dimage')[0].innerHTML = `$image = ${$image}`
                         $image
                             .load(function () {
                                 $(this).show();
@@ -134,7 +137,7 @@ $('#$image')[0].innerHTML = `$image = ${$image}`
                                 $(this).remove();
                             });
                         $map.append($image);
-$('#$map')[0].innerHTML = `$map = ${$map}`
+$('#dmap')[0].innerHTML = `$map = ${$map}`
                     }
                 }
 $('#x')[0].innerHTML = `x = ${x}`
@@ -142,7 +145,7 @@ $('#x')[0].innerHTML = `x = ${x}`
 $('#y')[0].innerHTML = `y = ${y}`
 
             $remove.remove();
-$('#$remove')[0].innerHTML = `$remove = ${$remove}`
+$('#dremove')[0].innerHTML = `$remove = ${$remove}`
         }
     };
 
@@ -184,6 +187,38 @@ $(function () {
     var map = new Map($("#comic"));
 });
 
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <div id="app-title">Scaffolded Exercises</div>
+                <Container>
+                    <Row>
+                        <Col>
+                            DOM
+                            <div id="comic"><div class="map"><div class="ground"></div></div></div>
+                        </Col>
+                        <Col>
+                            Variables:
+                            <p>$map = <span id='dmap'> </span> </p>
+<p>position = <span id='position'> </span> </p>
+<p>centre_last = <span id='centre_last'> </span> </p>
+<p>centre = <span id='centre'> </span> </p>
+<p>tilesize = <span id='tilesize'> </span> </p>
+<p>x = <span id='x'> </span> </p>
+<p>y = <span id='y'> </span> </p>
+<p>size = <span id='size'> </span> </p>
+<p>$remove = <span id='dremove'> </span> </p>
+<p>name = <span id='name'> </span> </p>
+<p>tile = <span id='tile'> </span> </p>
+<p>$image = <span id='dimage'> </span> </p>
+
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+        )
     }
 }
     

@@ -1,6 +1,9 @@
 import React from 'react';
 import './../App.css';
 import $ from 'jquery';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 window.$ = $;
 
 export default class ExerciseAG8 extends React.Component {
@@ -27,12 +30,12 @@ var Map = function ($container) {
     }); /** another comment */
 
     var $overlay = $container.children("img");
-$('#$overlay')[0].innerHTML = `$overlay = ${$overlay}`
+$('#doverlay')[0].innerHTML = `$overlay = ${$overlay}`
     $overlay.css({
         background: "transparent",
         position: "relative"
     });
-$('#$overlay')[0].innerHTML = `$overlay = ${$overlay}`
+$('#doverlay')[0].innerHTML = `$overlay = ${$overlay}`
 
     var sign = function (x) {
         return x > 0 ? +1 : x < 0 ? -1 : 0;
@@ -164,6 +167,27 @@ $(function () {
     var map = new Map($("#comic"));
 });
 
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <div id="app-title">Scaffolded Exercises</div>
+                <Container>
+                    <Row>
+                        <Col>
+                            DOM
+                            <div id="comic"><div class="map"><div class="ground"></div></div></div>
+                        </Col>
+                        <Col>
+                            Variables:
+                            <p>$overlay = <span id='doverlay'> </span> </p>
+
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+        )
     }
 }
     

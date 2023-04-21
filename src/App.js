@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import ExerciseAG1 from './pages/auto-exercise1.js';
 import ExerciseG from './pages/exerciseg';
 import Exercise1 from './pages/exercise1';
 import Exercise2 from './pages/exercise2';
@@ -19,6 +20,11 @@ export default class App extends React.Component {
           <Route exact={true} path='/' render={() => (
             <div className="App">
               <Home />
+            </div>
+          )} />
+          <Route exact={true} path='/exercise-auto1' render={() => (
+            <div className="App">
+              <ExerciseAG1 />
             </div>
           )} />
           <Route exact={true} path='/exercise-general' render={() => (

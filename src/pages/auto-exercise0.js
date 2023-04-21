@@ -1,6 +1,9 @@
 import React from 'react';
 import './../App.css';
 import $ from 'jquery';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 window.$ = $;
 
 export default class ExerciseAG0 extends React.Component {
@@ -91,7 +94,7 @@ var Map = function ($container) {
 
         if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {
             var $remove = $map.children().not(".ground");
-$('#$remove')[0].innerHTML = `$remove = ${$remove}`
+$('#dremove')[0].innerHTML = `$remove = ${$remove}`
 
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
@@ -99,7 +102,7 @@ $('#$remove')[0].innerHTML = `$remove = ${$remove}`
                     var tile = $map.find(".tile" + name);
                     if (tile.length) {
                         $remove = $remove.not(tile);
-$('#$remove')[0].innerHTML = `$remove = ${$remove}`
+$('#dremove')[0].innerHTML = `$remove = ${$remove}`
                     } else {
                         var $image = $(
                             '<img class="tile' +
@@ -125,7 +128,7 @@ $('#$remove')[0].innerHTML = `$remove = ${$remove}`
             }
 
             $remove.remove();
-$('#$remove')[0].innerHTML = `$remove = ${$remove}`
+$('#dremove')[0].innerHTML = `$remove = ${$remove}`
         }
     };
 
@@ -165,6 +168,27 @@ $(function () {
     var map = new Map($("#comic"));
 });
 
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <div id="app-title">Scaffolded Exercises</div>
+                <Container>
+                    <Row>
+                        <Col>
+                            DOM
+                            <div id="comic"><div class="map"><div class="ground"></div></div></div>
+                        </Col>
+                        <Col>
+                            Variables:
+                            <p>$remove = <span id='dremove'> </span> </p>
+
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+        )
     }
 }
     

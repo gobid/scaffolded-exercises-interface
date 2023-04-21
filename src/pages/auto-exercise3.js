@@ -1,6 +1,9 @@
 import React from 'react';
 import './../App.css';
 import $ from 'jquery';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 window.$ = $;
 
 export default class ExerciseAG3 extends React.Component {
@@ -52,7 +55,7 @@ var Map = function ($container) {
     var scroll_delta = null;
 
     var $map = $container.children(".map");
-$('#$map')[0].innerHTML = `$map = ${$map}`
+$('#dmap')[0].innerHTML = `$map = ${$map}`
 
     var map_size = [(size[1] + size[3]) * tilesize, (size[0] + size[2]) * tilesize];
     $map.css({
@@ -61,7 +64,7 @@ $('#$map')[0].innerHTML = `$map = ${$map}`
         position: "absolute",
         zIndex: -1
     });
-$('#$map')[0].innerHTML = `$map = ${$map}`
+$('#dmap')[0].innerHTML = `$map = ${$map}`
 
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
 
@@ -81,7 +84,7 @@ $('#$map')[0].innerHTML = `$map = ${$map}`
             left: position[0],
             top: position[1]
         });
-$('#$map')[0].innerHTML = `$map = ${$map}`
+$('#dmap')[0].innerHTML = `$map = ${$map}`
 
         var centre_last = centre;
         centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];
@@ -121,7 +124,7 @@ $('#$map')[0].innerHTML = `$map = ${$map}`
                                 $(this).remove();
                             });
                         $map.append($image);
-$('#$map')[0].innerHTML = `$map = ${$map}`
+$('#dmap')[0].innerHTML = `$map = ${$map}`
                     }
                 }
             }
@@ -166,6 +169,27 @@ $(function () {
     var map = new Map($("#comic"));
 });
 
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <div id="app-title">Scaffolded Exercises</div>
+                <Container>
+                    <Row>
+                        <Col>
+                            DOM
+                            <div id="comic"><div class="map"><div class="ground"></div></div></div>
+                        </Col>
+                        <Col>
+                            Variables:
+                            <p>$map = <span id='dmap'> </span> </p>
+
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+        )
     }
 }
     
