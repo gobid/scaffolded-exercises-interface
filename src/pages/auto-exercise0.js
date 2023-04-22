@@ -107,8 +107,19 @@ var Map = function ($container) {
                 $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
             }
             else {
-                if ($remove.selector) {
+                if ($remove && $remove.selector) {
                     $('#dremove')[0].innerHTML = `${$remove.selector}`
+                }
+                else if ($remove && $remove.originalEvent) {
+                    $('#dremove')[0].innerHTML = `${$remove.type}`
+                }
+                else if (typeof($remove) == 'object') {
+                    try {
+                        $('#dremove')[0].innerHTML = JSON.stringify($remove)
+                    }
+                    catch {
+                        $('#dremove')[0].innerHTML = `${$remove}`
+                    }
                 }
                 else {
                     $('#dremove')[0].innerHTML = `${$remove}`
@@ -128,8 +139,19 @@ var Map = function ($container) {
                 $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
             }
             else {
-                if ($remove.selector) {
+                if ($remove && $remove.selector) {
                     $('#dremove')[0].innerHTML = `${$remove.selector}`
+                }
+                else if ($remove && $remove.originalEvent) {
+                    $('#dremove')[0].innerHTML = `${$remove.type}`
+                }
+                else if (typeof($remove) == 'object') {
+                    try {
+                        $('#dremove')[0].innerHTML = JSON.stringify($remove)
+                    }
+                    catch {
+                        $('#dremove')[0].innerHTML = `${$remove}`
+                    }
                 }
                 else {
                     $('#dremove')[0].innerHTML = `${$remove}`
@@ -167,8 +189,19 @@ var Map = function ($container) {
                 $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
             }
             else {
-                if ($remove.selector) {
+                if ($remove && $remove.selector) {
                     $('#dremove')[0].innerHTML = `${$remove.selector}`
+                }
+                else if ($remove && $remove.originalEvent) {
+                    $('#dremove')[0].innerHTML = `${$remove.type}`
+                }
+                else if (typeof($remove) == 'object') {
+                    try {
+                        $('#dremove')[0].innerHTML = JSON.stringify($remove)
+                    }
+                    catch {
+                        $('#dremove')[0].innerHTML = `${$remove}`
+                    }
                 }
                 else {
                     $('#dremove')[0].innerHTML = `${$remove}`

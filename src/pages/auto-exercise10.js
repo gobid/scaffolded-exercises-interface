@@ -18,6 +18,31 @@ export default class ExerciseAG10 extends React.Component {
         function eventPos(e) {
     if (e.type.match(/^touch/)) {
         e = e.originalEvent.changedTouches[0];
+
+            console.log('e', e);
+            if (JSON.stringify(`${e}`).includes("object") && e[0]) {
+                $('#e')[0].innerHTML = `<plaintext class="pt">${addNewlines(e[0].outerHTML)}`
+            }
+            else {
+                if (e && e.selector) {
+                    $('#e')[0].innerHTML = `${e.selector}`
+                }
+                else if (e && e.originalEvent) {
+                    $('#e')[0].innerHTML = `${e.type}`
+                }
+                else if (typeof(e) == 'object') {
+                    try {
+                        $('#e')[0].innerHTML = JSON.stringify(e)
+                    }
+                    catch {
+                        $('#e')[0].innerHTML = `${e}`
+                    }
+                }
+                else {
+                    $('#e')[0].innerHTML = `${e}`
+                }
+            }
+        
     }
     return {
         pageX: e.pageX,
@@ -58,29 +83,108 @@ var Map = function ($container) {
     var size = [14, 48, 25, 33];
 
             console.log('size', size);
-            if (typeof(size.length) == 'number' && size.length < 1) {
-                console.log('skipping because size has length and its 0');
-                document.getElementById('size_p').style.display = "none";
+            if (JSON.stringify(`${size}`).includes("object") && size[0]) {
+                $('#size')[0].innerHTML = `<plaintext class="pt">${addNewlines(size[0].outerHTML)}`
             }
             else {
-                if (JSON.stringify(`${size}`).includes("object") && size[0]) {
-                    $('#size')[0].innerHTML = `<plaintext class="pt">${addNewlines(size[0].outerHTML)}`
+                if (size && size.selector) {
+                    $('#size')[0].innerHTML = `${size.selector}`
                 }
-                else {
-                    if (size.selector) {
-                        $('#size')[0].innerHTML = `${size.selector}`
+                else if (size && size.originalEvent) {
+                    $('#size')[0].innerHTML = `${size.type}`
+                }
+                else if (typeof(size) == 'object') {
+                    try {
+                        $('#size')[0].innerHTML = JSON.stringify(size)
                     }
-                    else {
+                    catch {
                         $('#size')[0].innerHTML = `${size}`
                     }
                 }
+                else {
+                    $('#size')[0].innerHTML = `${size}`
+                }
             }
-            //}
         
     var tilesize = 2048;
+
+            console.log('tilesize', tilesize);
+            if (JSON.stringify(`${tilesize}`).includes("object") && tilesize[0]) {
+                $('#tilesize')[0].innerHTML = `<plaintext class="pt">${addNewlines(tilesize[0].outerHTML)}`
+            }
+            else {
+                if (tilesize && tilesize.selector) {
+                    $('#tilesize')[0].innerHTML = `${tilesize.selector}`
+                }
+                else if (tilesize && tilesize.originalEvent) {
+                    $('#tilesize')[0].innerHTML = `${tilesize.type}`
+                }
+                else if (typeof(tilesize) == 'object') {
+                    try {
+                        $('#tilesize')[0].innerHTML = JSON.stringify(tilesize)
+                    }
+                    catch {
+                        $('#tilesize')[0].innerHTML = `${tilesize}`
+                    }
+                }
+                else {
+                    $('#tilesize')[0].innerHTML = `${tilesize}`
+                }
+            }
+        
     var visible = [];
     var container_size = [$container.width(), $container.height()];
+
+            console.log('container_size', container_size);
+            if (JSON.stringify(`${container_size}`).includes("object") && container_size[0]) {
+                $('#container_size')[0].innerHTML = `<plaintext class="pt">${addNewlines(container_size[0].outerHTML)}`
+            }
+            else {
+                if (container_size && container_size.selector) {
+                    $('#container_size')[0].innerHTML = `${container_size.selector}`
+                }
+                else if (container_size && container_size.originalEvent) {
+                    $('#container_size')[0].innerHTML = `${container_size.type}`
+                }
+                else if (typeof(container_size) == 'object') {
+                    try {
+                        $('#container_size')[0].innerHTML = JSON.stringify(container_size)
+                    }
+                    catch {
+                        $('#container_size')[0].innerHTML = `${container_size}`
+                    }
+                }
+                else {
+                    $('#container_size')[0].innerHTML = `${container_size}`
+                }
+            }
+        
     var scroll_delta = null;
+
+            console.log('scroll_delta', scroll_delta);
+            if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
+                $('#scroll_delta')[0].innerHTML = `<plaintext class="pt">${addNewlines(scroll_delta[0].outerHTML)}`
+            }
+            else {
+                if (scroll_delta && scroll_delta.selector) {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta.selector}`
+                }
+                else if (scroll_delta && scroll_delta.originalEvent) {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta.type}`
+                }
+                else if (typeof(scroll_delta) == 'object') {
+                    try {
+                        $('#scroll_delta')[0].innerHTML = JSON.stringify(scroll_delta)
+                    }
+                    catch {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta}`
+                    }
+                }
+                else {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta}`
+                }
+            }
+        
 
     var $map = $container.children(".map");
 
@@ -93,6 +197,31 @@ var Map = function ($container) {
     });
 
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
+
+            console.log('position', position);
+            if (JSON.stringify(`${position}`).includes("object") && position[0]) {
+                $('#position')[0].innerHTML = `<plaintext class="pt">${addNewlines(position[0].outerHTML)}`
+            }
+            else {
+                if (position && position.selector) {
+                    $('#position')[0].innerHTML = `${position.selector}`
+                }
+                else if (position && position.originalEvent) {
+                    $('#position')[0].innerHTML = `${position.type}`
+                }
+                else if (typeof(position) == 'object') {
+                    try {
+                        $('#position')[0].innerHTML = JSON.stringify(position)
+                    }
+                    catch {
+                        $('#position')[0].innerHTML = `${position}`
+                    }
+                }
+                else {
+                    $('#position')[0].innerHTML = `${position}`
+                }
+            }
+        
 
     $map.find(".ground").css({
         top: size[0] * tilesize,
@@ -116,49 +245,7 @@ var Map = function ($container) {
 
         var tile_name = function (x, y) {
             x -= size[3];
-
-            console.log('x', x);
-            if (typeof(x.length) == 'number' && x.length < 1) {
-                console.log('skipping because x has length and its 0');
-                document.getElementById('x_p').style.display = "none";
-            }
-            else {
-                if (JSON.stringify(`${x}`).includes("object") && x[0]) {
-                    $('#x')[0].innerHTML = `<plaintext class="pt">${addNewlines(x[0].outerHTML)}`
-                }
-                else {
-                    if (x.selector) {
-                        $('#x')[0].innerHTML = `${x.selector}`
-                    }
-                    else {
-                        $('#x')[0].innerHTML = `${x}`
-                    }
-                }
-            }
-            //}
-        
             y -= size[0];
-
-            console.log('y', y);
-            if (typeof(y.length) == 'number' && y.length < 1) {
-                console.log('skipping because y has length and its 0');
-                document.getElementById('y_p').style.display = "none";
-            }
-            else {
-                if (JSON.stringify(`${y}`).includes("object") && y[0]) {
-                    $('#y')[0].innerHTML = `<plaintext class="pt">${addNewlines(y[0].outerHTML)}`
-                }
-                else {
-                    if (y.selector) {
-                        $('#y')[0].innerHTML = `${y.selector}`
-                    }
-                    else {
-                        $('#y')[0].innerHTML = `${y}`
-                    }
-                }
-            }
-            //}
-        
             return (y >= 0 ? y + 1 + "s" : -y + "n") + (x >= 0 ? x + 1 + "e" : -x + "w");
         };
 
@@ -193,49 +280,7 @@ var Map = function ($container) {
                         $map.append($image);
                     }
                 }
-
-            console.log('x', x);
-            if (typeof(x.length) == 'number' && x.length < 1) {
-                console.log('skipping because x has length and its 0');
-                document.getElementById('x_p').style.display = "none";
             }
-            else {
-                if (JSON.stringify(`${x}`).includes("object") && x[0]) {
-                    $('#x')[0].innerHTML = `<plaintext class="pt">${addNewlines(x[0].outerHTML)}`
-                }
-                else {
-                    if (x.selector) {
-                        $('#x')[0].innerHTML = `${x.selector}`
-                    }
-                    else {
-                        $('#x')[0].innerHTML = `${x}`
-                    }
-                }
-            }
-            //}
-        
-            }
-
-            console.log('y', y);
-            if (typeof(y.length) == 'number' && y.length < 1) {
-                console.log('skipping because y has length and its 0');
-                document.getElementById('y_p').style.display = "none";
-            }
-            else {
-                if (JSON.stringify(`${y}`).includes("object") && y[0]) {
-                    $('#y')[0].innerHTML = `<plaintext class="pt">${addNewlines(y[0].outerHTML)}`
-                }
-                else {
-                    if (y.selector) {
-                        $('#y')[0].innerHTML = `${y.selector}`
-                    }
-                    else {
-                        $('#y')[0].innerHTML = `${y}`
-                    }
-                }
-            }
-            //}
-        
 
             $remove.remove();
         }
@@ -246,12 +291,87 @@ var Map = function ($container) {
     function drag(e) {
         if (scroll_delta) {
             var pos = eventPos(e);
+
+            console.log('pos', pos);
+            if (JSON.stringify(`${pos}`).includes("object") && pos[0]) {
+                $('#pos')[0].innerHTML = `<plaintext class="pt">${addNewlines(pos[0].outerHTML)}`
+            }
+            else {
+                if (pos && pos.selector) {
+                    $('#pos')[0].innerHTML = `${pos.selector}`
+                }
+                else if (pos && pos.originalEvent) {
+                    $('#pos')[0].innerHTML = `${pos.type}`
+                }
+                else if (typeof(pos) == 'object') {
+                    try {
+                        $('#pos')[0].innerHTML = JSON.stringify(pos)
+                    }
+                    catch {
+                        $('#pos')[0].innerHTML = `${pos}`
+                    }
+                }
+                else {
+                    $('#pos')[0].innerHTML = `${pos}`
+                }
+            }
+        
             position[0] = Math.round(
                 clamp(pos.pageX + scroll_delta[0], -(size[1] + size[3]) * tilesize + container_size[0], 0)
             );
+
+            console.log('position', position);
+            if (JSON.stringify(`${position}`).includes("object") && position[0]) {
+                $('#position')[0].innerHTML = `<plaintext class="pt">${addNewlines(position[0].outerHTML)}`
+            }
+            else {
+                if (position && position.selector) {
+                    $('#position')[0].innerHTML = `${position.selector}`
+                }
+                else if (position && position.originalEvent) {
+                    $('#position')[0].innerHTML = `${position.type}`
+                }
+                else if (typeof(position) == 'object') {
+                    try {
+                        $('#position')[0].innerHTML = JSON.stringify(position)
+                    }
+                    catch {
+                        $('#position')[0].innerHTML = `${position}`
+                    }
+                }
+                else {
+                    $('#position')[0].innerHTML = `${position}`
+                }
+            }
+        
             position[1] = Math.round(
                 clamp(pos.pageY + scroll_delta[1], -(size[0] + size[2]) * tilesize + container_size[1], 0)
             );
+
+            console.log('position', position);
+            if (JSON.stringify(`${position}`).includes("object") && position[0]) {
+                $('#position')[0].innerHTML = `<plaintext class="pt">${addNewlines(position[0].outerHTML)}`
+            }
+            else {
+                if (position && position.selector) {
+                    $('#position')[0].innerHTML = `${position.selector}`
+                }
+                else if (position && position.originalEvent) {
+                    $('#position')[0].innerHTML = `${position.type}`
+                }
+                else if (typeof(position) == 'object') {
+                    try {
+                        $('#position')[0].innerHTML = JSON.stringify(position)
+                    }
+                    catch {
+                        $('#position')[0].innerHTML = `${position}`
+                    }
+                }
+                else {
+                    $('#position')[0].innerHTML = `${position}`
+                }
+            }
+        
             update();
         }
     }
@@ -261,13 +381,113 @@ var Map = function ($container) {
             return;
         }
         var pos = eventPos(e);
+
+            console.log('pos', pos);
+            if (JSON.stringify(`${pos}`).includes("object") && pos[0]) {
+                $('#pos')[0].innerHTML = `<plaintext class="pt">${addNewlines(pos[0].outerHTML)}`
+            }
+            else {
+                if (pos && pos.selector) {
+                    $('#pos')[0].innerHTML = `${pos.selector}`
+                }
+                else if (pos && pos.originalEvent) {
+                    $('#pos')[0].innerHTML = `${pos.type}`
+                }
+                else if (typeof(pos) == 'object') {
+                    try {
+                        $('#pos')[0].innerHTML = JSON.stringify(pos)
+                    }
+                    catch {
+                        $('#pos')[0].innerHTML = `${pos}`
+                    }
+                }
+                else {
+                    $('#pos')[0].innerHTML = `${pos}`
+                }
+            }
+        
         scroll_delta = [position[0] - pos.pageX, position[1] - pos.pageY];
+
+            console.log('scroll_delta', scroll_delta);
+            if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
+                $('#scroll_delta')[0].innerHTML = `<plaintext class="pt">${addNewlines(scroll_delta[0].outerHTML)}`
+            }
+            else {
+                if (scroll_delta && scroll_delta.selector) {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta.selector}`
+                }
+                else if (scroll_delta && scroll_delta.originalEvent) {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta.type}`
+                }
+                else if (typeof(scroll_delta) == 'object') {
+                    try {
+                        $('#scroll_delta')[0].innerHTML = JSON.stringify(scroll_delta)
+                    }
+                    catch {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta}`
+                    }
+                }
+                else {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta}`
+                }
+            }
+        
         $(document).on(e.type == "mousedown" ? "mousemove" : "touchmove", drag);
         e.preventDefault();
+
+            console.log('e', e);
+            if (JSON.stringify(`${e}`).includes("object") && e[0]) {
+                $('#e')[0].innerHTML = `<plaintext class="pt">${addNewlines(e[0].outerHTML)}`
+            }
+            else {
+                if (e && e.selector) {
+                    $('#e')[0].innerHTML = `${e.selector}`
+                }
+                else if (e && e.originalEvent) {
+                    $('#e')[0].innerHTML = `${e.type}`
+                }
+                else if (typeof(e) == 'object') {
+                    try {
+                        $('#e')[0].innerHTML = JSON.stringify(e)
+                    }
+                    catch {
+                        $('#e')[0].innerHTML = `${e}`
+                    }
+                }
+                else {
+                    $('#e')[0].innerHTML = `${e}`
+                }
+            }
+        
     });
     $(document).on("mouseup touchend", function (e) {
         $(document).off("mousemove touchmove", drag);
         scroll_delta = null;
+
+            console.log('scroll_delta', scroll_delta);
+            if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
+                $('#scroll_delta')[0].innerHTML = `<plaintext class="pt">${addNewlines(scroll_delta[0].outerHTML)}`
+            }
+            else {
+                if (scroll_delta && scroll_delta.selector) {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta.selector}`
+                }
+                else if (scroll_delta && scroll_delta.originalEvent) {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta.type}`
+                }
+                else if (typeof(scroll_delta) == 'object') {
+                    try {
+                        $('#scroll_delta')[0].innerHTML = JSON.stringify(scroll_delta)
+                    }
+                    catch {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta}`
+                    }
+                }
+                else {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta}`
+                }
+            }
+        
     });
 };
 
@@ -290,16 +510,20 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='x_p'>x = <span id='x'> </span> </p>
-<p id='y_p'>y = <span id='y'> </span> </p>
+                    <p id='e_p'>e = <span id='e'> </span> </p>
+<p id='scroll_delta_p'>scroll_delta = <span id='scroll_delta'> </span> </p>
+<p id='pos_p'>pos = <span id='pos'> </span> </p>
+<p id='position_p'>position = <span id='position'> </span> </p>
 <p id='size_p'>size = <span id='size'> </span> </p>
+<p id='tilesize_p'>tilesize = <span id='tilesize'> </span> </p>
+<p id='container_size_p'>container_size = <span id='container_size'> </span> </p>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: x?</p>
+                        <p>What is the relationship between the following variables: e?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                     </div>
                 </div>

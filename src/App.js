@@ -11,7 +11,6 @@ import ExerciseAG7 from './pages/auto-exercise7.js';
 import ExerciseAG8 from './pages/auto-exercise8.js';
 import ExerciseAG9 from './pages/auto-exercise9.js';
 import ExerciseAG10 from './pages/auto-exercise10.js';
-import ExerciseAG11 from './pages/auto-exercise11.js';
 
 import ExerciseG from './pages/exerciseg';
 import Exercise1 from './pages/exercise1';
@@ -92,11 +91,6 @@ export default class App extends React.Component {
           <Route exact={true} path='/exercise-auto10' render={() => (
             <div className="App">
               <ExerciseAG10 />
-            </div>
-          )} />
-          <Route exact={true} path='/exercise-auto11' render={() => (
-            <div className="App">
-              <ExerciseAG11 />
             </div>
           )} />
 

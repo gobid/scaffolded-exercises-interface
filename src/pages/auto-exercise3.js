@@ -68,8 +68,19 @@ var Map = function ($container) {
                 $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
             }
             else {
-                if ($map.selector) {
+                if ($map && $map.selector) {
                     $('#dmap')[0].innerHTML = `${$map.selector}`
+                }
+                else if ($map && $map.originalEvent) {
+                    $('#dmap')[0].innerHTML = `${$map.type}`
+                }
+                else if (typeof($map) == 'object') {
+                    try {
+                        $('#dmap')[0].innerHTML = JSON.stringify($map)
+                    }
+                    catch {
+                        $('#dmap')[0].innerHTML = `${$map}`
+                    }
                 }
                 else {
                     $('#dmap')[0].innerHTML = `${$map}`
@@ -90,8 +101,19 @@ var Map = function ($container) {
                 $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
             }
             else {
-                if ($map.selector) {
+                if ($map && $map.selector) {
                     $('#dmap')[0].innerHTML = `${$map.selector}`
+                }
+                else if ($map && $map.originalEvent) {
+                    $('#dmap')[0].innerHTML = `${$map.type}`
+                }
+                else if (typeof($map) == 'object') {
+                    try {
+                        $('#dmap')[0].innerHTML = JSON.stringify($map)
+                    }
+                    catch {
+                        $('#dmap')[0].innerHTML = `${$map}`
+                    }
                 }
                 else {
                     $('#dmap')[0].innerHTML = `${$map}`
@@ -123,8 +145,19 @@ var Map = function ($container) {
                 $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
             }
             else {
-                if ($map.selector) {
+                if ($map && $map.selector) {
                     $('#dmap')[0].innerHTML = `${$map.selector}`
+                }
+                else if ($map && $map.originalEvent) {
+                    $('#dmap')[0].innerHTML = `${$map.type}`
+                }
+                else if (typeof($map) == 'object') {
+                    try {
+                        $('#dmap')[0].innerHTML = JSON.stringify($map)
+                    }
+                    catch {
+                        $('#dmap')[0].innerHTML = `${$map}`
+                    }
                 }
                 else {
                     $('#dmap')[0].innerHTML = `${$map}`
@@ -176,8 +209,19 @@ var Map = function ($container) {
                 $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
             }
             else {
-                if ($map.selector) {
+                if ($map && $map.selector) {
                     $('#dmap')[0].innerHTML = `${$map.selector}`
+                }
+                else if ($map && $map.originalEvent) {
+                    $('#dmap')[0].innerHTML = `${$map.type}`
+                }
+                else if (typeof($map) == 'object') {
+                    try {
+                        $('#dmap')[0].innerHTML = JSON.stringify($map)
+                    }
+                    catch {
+                        $('#dmap')[0].innerHTML = `${$map}`
+                    }
                 }
                 else {
                     $('#dmap')[0].innerHTML = `${$map}`
