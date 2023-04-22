@@ -3,7 +3,17 @@ import './../App.css';
 import $ from 'jquery';
 window.$ = $;
 
+function addNewlines(str) {
+    var result = '';
+    while (str.length > 0) {
+        result += str.substring(0, 40) + '\n';
+        str = str.substring(40);
+    }
+    return result;
+}
+
 export default class ExerciseAG10 extends React.Component {
+
     componentDidMount() {
         function eventPos(e) {
     if (e.type.match(/^touch/)) {
@@ -46,7 +56,27 @@ var Map = function ($container) {
 
     var padding_top = 200;
     var size = [14, 48, 25, 33];
-$('#size')[0].innerHTML = JSON.stringify(`${size}`)
+
+            console.log('size', size);
+            if (typeof(size.length) == 'number' && size.length < 1) {
+                console.log('skipping because size has length and its 0');
+                document.getElementById('size_p').style.display = "none";
+            }
+            else {
+                if (JSON.stringify(`${size}`).includes("object") && size[0]) {
+                    $('#size')[0].innerHTML = `<plaintext class="pt">${addNewlines(size[0].outerHTML)}`
+                }
+                else {
+                    if (size.selector) {
+                        $('#size')[0].innerHTML = `${size.selector}`
+                    }
+                    else {
+                        $('#size')[0].innerHTML = `${size}`
+                    }
+                }
+            }
+            //}
+        
     var tilesize = 2048;
     var visible = [];
     var container_size = [$container.width(), $container.height()];
@@ -86,9 +116,49 @@ $('#size')[0].innerHTML = JSON.stringify(`${size}`)
 
         var tile_name = function (x, y) {
             x -= size[3];
-$('#x')[0].innerHTML = JSON.stringify(`${x}`)
+
+            console.log('x', x);
+            if (typeof(x.length) == 'number' && x.length < 1) {
+                console.log('skipping because x has length and its 0');
+                document.getElementById('x_p').style.display = "none";
+            }
+            else {
+                if (JSON.stringify(`${x}`).includes("object") && x[0]) {
+                    $('#x')[0].innerHTML = `<plaintext class="pt">${addNewlines(x[0].outerHTML)}`
+                }
+                else {
+                    if (x.selector) {
+                        $('#x')[0].innerHTML = `${x.selector}`
+                    }
+                    else {
+                        $('#x')[0].innerHTML = `${x}`
+                    }
+                }
+            }
+            //}
+        
             y -= size[0];
-$('#y')[0].innerHTML = JSON.stringify(`${y}`)
+
+            console.log('y', y);
+            if (typeof(y.length) == 'number' && y.length < 1) {
+                console.log('skipping because y has length and its 0');
+                document.getElementById('y_p').style.display = "none";
+            }
+            else {
+                if (JSON.stringify(`${y}`).includes("object") && y[0]) {
+                    $('#y')[0].innerHTML = `<plaintext class="pt">${addNewlines(y[0].outerHTML)}`
+                }
+                else {
+                    if (y.selector) {
+                        $('#y')[0].innerHTML = `${y.selector}`
+                    }
+                    else {
+                        $('#y')[0].innerHTML = `${y}`
+                    }
+                }
+            }
+            //}
+        
             return (y >= 0 ? y + 1 + "s" : -y + "n") + (x >= 0 ? x + 1 + "e" : -x + "w");
         };
 
@@ -123,9 +193,49 @@ $('#y')[0].innerHTML = JSON.stringify(`${y}`)
                         $map.append($image);
                     }
                 }
-$('#x')[0].innerHTML = JSON.stringify(`${x}`)
+
+            console.log('x', x);
+            if (typeof(x.length) == 'number' && x.length < 1) {
+                console.log('skipping because x has length and its 0');
+                document.getElementById('x_p').style.display = "none";
             }
-$('#y')[0].innerHTML = JSON.stringify(`${y}`)
+            else {
+                if (JSON.stringify(`${x}`).includes("object") && x[0]) {
+                    $('#x')[0].innerHTML = `<plaintext class="pt">${addNewlines(x[0].outerHTML)}`
+                }
+                else {
+                    if (x.selector) {
+                        $('#x')[0].innerHTML = `${x.selector}`
+                    }
+                    else {
+                        $('#x')[0].innerHTML = `${x}`
+                    }
+                }
+            }
+            //}
+        
+            }
+
+            console.log('y', y);
+            if (typeof(y.length) == 'number' && y.length < 1) {
+                console.log('skipping because y has length and its 0');
+                document.getElementById('y_p').style.display = "none";
+            }
+            else {
+                if (JSON.stringify(`${y}`).includes("object") && y[0]) {
+                    $('#y')[0].innerHTML = `<plaintext class="pt">${addNewlines(y[0].outerHTML)}`
+                }
+                else {
+                    if (y.selector) {
+                        $('#y')[0].innerHTML = `${y.selector}`
+                    }
+                    else {
+                        $('#y')[0].innerHTML = `${y}`
+                    }
+                }
+            }
+            //}
+        
 
             $remove.remove();
         }
@@ -180,9 +290,9 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p>x = <span id='x'> </span> </p>
-<p>y = <span id='y'> </span> </p>
-<p>size = <span id='size'> </span> </p>
+                    <p id='x_p'>x = <span id='x'> </span> </p>
+<p id='y_p'>y = <span id='y'> </span> </p>
+<p id='size_p'>size = <span id='size'> </span> </p>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>

@@ -3,7 +3,17 @@ import './../App.css';
 import $ from 'jquery';
 window.$ = $;
 
+function addNewlines(str) {
+    var result = '';
+    while (str.length > 0) {
+        result += str.substring(0, 40) + '\n';
+        str = str.substring(40);
+    }
+    return result;
+}
+
 export default class ExerciseAG3 extends React.Component {
+
     componentDidMount() {
         function eventPos(e) {
     if (e.type.match(/^touch/)) {
@@ -52,7 +62,20 @@ var Map = function ($container) {
     var scroll_delta = null;
 
     var $map = $container.children(".map");
-$('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
+
+            console.log('$map', $map);
+            if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
+                $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
+            }
+            else {
+                if ($map.selector) {
+                    $('#dmap')[0].innerHTML = `${$map.selector}`
+                }
+                else {
+                    $('#dmap')[0].innerHTML = `${$map}`
+                }
+            }
+        
 
     var map_size = [(size[1] + size[3]) * tilesize, (size[0] + size[2]) * tilesize];
     $map.css({
@@ -61,7 +84,20 @@ $('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
         position: "absolute",
         zIndex: -1
     });
-$('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
+
+            console.log('$map', $map);
+            if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
+                $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
+            }
+            else {
+                if ($map.selector) {
+                    $('#dmap')[0].innerHTML = `${$map.selector}`
+                }
+                else {
+                    $('#dmap')[0].innerHTML = `${$map}`
+                }
+            }
+        
 
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
 
@@ -81,7 +117,20 @@ $('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
             left: position[0],
             top: position[1]
         });
-$('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
+
+            console.log('$map', $map);
+            if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
+                $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
+            }
+            else {
+                if ($map.selector) {
+                    $('#dmap')[0].innerHTML = `${$map.selector}`
+                }
+                else {
+                    $('#dmap')[0].innerHTML = `${$map}`
+                }
+            }
+        
 
         var centre_last = centre;
         centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];
@@ -121,7 +170,20 @@ $('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
                                 $(this).remove();
                             });
                         $map.append($image);
-$('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
+
+            console.log('$map', $map);
+            if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
+                $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
+            }
+            else {
+                if ($map.selector) {
+                    $('#dmap')[0].innerHTML = `${$map.selector}`
+                }
+                else {
+                    $('#dmap')[0].innerHTML = `${$map}`
+                }
+            }
+        
                     }
                 }
             }
@@ -179,7 +241,7 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p>$map = <span id='dmap'> </span> </p>
+                    <p id='dmap_p'>$map = <span id='dmap'> </span> </p>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>

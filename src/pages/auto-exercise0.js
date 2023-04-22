@@ -3,7 +3,17 @@ import './../App.css';
 import $ from 'jquery';
 window.$ = $;
 
+function addNewlines(str) {
+    var result = '';
+    while (str.length > 0) {
+        result += str.substring(0, 40) + '\n';
+        str = str.substring(40);
+    }
+    return result;
+}
+
 export default class ExerciseAG0 extends React.Component {
+
     componentDidMount() {
         function eventPos(e) {
     if (e.type.match(/^touch/)) {
@@ -91,7 +101,20 @@ var Map = function ($container) {
 
         if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {
             var $remove = $map.children().not(".ground");
-$('#dremove')[0].innerHTML = JSON.stringify(`${$remove}`)
+
+            console.log('$remove', $remove);
+            if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
+                $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
+            }
+            else {
+                if ($remove.selector) {
+                    $('#dremove')[0].innerHTML = `${$remove.selector}`
+                }
+                else {
+                    $('#dremove')[0].innerHTML = `${$remove}`
+                }
+            }
+        
 
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
@@ -99,7 +122,20 @@ $('#dremove')[0].innerHTML = JSON.stringify(`${$remove}`)
                     var tile = $map.find(".tile" + name);
                     if (tile.length) {
                         $remove = $remove.not(tile);
-$('#dremove')[0].innerHTML = JSON.stringify(`${$remove}`)
+
+            console.log('$remove', $remove);
+            if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
+                $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
+            }
+            else {
+                if ($remove.selector) {
+                    $('#dremove')[0].innerHTML = `${$remove.selector}`
+                }
+                else {
+                    $('#dremove')[0].innerHTML = `${$remove}`
+                }
+            }
+        
                     } else {
                         var $image = $(
                             '<img class="tile' +
@@ -125,7 +161,20 @@ $('#dremove')[0].innerHTML = JSON.stringify(`${$remove}`)
             }
 
             $remove.remove();
-$('#dremove')[0].innerHTML = JSON.stringify(`${$remove}`)
+
+            console.log('$remove', $remove);
+            if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
+                $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
+            }
+            else {
+                if ($remove.selector) {
+                    $('#dremove')[0].innerHTML = `${$remove.selector}`
+                }
+                else {
+                    $('#dremove')[0].innerHTML = `${$remove}`
+                }
+            }
+        
         }
     };
 
@@ -178,7 +227,7 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p>$remove = <span id='dremove'> </span> </p>
+                    <p id='dremove_p'>$remove = <span id='dremove'> </span> </p>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>

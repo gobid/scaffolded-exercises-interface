@@ -3,7 +3,17 @@ import './../App.css';
 import $ from 'jquery';
 window.$ = $;
 
+function addNewlines(str) {
+    var result = '';
+    while (str.length > 0) {
+        result += str.substring(0, 40) + '\n';
+        str = str.substring(40);
+    }
+    return result;
+}
+
 export default class ExerciseAG8 extends React.Component {
+
     componentDidMount() {
         function eventPos(e) {
     if (e.type.match(/^touch/)) {
@@ -27,12 +37,52 @@ var Map = function ($container) {
     }); /** another comment */
 
     var $overlay = $container.children("img");
-$('#doverlay')[0].innerHTML = JSON.stringify(`${$overlay}`)
+
+            console.log('$overlay', $overlay);
+            if (typeof($overlay.length) == 'number' && $overlay.length < 1) {
+                console.log('skipping because $overlay has length and its 0');
+                document.getElementById('doverlay_p').style.display = "none";
+            }
+            else {
+                if (JSON.stringify(`${$overlay}`).includes("object") && $overlay[0]) {
+                    $('#doverlay')[0].innerHTML = `<plaintext class="pt">${addNewlines($overlay[0].outerHTML)}`
+                }
+                else {
+                    if ($overlay.selector) {
+                        $('#doverlay')[0].innerHTML = `${$overlay.selector}`
+                    }
+                    else {
+                        $('#doverlay')[0].innerHTML = `${$overlay}`
+                    }
+                }
+            }
+            //}
+        
     $overlay.css({
         background: "transparent",
         position: "relative"
     });
-$('#doverlay')[0].innerHTML = JSON.stringify(`${$overlay}`)
+
+            console.log('$overlay', $overlay);
+            if (typeof($overlay.length) == 'number' && $overlay.length < 1) {
+                console.log('skipping because $overlay has length and its 0');
+                document.getElementById('doverlay_p').style.display = "none";
+            }
+            else {
+                if (JSON.stringify(`${$overlay}`).includes("object") && $overlay[0]) {
+                    $('#doverlay')[0].innerHTML = `<plaintext class="pt">${addNewlines($overlay[0].outerHTML)}`
+                }
+                else {
+                    if ($overlay.selector) {
+                        $('#doverlay')[0].innerHTML = `${$overlay.selector}`
+                    }
+                    else {
+                        $('#doverlay')[0].innerHTML = `${$overlay}`
+                    }
+                }
+            }
+            //}
+        
 
     var sign = function (x) {
         return x > 0 ? +1 : x < 0 ? -1 : 0;
@@ -177,7 +227,7 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p>$overlay = <span id='doverlay'> </span> </p>
+                    <p id='doverlay_p'>$overlay = <span id='doverlay'> </span> </p>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>

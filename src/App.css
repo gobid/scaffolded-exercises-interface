@@ -747,6 +747,7 @@ ul.comicNav a:hover, ul.comicNav a:focus {
   top: 100px;
   right: -300px;
   width: 300px;
+  text-align: left;
 }
 
 .reflection-area {
@@ -756,4 +757,9 @@ ul.comicNav a:hover, ul.comicNav a:focus {
 
 .reflection-textarea {
   width: 100%;
+}
+
+.pt {
+  word-wrap: break-word;
+  max-width:300px;
 }

@@ -3,7 +3,17 @@ import './../App.css';
 import $ from 'jquery';
 window.$ = $;
 
+function addNewlines(str) {
+    var result = '';
+    while (str.length > 0) {
+        result += str.substring(0, 40) + '\n';
+        str = str.substring(40);
+    }
+    return result;
+}
+
 export default class ExerciseAG1 extends React.Component {
+
     componentDidMount() {
         function eventPos(e) {
     if (e.type.match(/^touch/)) {
@@ -27,12 +37,10 @@ var Map = function ($container) {
     }); /** another comment */
 
     var $overlay = $container.children("img");
-$('#doverlay')[0].innerHTML = JSON.stringify(`${$overlay}`)
     $overlay.css({
         background: "transparent",
         position: "relative"
     });
-$('#doverlay')[0].innerHTML = JSON.stringify(`${$overlay}`)
 
     var sign = function (x) {
         return x > 0 ? +1 : x < 0 ? -1 : 0;
@@ -54,7 +62,20 @@ $('#doverlay')[0].innerHTML = JSON.stringify(`${$overlay}`)
     var scroll_delta = null;
 
     var $map = $container.children(".map");
-$('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
+
+            console.log('$map', $map);
+            if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
+                $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
+            }
+            else {
+                if ($map.selector) {
+                    $('#dmap')[0].innerHTML = `${$map.selector}`
+                }
+                else {
+                    $('#dmap')[0].innerHTML = `${$map}`
+                }
+            }
+        
 
     var map_size = [(size[1] + size[3]) * tilesize, (size[0] + size[2]) * tilesize];
     $map.css({
@@ -63,7 +84,20 @@ $('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
         position: "absolute",
         zIndex: -1
     });
-$('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
+
+            console.log('$map', $map);
+            if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
+                $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
+            }
+            else {
+                if ($map.selector) {
+                    $('#dmap')[0].innerHTML = `${$map.selector}`
+                }
+                else {
+                    $('#dmap')[0].innerHTML = `${$map}`
+                }
+            }
+        
 
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
 
@@ -83,7 +117,20 @@ $('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
             left: position[0],
             top: position[1]
         });
-$('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
+
+            console.log('$map', $map);
+            if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
+                $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
+            }
+            else {
+                if ($map.selector) {
+                    $('#dmap')[0].innerHTML = `${$map.selector}`
+                }
+                else {
+                    $('#dmap')[0].innerHTML = `${$map}`
+                }
+            }
+        
 
         var centre_last = centre;
         centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];
@@ -96,16 +143,55 @@ $('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
 
         if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {
             var $remove = $map.children().not(".ground");
-$('#dremove')[0].innerHTML = JSON.stringify(`${$remove}`)
+
+            console.log('$remove', $remove);
+            if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
+                $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
+            }
+            else {
+                if ($remove.selector) {
+                    $('#dremove')[0].innerHTML = `${$remove.selector}`
+                }
+                else {
+                    $('#dremove')[0].innerHTML = `${$remove}`
+                }
+            }
+        
 
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
                     var name = tile_name(centre[0] + x, centre[1] + y);
                     var tile = $map.find(".tile" + name);
-$('#tile')[0].innerHTML = JSON.stringify(`${tile}`)
+
+            console.log('tile', tile);
+            if (JSON.stringify(`${tile}`).includes("object") && tile[0]) {
+                $('#tile')[0].innerHTML = `<plaintext class="pt">${addNewlines(tile[0].outerHTML)}`
+            }
+            else {
+                if (tile.selector) {
+                    $('#tile')[0].innerHTML = `${tile.selector}`
+                }
+                else {
+                    $('#tile')[0].innerHTML = `${tile}`
+                }
+            }
+        
                     if (tile.length) {
                         $remove = $remove.not(tile);
-$('#dremove')[0].innerHTML = JSON.stringify(`${$remove}`)
+
+            console.log('$remove', $remove);
+            if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
+                $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
+            }
+            else {
+                if ($remove.selector) {
+                    $('#dremove')[0].innerHTML = `${$remove.selector}`
+                }
+                else {
+                    $('#dremove')[0].innerHTML = `${$remove}`
+                }
+            }
+        
                     } else {
                         var $image = $(
                             '<img class="tile' +
@@ -118,7 +204,20 @@ $('#dremove')[0].innerHTML = JSON.stringify(`${$remove}`)
                                 (centre[0] + x) * tilesize +
                                 'px; z-index: -1; position: absolute;;" style="display:none" />'
                         );
-$('#dimage')[0].innerHTML = JSON.stringify(`${$image}`)
+
+            console.log('$image', $image);
+            if (JSON.stringify(`${$image}`).includes("object") && $image[0]) {
+                $('#dimage')[0].innerHTML = `<plaintext class="pt">${addNewlines($image[0].outerHTML)}`
+            }
+            else {
+                if ($image.selector) {
+                    $('#dimage')[0].innerHTML = `${$image.selector}`
+                }
+                else {
+                    $('#dimage')[0].innerHTML = `${$image}`
+                }
+            }
+        
                         $image
                             .load(function () {
                                 $(this).show();
@@ -127,13 +226,39 @@ $('#dimage')[0].innerHTML = JSON.stringify(`${$image}`)
                                 $(this).remove();
                             });
                         $map.append($image);
-$('#dmap')[0].innerHTML = JSON.stringify(`${$map}`)
+
+            console.log('$map', $map);
+            if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
+                $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
+            }
+            else {
+                if ($map.selector) {
+                    $('#dmap')[0].innerHTML = `${$map.selector}`
+                }
+                else {
+                    $('#dmap')[0].innerHTML = `${$map}`
+                }
+            }
+        
                     }
                 }
             }
 
             $remove.remove();
-$('#dremove')[0].innerHTML = JSON.stringify(`${$remove}`)
+
+            console.log('$remove', $remove);
+            if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
+                $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
+            }
+            else {
+                if ($remove.selector) {
+                    $('#dremove')[0].innerHTML = `${$remove.selector}`
+                }
+                else {
+                    $('#dremove')[0].innerHTML = `${$remove}`
+                }
+            }
+        
         }
     };
 
@@ -186,11 +311,10 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p>$remove = <span id='dremove'> </span> </p>
-<p>$map = <span id='dmap'> </span> </p>
-<p>$image = <span id='dimage'> </span> </p>
-<p>tile = <span id='tile'> </span> </p>
-<p>$overlay = <span id='doverlay'> </span> </p>
+                    <p id='dremove_p'>$remove = <span id='dremove'> </span> </p>
+<p id='dmap_p'>$map = <span id='dmap'> </span> </p>
+<p id='dimage_p'>$image = <span id='dimage'> </span> </p>
+<p id='tile_p'>tile = <span id='tile'> </span> </p>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
