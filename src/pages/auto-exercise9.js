@@ -18,6 +18,31 @@ export default class ExerciseAG9 extends React.Component {
         function eventPos(e) {
     if (e.type.match(/^touch/)) {
         e = e.originalEvent.changedTouches[0];
+
+            console.log('e', e);
+            if (JSON.stringify(`${e}`).includes("object") && e[0]) {
+                $('#e')[0].innerHTML = `<plaintext class="pt">${addNewlines(e[0].outerHTML)}`
+            }
+            else {
+                if (e && e.selector) {
+                    $('#e')[0].innerHTML = `${e.selector}`
+                }
+                else if (e && e.originalEvent) {
+                    $('#e')[0].innerHTML = `${e.type}`
+                }
+                else if (typeof(e) == 'object') {
+                    try {
+                        $('#e')[0].innerHTML = JSON.stringify(e)
+                    }
+                    catch {
+                        $('#e')[0].innerHTML = `${e}`
+                    }
+                }
+                else {
+                    $('#e')[0].innerHTML = `${e}`
+                }
+            }
+        
     }
     return {
         pageX: e.pageX,
@@ -56,35 +81,85 @@ var Map = function ($container) {
 
     var padding_top = 200;
     var size = [14, 48, 25, 33];
+    var tilesize = 2048;
 
-            console.log('size', size);
-            if (JSON.stringify(`${size}`).includes("object") && size[0]) {
-                $('#size')[0].innerHTML = `<plaintext class="pt">${addNewlines(size[0].outerHTML)}`
+            console.log('tilesize', tilesize);
+            if (JSON.stringify(`${tilesize}`).includes("object") && tilesize[0]) {
+                $('#tilesize')[0].innerHTML = `<plaintext class="pt">${addNewlines(tilesize[0].outerHTML)}`
             }
             else {
-                if (size && size.selector) {
-                    $('#size')[0].innerHTML = `${size.selector}`
+                if (tilesize && tilesize.selector) {
+                    $('#tilesize')[0].innerHTML = `${tilesize.selector}`
                 }
-                else if (size && size.originalEvent) {
-                    $('#size')[0].innerHTML = `${size.type}`
+                else if (tilesize && tilesize.originalEvent) {
+                    $('#tilesize')[0].innerHTML = `${tilesize.type}`
                 }
-                else if (typeof(size) == 'object') {
+                else if (typeof(tilesize) == 'object') {
                     try {
-                        $('#size')[0].innerHTML = JSON.stringify(size)
+                        $('#tilesize')[0].innerHTML = JSON.stringify(tilesize)
                     }
                     catch {
-                        $('#size')[0].innerHTML = `${size}`
+                        $('#tilesize')[0].innerHTML = `${tilesize}`
                     }
                 }
                 else {
-                    $('#size')[0].innerHTML = `${size}`
+                    $('#tilesize')[0].innerHTML = `${tilesize}`
                 }
             }
         
-    var tilesize = 2048;
     var visible = [];
     var container_size = [$container.width(), $container.height()];
+
+            console.log('container_size', container_size);
+            if (JSON.stringify(`${container_size}`).includes("object") && container_size[0]) {
+                $('#container_size')[0].innerHTML = `<plaintext class="pt">${addNewlines(container_size[0].outerHTML)}`
+            }
+            else {
+                if (container_size && container_size.selector) {
+                    $('#container_size')[0].innerHTML = `${container_size.selector}`
+                }
+                else if (container_size && container_size.originalEvent) {
+                    $('#container_size')[0].innerHTML = `${container_size.type}`
+                }
+                else if (typeof(container_size) == 'object') {
+                    try {
+                        $('#container_size')[0].innerHTML = JSON.stringify(container_size)
+                    }
+                    catch {
+                        $('#container_size')[0].innerHTML = `${container_size}`
+                    }
+                }
+                else {
+                    $('#container_size')[0].innerHTML = `${container_size}`
+                }
+            }
+        
     var scroll_delta = null;
+
+            console.log('scroll_delta', scroll_delta);
+            if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
+                $('#scroll_delta')[0].innerHTML = `<plaintext class="pt">${addNewlines(scroll_delta[0].outerHTML)}`
+            }
+            else {
+                if (scroll_delta && scroll_delta.selector) {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta.selector}`
+                }
+                else if (scroll_delta && scroll_delta.originalEvent) {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta.type}`
+                }
+                else if (typeof(scroll_delta) == 'object') {
+                    try {
+                        $('#scroll_delta')[0].innerHTML = JSON.stringify(scroll_delta)
+                    }
+                    catch {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta}`
+                    }
+                }
+                else {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta}`
+                }
+            }
+        
 
     var $map = $container.children(".map");
 
@@ -98,6 +173,31 @@ var Map = function ($container) {
 
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
 
+
+            console.log('position', position);
+            if (JSON.stringify(`${position}`).includes("object") && position[0]) {
+                $('#position')[0].innerHTML = `<plaintext class="pt">${addNewlines(position[0].outerHTML)}`
+            }
+            else {
+                if (position && position.selector) {
+                    $('#position')[0].innerHTML = `${position.selector}`
+                }
+                else if (position && position.originalEvent) {
+                    $('#position')[0].innerHTML = `${position.type}`
+                }
+                else if (typeof(position) == 'object') {
+                    try {
+                        $('#position')[0].innerHTML = JSON.stringify(position)
+                    }
+                    catch {
+                        $('#position')[0].innerHTML = `${position}`
+                    }
+                }
+                else {
+                    $('#position')[0].innerHTML = `${position}`
+                }
+            }
+        
     $map.find(".ground").css({
         top: size[0] * tilesize,
         height: size[2] * tilesize,
@@ -120,63 +220,14 @@ var Map = function ($container) {
 
         var tile_name = function (x, y) {
             x -= size[3];
-
-            console.log('x', x);
-            if (JSON.stringify(`${x}`).includes("object") && x[0]) {
-                $('#x')[0].innerHTML = `<plaintext class="pt">${addNewlines(x[0].outerHTML)}`
-            }
-            else {
-                if (x && x.selector) {
-                    $('#x')[0].innerHTML = `${x.selector}`
-                }
-                else if (x && x.originalEvent) {
-                    $('#x')[0].innerHTML = `${x.type}`
-                }
-                else if (typeof(x) == 'object') {
-                    try {
-                        $('#x')[0].innerHTML = JSON.stringify(x)
-                    }
-                    catch {
-                        $('#x')[0].innerHTML = `${x}`
-                    }
-                }
-                else {
-                    $('#x')[0].innerHTML = `${x}`
-                }
-            }
-        
             y -= size[0];
-
-            console.log('y', y);
-            if (JSON.stringify(`${y}`).includes("object") && y[0]) {
-                $('#y')[0].innerHTML = `<plaintext class="pt">${addNewlines(y[0].outerHTML)}`
-            }
-            else {
-                if (y && y.selector) {
-                    $('#y')[0].innerHTML = `${y.selector}`
-                }
-                else if (y && y.originalEvent) {
-                    $('#y')[0].innerHTML = `${y.type}`
-                }
-                else if (typeof(y) == 'object') {
-                    try {
-                        $('#y')[0].innerHTML = JSON.stringify(y)
-                    }
-                    catch {
-                        $('#y')[0].innerHTML = `${y}`
-                    }
-                }
-                else {
-                    $('#y')[0].innerHTML = `${y}`
-                }
-            }
-        
             return (y >= 0 ? y + 1 + "s" : -y + "n") + (x >= 0 ? x + 1 + "e" : -x + "w");
         };
 
         if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {
             var $remove = $map.children().not(".ground");
 
+try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } try { $('#dremove')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } 
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
                     var name = tile_name(centre[0] + x, centre[1] + y);
@@ -205,57 +256,7 @@ var Map = function ($container) {
                         $map.append($image);
                     }
                 }
-
-            console.log('x', x);
-            if (JSON.stringify(`${x}`).includes("object") && x[0]) {
-                $('#x')[0].innerHTML = `<plaintext class="pt">${addNewlines(x[0].outerHTML)}`
             }
-            else {
-                if (x && x.selector) {
-                    $('#x')[0].innerHTML = `${x.selector}`
-                }
-                else if (x && x.originalEvent) {
-                    $('#x')[0].innerHTML = `${x.type}`
-                }
-                else if (typeof(x) == 'object') {
-                    try {
-                        $('#x')[0].innerHTML = JSON.stringify(x)
-                    }
-                    catch {
-                        $('#x')[0].innerHTML = `${x}`
-                    }
-                }
-                else {
-                    $('#x')[0].innerHTML = `${x}`
-                }
-            }
-        
-            }
-
-            console.log('y', y);
-            if (JSON.stringify(`${y}`).includes("object") && y[0]) {
-                $('#y')[0].innerHTML = `<plaintext class="pt">${addNewlines(y[0].outerHTML)}`
-            }
-            else {
-                if (y && y.selector) {
-                    $('#y')[0].innerHTML = `${y.selector}`
-                }
-                else if (y && y.originalEvent) {
-                    $('#y')[0].innerHTML = `${y.type}`
-                }
-                else if (typeof(y) == 'object') {
-                    try {
-                        $('#y')[0].innerHTML = JSON.stringify(y)
-                    }
-                    catch {
-                        $('#y')[0].innerHTML = `${y}`
-                    }
-                }
-                else {
-                    $('#y')[0].innerHTML = `${y}`
-                }
-            }
-        
 
             $remove.remove();
         }
@@ -266,12 +267,87 @@ var Map = function ($container) {
     function drag(e) {
         if (scroll_delta) {
             var pos = eventPos(e);
+
+            console.log('pos', pos);
+            if (JSON.stringify(`${pos}`).includes("object") && pos[0]) {
+                $('#pos')[0].innerHTML = `<plaintext class="pt">${addNewlines(pos[0].outerHTML)}`
+            }
+            else {
+                if (pos && pos.selector) {
+                    $('#pos')[0].innerHTML = `${pos.selector}`
+                }
+                else if (pos && pos.originalEvent) {
+                    $('#pos')[0].innerHTML = `${pos.type}`
+                }
+                else if (typeof(pos) == 'object') {
+                    try {
+                        $('#pos')[0].innerHTML = JSON.stringify(pos)
+                    }
+                    catch {
+                        $('#pos')[0].innerHTML = `${pos}`
+                    }
+                }
+                else {
+                    $('#pos')[0].innerHTML = `${pos}`
+                }
+            }
+        
             position[0] = Math.round(
                 clamp(pos.pageX + scroll_delta[0], -(size[1] + size[3]) * tilesize + container_size[0], 0)
             );
+
+            console.log('position', position);
+            if (JSON.stringify(`${position}`).includes("object") && position[0]) {
+                $('#position')[0].innerHTML = `<plaintext class="pt">${addNewlines(position[0].outerHTML)}`
+            }
+            else {
+                if (position && position.selector) {
+                    $('#position')[0].innerHTML = `${position.selector}`
+                }
+                else if (position && position.originalEvent) {
+                    $('#position')[0].innerHTML = `${position.type}`
+                }
+                else if (typeof(position) == 'object') {
+                    try {
+                        $('#position')[0].innerHTML = JSON.stringify(position)
+                    }
+                    catch {
+                        $('#position')[0].innerHTML = `${position}`
+                    }
+                }
+                else {
+                    $('#position')[0].innerHTML = `${position}`
+                }
+            }
+        
             position[1] = Math.round(
                 clamp(pos.pageY + scroll_delta[1], -(size[0] + size[2]) * tilesize + container_size[1], 0)
             );
+
+            console.log('position', position);
+            if (JSON.stringify(`${position}`).includes("object") && position[0]) {
+                $('#position')[0].innerHTML = `<plaintext class="pt">${addNewlines(position[0].outerHTML)}`
+            }
+            else {
+                if (position && position.selector) {
+                    $('#position')[0].innerHTML = `${position.selector}`
+                }
+                else if (position && position.originalEvent) {
+                    $('#position')[0].innerHTML = `${position.type}`
+                }
+                else if (typeof(position) == 'object') {
+                    try {
+                        $('#position')[0].innerHTML = JSON.stringify(position)
+                    }
+                    catch {
+                        $('#position')[0].innerHTML = `${position}`
+                    }
+                }
+                else {
+                    $('#position')[0].innerHTML = `${position}`
+                }
+            }
+        
             update();
         }
     }
@@ -281,13 +357,113 @@ var Map = function ($container) {
             return;
         }
         var pos = eventPos(e);
+
+            console.log('pos', pos);
+            if (JSON.stringify(`${pos}`).includes("object") && pos[0]) {
+                $('#pos')[0].innerHTML = `<plaintext class="pt">${addNewlines(pos[0].outerHTML)}`
+            }
+            else {
+                if (pos && pos.selector) {
+                    $('#pos')[0].innerHTML = `${pos.selector}`
+                }
+                else if (pos && pos.originalEvent) {
+                    $('#pos')[0].innerHTML = `${pos.type}`
+                }
+                else if (typeof(pos) == 'object') {
+                    try {
+                        $('#pos')[0].innerHTML = JSON.stringify(pos)
+                    }
+                    catch {
+                        $('#pos')[0].innerHTML = `${pos}`
+                    }
+                }
+                else {
+                    $('#pos')[0].innerHTML = `${pos}`
+                }
+            }
+        
         scroll_delta = [position[0] - pos.pageX, position[1] - pos.pageY];
+
+            console.log('scroll_delta', scroll_delta);
+            if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
+                $('#scroll_delta')[0].innerHTML = `<plaintext class="pt">${addNewlines(scroll_delta[0].outerHTML)}`
+            }
+            else {
+                if (scroll_delta && scroll_delta.selector) {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta.selector}`
+                }
+                else if (scroll_delta && scroll_delta.originalEvent) {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta.type}`
+                }
+                else if (typeof(scroll_delta) == 'object') {
+                    try {
+                        $('#scroll_delta')[0].innerHTML = JSON.stringify(scroll_delta)
+                    }
+                    catch {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta}`
+                    }
+                }
+                else {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta}`
+                }
+            }
+        
         $(document).on(e.type == "mousedown" ? "mousemove" : "touchmove", drag);
         e.preventDefault();
+
+            console.log('e', e);
+            if (JSON.stringify(`${e}`).includes("object") && e[0]) {
+                $('#e')[0].innerHTML = `<plaintext class="pt">${addNewlines(e[0].outerHTML)}`
+            }
+            else {
+                if (e && e.selector) {
+                    $('#e')[0].innerHTML = `${e.selector}`
+                }
+                else if (e && e.originalEvent) {
+                    $('#e')[0].innerHTML = `${e.type}`
+                }
+                else if (typeof(e) == 'object') {
+                    try {
+                        $('#e')[0].innerHTML = JSON.stringify(e)
+                    }
+                    catch {
+                        $('#e')[0].innerHTML = `${e}`
+                    }
+                }
+                else {
+                    $('#e')[0].innerHTML = `${e}`
+                }
+            }
+        
     });
     $(document).on("mouseup touchend", function (e) {
         $(document).off("mousemove touchmove", drag);
         scroll_delta = null;
+
+            console.log('scroll_delta', scroll_delta);
+            if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
+                $('#scroll_delta')[0].innerHTML = `<plaintext class="pt">${addNewlines(scroll_delta[0].outerHTML)}`
+            }
+            else {
+                if (scroll_delta && scroll_delta.selector) {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta.selector}`
+                }
+                else if (scroll_delta && scroll_delta.originalEvent) {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta.type}`
+                }
+                else if (typeof(scroll_delta) == 'object') {
+                    try {
+                        $('#scroll_delta')[0].innerHTML = JSON.stringify(scroll_delta)
+                    }
+                    catch {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta}`
+                    }
+                }
+                else {
+                    $('#scroll_delta')[0].innerHTML = `${scroll_delta}`
+                }
+            }
+        
     });
 };
 
@@ -310,16 +486,19 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='x_p'>x = <span id='x'> </span> </p>
-<p id='y_p'>y = <span id='y'> </span> </p>
-<p id='size_p'>size = <span id='size'> </span> </p>
+                    <p id='e_p'>e = <span id='e'> </span> </p>
+<p id='scroll_delta_p'>scroll_delta = <span id='scroll_delta'> </span> </p>
+<p id='pos_p'>pos = <span id='pos'> </span> </p>
+<p id='position_p'>position = <span id='position'> </span> </p>
+<p id='tilesize_p'>tilesize = <span id='tilesize'> </span> </p>
+<p id='container_size_p'>container_size = <span id='container_size'> </span> </p>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: x?</p>
+                        <p>What is the relationship between the following variables: scroll_delta, position, container_size, tilesize, pos, e?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                     </div>
                 </div>

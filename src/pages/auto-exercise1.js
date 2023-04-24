@@ -177,6 +177,7 @@ var Map = function ($container) {
         if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {
             var $remove = $map.children().not(".ground");
 
+
             console.log('$remove', $remove);
             if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
                 $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
@@ -201,7 +202,7 @@ var Map = function ($container) {
                 }
             }
         
-
+try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } try { $('#dremove')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } 
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
                     var name = tile_name(centre[0] + x, centre[1] + y);
@@ -209,25 +210,25 @@ var Map = function ($container) {
 
             console.log('tile', tile);
             if (JSON.stringify(`${tile}`).includes("object") && tile[0]) {
-                $('#tile')[0].innerHTML = `<plaintext class="pt">${addNewlines(tile[0].outerHTML)}`
+                $('#tile')[0].innerHTML += ' | ' + `<plaintext class="pt">${addNewlines(tile[0].outerHTML)}`
             }
             else {
                 if (tile && tile.selector) {
-                    $('#tile')[0].innerHTML = `${tile.selector}`
+                    $('#tile')[0].innerHTML += ' | ' + `${tile.selector}`
                 }
                 else if (tile && tile.originalEvent) {
-                    $('#tile')[0].innerHTML = `${tile.type}`
+                    $('#tile')[0].innerHTML += ' | ' + `${tile.type}`
                 }
                 else if (typeof(tile) == 'object') {
                     try {
-                        $('#tile')[0].innerHTML = JSON.stringify(tile)
+                        $('#tile')[0].innerHTML += ' | ' + JSON.stringify(tile)
                     }
                     catch {
-                        $('#tile')[0].innerHTML = `${tile}`
+                        $('#tile')[0].innerHTML += ' | ' + `${tile}`
                     }
                 }
                 else {
-                    $('#tile')[0].innerHTML = `${tile}`
+                    $('#tile')[0].innerHTML += ' | ' + `${tile}`
                 }
             }
         
@@ -236,25 +237,25 @@ var Map = function ($container) {
 
             console.log('$remove', $remove);
             if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
+                $('#dremove')[0].innerHTML += ' | ' + `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
             }
             else {
                 if ($remove && $remove.selector) {
-                    $('#dremove')[0].innerHTML = `${$remove.selector}`
+                    $('#dremove')[0].innerHTML += ' | ' + `${$remove.selector}`
                 }
                 else if ($remove && $remove.originalEvent) {
-                    $('#dremove')[0].innerHTML = `${$remove.type}`
+                    $('#dremove')[0].innerHTML += ' | ' + `${$remove.type}`
                 }
                 else if (typeof($remove) == 'object') {
                     try {
-                        $('#dremove')[0].innerHTML = JSON.stringify($remove)
+                        $('#dremove')[0].innerHTML += ' | ' + JSON.stringify($remove)
                     }
                     catch {
-                        $('#dremove')[0].innerHTML = `${$remove}`
+                        $('#dremove')[0].innerHTML += ' | ' + `${$remove}`
                     }
                 }
                 else {
-                    $('#dremove')[0].innerHTML = `${$remove}`
+                    $('#dremove')[0].innerHTML += ' | ' + `${$remove}`
                 }
             }
         
@@ -273,25 +274,25 @@ var Map = function ($container) {
 
             console.log('$image', $image);
             if (JSON.stringify(`${$image}`).includes("object") && $image[0]) {
-                $('#dimage')[0].innerHTML = `<plaintext class="pt">${addNewlines($image[0].outerHTML)}`
+                $('#dimage')[0].innerHTML += ' | ' + `<plaintext class="pt">${addNewlines($image[0].outerHTML)}`
             }
             else {
                 if ($image && $image.selector) {
-                    $('#dimage')[0].innerHTML = `${$image.selector}`
+                    $('#dimage')[0].innerHTML += ' | ' + `${$image.selector}`
                 }
                 else if ($image && $image.originalEvent) {
-                    $('#dimage')[0].innerHTML = `${$image.type}`
+                    $('#dimage')[0].innerHTML += ' | ' + `${$image.type}`
                 }
                 else if (typeof($image) == 'object') {
                     try {
-                        $('#dimage')[0].innerHTML = JSON.stringify($image)
+                        $('#dimage')[0].innerHTML += ' | ' + JSON.stringify($image)
                     }
                     catch {
-                        $('#dimage')[0].innerHTML = `${$image}`
+                        $('#dimage')[0].innerHTML += ' | ' + `${$image}`
                     }
                 }
                 else {
-                    $('#dimage')[0].innerHTML = `${$image}`
+                    $('#dimage')[0].innerHTML += ' | ' + `${$image}`
                 }
             }
         
@@ -420,7 +421,7 @@ $(function () {
                         <textarea className="reflection-textarea" rows="6"></textarea>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: $remove?</p>
+                        <p>What is the relationship between the following variables: tile, $remove, $image, $map?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                     </div>
                 </div>
