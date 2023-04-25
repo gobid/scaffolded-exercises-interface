@@ -9,7 +9,14 @@ function addNewlines(str) {
         result += str.substring(0, 80) + '\n';
         str = str.substring(80);
     }
-    return result.substring(0,150) + "...";
+    let dotdotdot = "...";
+    if (result.length < 150) 
+        dotdotdot = " ";
+    return result.substring(0,150) + dotdotdot;
+}
+
+function h2t(src) { // html to text
+    return src.replaceAll("<", "&lt;").replaceAll(">", "&gt;"); //.replace("&", " &amp; "); 
 }
 
 export default class ExerciseAG8 extends React.Component {
@@ -60,25 +67,25 @@ var Map = function ($container) {
 
             // console.log('tilesize', tilesize);
             if (JSON.stringify(`${tilesize}`).includes("object") && tilesize[0]) {
-                $('#tilesize')[0].innerHTML = `<plaintext class="pt">${addNewlines(tilesize[0].outerHTML)}`
+                $('#tilesize')[0].innerHTML = `${h2t(addNewlines(tilesize[0].outerHTML))}`;
             }
             else {
                 if (tilesize && tilesize.selector) {
-                    $('#tilesize')[0].innerHTML = `${tilesize.selector}`
+                    $('#tilesize')[0].innerHTML = `${tilesize.selector} (we output the selector when length is 0)`;
                 }
                 else if (tilesize && tilesize.originalEvent) {
-                    $('#tilesize')[0].innerHTML = `${tilesize.type}`
+                    $('#tilesize')[0].innerHTML = `${tilesize.type}`;
                 }
                 else if (typeof(tilesize) == 'object') {
                     try {
-                        $('#tilesize')[0].innerHTML = JSON.stringify(tilesize)
+                        $('#tilesize')[0].innerHTML = JSON.stringify(tilesize);
                     }
                     catch {
-                        $('#tilesize')[0].innerHTML = `${tilesize}`
+                        $('#tilesize')[0].innerHTML = `${tilesize}`;
                     }
                 }
                 else {
-                    $('#tilesize')[0].innerHTML = `${tilesize}`
+                    $('#tilesize')[0].innerHTML = `${tilesize}`;
                 }
             }
         
@@ -90,25 +97,25 @@ var Map = function ($container) {
 
             // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
+                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML))}`;
             }
             else {
                 if ($map && $map.selector) {
-                    $('#dmap')[0].innerHTML = `${$map.selector}`
+                    $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
                 }
                 else if ($map && $map.originalEvent) {
-                    $('#dmap')[0].innerHTML = `${$map.type}`
+                    $('#dmap')[0].innerHTML = `${$map.type}`;
                 }
                 else if (typeof($map) == 'object') {
                     try {
-                        $('#dmap')[0].innerHTML = JSON.stringify($map)
+                        $('#dmap')[0].innerHTML = JSON.stringify($map);
                     }
                     catch {
-                        $('#dmap')[0].innerHTML = `${$map}`
+                        $('#dmap')[0].innerHTML = `${$map}`;
                     }
                 }
                 else {
-                    $('#dmap')[0].innerHTML = `${$map}`
+                    $('#dmap')[0].innerHTML = `${$map}`;
                 }
             }
         
@@ -123,25 +130,25 @@ var Map = function ($container) {
 
             // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
+                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML))}`;
             }
             else {
                 if ($map && $map.selector) {
-                    $('#dmap')[0].innerHTML = `${$map.selector}`
+                    $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
                 }
                 else if ($map && $map.originalEvent) {
-                    $('#dmap')[0].innerHTML = `${$map.type}`
+                    $('#dmap')[0].innerHTML = `${$map.type}`;
                 }
                 else if (typeof($map) == 'object') {
                     try {
-                        $('#dmap')[0].innerHTML = JSON.stringify($map)
+                        $('#dmap')[0].innerHTML = JSON.stringify($map);
                     }
                     catch {
-                        $('#dmap')[0].innerHTML = `${$map}`
+                        $('#dmap')[0].innerHTML = `${$map}`;
                     }
                 }
                 else {
-                    $('#dmap')[0].innerHTML = `${$map}`
+                    $('#dmap')[0].innerHTML = `${$map}`;
                 }
             }
         
@@ -150,25 +157,25 @@ var Map = function ($container) {
 
             // console.log('position', position);
             if (JSON.stringify(`${position}`).includes("object") && position[0]) {
-                $('#position')[0].innerHTML = `<plaintext class="pt">${addNewlines(position[0].outerHTML)}`
+                $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML))}`;
             }
             else {
                 if (position && position.selector) {
-                    $('#position')[0].innerHTML = `${position.selector}`
+                    $('#position')[0].innerHTML = `${position.selector} (we output the selector when length is 0)`;
                 }
                 else if (position && position.originalEvent) {
-                    $('#position')[0].innerHTML = `${position.type}`
+                    $('#position')[0].innerHTML = `${position.type}`;
                 }
                 else if (typeof(position) == 'object') {
                     try {
-                        $('#position')[0].innerHTML = JSON.stringify(position)
+                        $('#position')[0].innerHTML = JSON.stringify(position);
                     }
                     catch {
-                        $('#position')[0].innerHTML = `${position}`
+                        $('#position')[0].innerHTML = `${position}`;
                     }
                 }
                 else {
-                    $('#position')[0].innerHTML = `${position}`
+                    $('#position')[0].innerHTML = `${position}`;
                 }
             }
         
@@ -186,25 +193,25 @@ var Map = function ($container) {
 
             // console.log('centre', centre);
             if (JSON.stringify(`${centre}`).includes("object") && centre[0]) {
-                $('#centre')[0].innerHTML = `<plaintext class="pt">${addNewlines(centre[0].outerHTML)}`
+                $('#centre')[0].innerHTML = `${h2t(addNewlines(centre[0].outerHTML))}`;
             }
             else {
                 if (centre && centre.selector) {
-                    $('#centre')[0].innerHTML = `${centre.selector}`
+                    $('#centre')[0].innerHTML = `${centre.selector} (we output the selector when length is 0)`;
                 }
                 else if (centre && centre.originalEvent) {
-                    $('#centre')[0].innerHTML = `${centre.type}`
+                    $('#centre')[0].innerHTML = `${centre.type}`;
                 }
                 else if (typeof(centre) == 'object') {
                     try {
-                        $('#centre')[0].innerHTML = JSON.stringify(centre)
+                        $('#centre')[0].innerHTML = JSON.stringify(centre);
                     }
                     catch {
-                        $('#centre')[0].innerHTML = `${centre}`
+                        $('#centre')[0].innerHTML = `${centre}`;
                     }
                 }
                 else {
-                    $('#centre')[0].innerHTML = `${centre}`
+                    $('#centre')[0].innerHTML = `${centre}`;
                 }
             }
         
@@ -217,25 +224,25 @@ var Map = function ($container) {
 
             // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
+                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML))}`;
             }
             else {
                 if ($map && $map.selector) {
-                    $('#dmap')[0].innerHTML = `${$map.selector}`
+                    $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
                 }
                 else if ($map && $map.originalEvent) {
-                    $('#dmap')[0].innerHTML = `${$map.type}`
+                    $('#dmap')[0].innerHTML = `${$map.type}`;
                 }
                 else if (typeof($map) == 'object') {
                     try {
-                        $('#dmap')[0].innerHTML = JSON.stringify($map)
+                        $('#dmap')[0].innerHTML = JSON.stringify($map);
                     }
                     catch {
-                        $('#dmap')[0].innerHTML = `${$map}`
+                        $('#dmap')[0].innerHTML = `${$map}`;
                     }
                 }
                 else {
-                    $('#dmap')[0].innerHTML = `${$map}`
+                    $('#dmap')[0].innerHTML = `${$map}`;
                 }
             }
         
@@ -244,25 +251,25 @@ var Map = function ($container) {
 
             // console.log('centre_last', centre_last);
             if (JSON.stringify(`${centre_last}`).includes("object") && centre_last[0]) {
-                $('#centre_last')[0].innerHTML = `<plaintext class="pt">${addNewlines(centre_last[0].outerHTML)}`
+                $('#centre_last')[0].innerHTML = `${h2t(addNewlines(centre_last[0].outerHTML))}`;
             }
             else {
                 if (centre_last && centre_last.selector) {
-                    $('#centre_last')[0].innerHTML = `${centre_last.selector}`
+                    $('#centre_last')[0].innerHTML = `${centre_last.selector} (we output the selector when length is 0)`;
                 }
                 else if (centre_last && centre_last.originalEvent) {
-                    $('#centre_last')[0].innerHTML = `${centre_last.type}`
+                    $('#centre_last')[0].innerHTML = `${centre_last.type}`;
                 }
                 else if (typeof(centre_last) == 'object') {
                     try {
-                        $('#centre_last')[0].innerHTML = JSON.stringify(centre_last)
+                        $('#centre_last')[0].innerHTML = JSON.stringify(centre_last);
                     }
                     catch {
-                        $('#centre_last')[0].innerHTML = `${centre_last}`
+                        $('#centre_last')[0].innerHTML = `${centre_last}`;
                     }
                 }
                 else {
-                    $('#centre_last')[0].innerHTML = `${centre_last}`
+                    $('#centre_last')[0].innerHTML = `${centre_last}`;
                 }
             }
         
@@ -270,25 +277,25 @@ var Map = function ($container) {
 
             // console.log('centre', centre);
             if (JSON.stringify(`${centre}`).includes("object") && centre[0]) {
-                $('#centre')[0].innerHTML = `<plaintext class="pt">${addNewlines(centre[0].outerHTML)}`
+                $('#centre')[0].innerHTML = `${h2t(addNewlines(centre[0].outerHTML))}`;
             }
             else {
                 if (centre && centre.selector) {
-                    $('#centre')[0].innerHTML = `${centre.selector}`
+                    $('#centre')[0].innerHTML = `${centre.selector} (we output the selector when length is 0)`;
                 }
                 else if (centre && centre.originalEvent) {
-                    $('#centre')[0].innerHTML = `${centre.type}`
+                    $('#centre')[0].innerHTML = `${centre.type}`;
                 }
                 else if (typeof(centre) == 'object') {
                     try {
-                        $('#centre')[0].innerHTML = JSON.stringify(centre)
+                        $('#centre')[0].innerHTML = JSON.stringify(centre);
                     }
                     catch {
-                        $('#centre')[0].innerHTML = `${centre}`
+                        $('#centre')[0].innerHTML = `${centre}`;
                     }
                 }
                 else {
-                    $('#centre')[0].innerHTML = `${centre}`
+                    $('#centre')[0].innerHTML = `${centre}`;
                 }
             }
         
@@ -305,25 +312,25 @@ var Map = function ($container) {
 
             // console.log('$remove', $remove);
             if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
+                $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML))}`;
             }
             else {
                 if ($remove && $remove.selector) {
-                    $('#dremove')[0].innerHTML = `${$remove.selector}`
+                    $('#dremove')[0].innerHTML = `${$remove.selector} (we output the selector when length is 0)`;
                 }
                 else if ($remove && $remove.originalEvent) {
-                    $('#dremove')[0].innerHTML = `${$remove.type}`
+                    $('#dremove')[0].innerHTML = `${$remove.type}`;
                 }
                 else if (typeof($remove) == 'object') {
                     try {
-                        $('#dremove')[0].innerHTML = JSON.stringify($remove)
+                        $('#dremove')[0].innerHTML = JSON.stringify($remove);
                     }
                     catch {
-                        $('#dremove')[0].innerHTML = `${$remove}`
+                        $('#dremove')[0].innerHTML = `${$remove}`;
                     }
                 }
                 else {
-                    $('#dremove')[0].innerHTML = `${$remove}`
+                    $('#dremove')[0].innerHTML = `${$remove}`;
                 }
             }
         
@@ -334,25 +341,25 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('name', name);
             if (JSON.stringify(`${name}`).includes("object") && name[0]) {
-                $('#name')[0].innerHTML += ' \n ' + `<plaintext class="pt">${addNewlines(name[0].outerHTML)}`
+                $('#name')[0].innerHTML += ' <br> ' + `${h2t(addNewlines(name[0].outerHTML))}`;
             }
             else {
                 if (name && name.selector) {
-                    $('#name')[0].innerHTML += ' \n ' + `${name.selector}`
+                    $('#name')[0].innerHTML += ' <br> ' + `${name.selector} (we output the selector when length is 0)`;
                 }
                 else if (name && name.originalEvent) {
-                    $('#name')[0].innerHTML += ' \n ' + `${name.type}`
+                    $('#name')[0].innerHTML += ' <br> ' + `${name.type}`;
                 }
                 else if (typeof(name) == 'object') {
                     try {
-                        $('#name')[0].innerHTML += ' \n ' + JSON.stringify(name)
+                        $('#name')[0].innerHTML += ' <br> ' + JSON.stringify(name);
                     }
                     catch {
-                        $('#name')[0].innerHTML += ' \n ' + `${name}`
+                        $('#name')[0].innerHTML += ' <br> ' + `${name}`;
                     }
                 }
                 else {
-                    $('#name')[0].innerHTML += ' \n ' + `${name}`
+                    $('#name')[0].innerHTML += ' <br> ' + `${name}`;
                 }
             }
         
@@ -360,25 +367,25 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('tile', tile);
             if (JSON.stringify(`${tile}`).includes("object") && tile[0]) {
-                $('#tile')[0].innerHTML += ' \n ' + `<plaintext class="pt">${addNewlines(tile[0].outerHTML)}`
+                $('#tile')[0].innerHTML += ' <br> ' + `${h2t(addNewlines(tile[0].outerHTML))}`;
             }
             else {
                 if (tile && tile.selector) {
-                    $('#tile')[0].innerHTML += ' \n ' + `${tile.selector}`
+                    $('#tile')[0].innerHTML += ' <br> ' + `${tile.selector} (we output the selector when length is 0)`;
                 }
                 else if (tile && tile.originalEvent) {
-                    $('#tile')[0].innerHTML += ' \n ' + `${tile.type}`
+                    $('#tile')[0].innerHTML += ' <br> ' + `${tile.type}`;
                 }
                 else if (typeof(tile) == 'object') {
                     try {
-                        $('#tile')[0].innerHTML += ' \n ' + JSON.stringify(tile)
+                        $('#tile')[0].innerHTML += ' <br> ' + JSON.stringify(tile);
                     }
                     catch {
-                        $('#tile')[0].innerHTML += ' \n ' + `${tile}`
+                        $('#tile')[0].innerHTML += ' <br> ' + `${tile}`;
                     }
                 }
                 else {
-                    $('#tile')[0].innerHTML += ' \n ' + `${tile}`
+                    $('#tile')[0].innerHTML += ' <br> ' + `${tile}`;
                 }
             }
         
@@ -387,25 +394,25 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('$remove', $remove);
             if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                $('#dremove')[0].innerHTML += ' \n ' + `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
+                $('#dremove')[0].innerHTML += ' <br> ' + `${h2t(addNewlines($remove[0].outerHTML))}`;
             }
             else {
                 if ($remove && $remove.selector) {
-                    $('#dremove')[0].innerHTML += ' \n ' + `${$remove.selector}`
+                    $('#dremove')[0].innerHTML += ' <br> ' + `${$remove.selector} (we output the selector when length is 0)`;
                 }
                 else if ($remove && $remove.originalEvent) {
-                    $('#dremove')[0].innerHTML += ' \n ' + `${$remove.type}`
+                    $('#dremove')[0].innerHTML += ' <br> ' + `${$remove.type}`;
                 }
                 else if (typeof($remove) == 'object') {
                     try {
-                        $('#dremove')[0].innerHTML += ' \n ' + JSON.stringify($remove)
+                        $('#dremove')[0].innerHTML += ' <br> ' + JSON.stringify($remove);
                     }
                     catch {
-                        $('#dremove')[0].innerHTML += ' \n ' + `${$remove}`
+                        $('#dremove')[0].innerHTML += ' <br> ' + `${$remove}`;
                     }
                 }
                 else {
-                    $('#dremove')[0].innerHTML += ' \n ' + `${$remove}`
+                    $('#dremove')[0].innerHTML += ' <br> ' + `${$remove}`;
                 }
             }
         
@@ -424,25 +431,25 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('$image', $image);
             if (JSON.stringify(`${$image}`).includes("object") && $image[0]) {
-                $('#dimage')[0].innerHTML += ' \n ' + `<plaintext class="pt">${addNewlines($image[0].outerHTML)}`
+                $('#dimage')[0].innerHTML += ' <br> ' + `${h2t(addNewlines($image[0].outerHTML))}`;
             }
             else {
                 if ($image && $image.selector) {
-                    $('#dimage')[0].innerHTML += ' \n ' + `${$image.selector}`
+                    $('#dimage')[0].innerHTML += ' <br> ' + `${$image.selector} (we output the selector when length is 0)`;
                 }
                 else if ($image && $image.originalEvent) {
-                    $('#dimage')[0].innerHTML += ' \n ' + `${$image.type}`
+                    $('#dimage')[0].innerHTML += ' <br> ' + `${$image.type}`;
                 }
                 else if (typeof($image) == 'object') {
                     try {
-                        $('#dimage')[0].innerHTML += ' \n ' + JSON.stringify($image)
+                        $('#dimage')[0].innerHTML += ' <br> ' + JSON.stringify($image);
                     }
                     catch {
-                        $('#dimage')[0].innerHTML += ' \n ' + `${$image}`
+                        $('#dimage')[0].innerHTML += ' <br> ' + `${$image}`;
                     }
                 }
                 else {
-                    $('#dimage')[0].innerHTML += ' \n ' + `${$image}`
+                    $('#dimage')[0].innerHTML += ' <br> ' + `${$image}`;
                 }
             }
         
@@ -457,25 +464,25 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
+                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML))}`;
             }
             else {
                 if ($map && $map.selector) {
-                    $('#dmap')[0].innerHTML = `${$map.selector}`
+                    $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
                 }
                 else if ($map && $map.originalEvent) {
-                    $('#dmap')[0].innerHTML = `${$map.type}`
+                    $('#dmap')[0].innerHTML = `${$map.type}`;
                 }
                 else if (typeof($map) == 'object') {
                     try {
-                        $('#dmap')[0].innerHTML = JSON.stringify($map)
+                        $('#dmap')[0].innerHTML = JSON.stringify($map);
                     }
                     catch {
-                        $('#dmap')[0].innerHTML = `${$map}`
+                        $('#dmap')[0].innerHTML = `${$map}`;
                     }
                 }
                 else {
-                    $('#dmap')[0].innerHTML = `${$map}`
+                    $('#dmap')[0].innerHTML = `${$map}`;
                 }
             }
         
@@ -487,25 +494,25 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('$remove', $remove);
             if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
+                $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML))}`;
             }
             else {
                 if ($remove && $remove.selector) {
-                    $('#dremove')[0].innerHTML = `${$remove.selector}`
+                    $('#dremove')[0].innerHTML = `${$remove.selector} (we output the selector when length is 0)`;
                 }
                 else if ($remove && $remove.originalEvent) {
-                    $('#dremove')[0].innerHTML = `${$remove.type}`
+                    $('#dremove')[0].innerHTML = `${$remove.type}`;
                 }
                 else if (typeof($remove) == 'object') {
                     try {
-                        $('#dremove')[0].innerHTML = JSON.stringify($remove)
+                        $('#dremove')[0].innerHTML = JSON.stringify($remove);
                     }
                     catch {
-                        $('#dremove')[0].innerHTML = `${$remove}`
+                        $('#dremove')[0].innerHTML = `${$remove}`;
                     }
                 }
                 else {
-                    $('#dremove')[0].innerHTML = `${$remove}`
+                    $('#dremove')[0].innerHTML = `${$remove}`;
                 }
             }
         
@@ -523,25 +530,25 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('position', position);
             if (JSON.stringify(`${position}`).includes("object") && position[0]) {
-                $('#position')[0].innerHTML = `<plaintext class="pt">${addNewlines(position[0].outerHTML)}`
+                $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML))}`;
             }
             else {
                 if (position && position.selector) {
-                    $('#position')[0].innerHTML = `${position.selector}`
+                    $('#position')[0].innerHTML = `${position.selector} (we output the selector when length is 0)`;
                 }
                 else if (position && position.originalEvent) {
-                    $('#position')[0].innerHTML = `${position.type}`
+                    $('#position')[0].innerHTML = `${position.type}`;
                 }
                 else if (typeof(position) == 'object') {
                     try {
-                        $('#position')[0].innerHTML = JSON.stringify(position)
+                        $('#position')[0].innerHTML = JSON.stringify(position);
                     }
                     catch {
-                        $('#position')[0].innerHTML = `${position}`
+                        $('#position')[0].innerHTML = `${position}`;
                     }
                 }
                 else {
-                    $('#position')[0].innerHTML = `${position}`
+                    $('#position')[0].innerHTML = `${position}`;
                 }
             }
         
@@ -551,25 +558,25 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('position', position);
             if (JSON.stringify(`${position}`).includes("object") && position[0]) {
-                $('#position')[0].innerHTML = `<plaintext class="pt">${addNewlines(position[0].outerHTML)}`
+                $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML))}`;
             }
             else {
                 if (position && position.selector) {
-                    $('#position')[0].innerHTML = `${position.selector}`
+                    $('#position')[0].innerHTML = `${position.selector} (we output the selector when length is 0)`;
                 }
                 else if (position && position.originalEvent) {
-                    $('#position')[0].innerHTML = `${position.type}`
+                    $('#position')[0].innerHTML = `${position.type}`;
                 }
                 else if (typeof(position) == 'object') {
                     try {
-                        $('#position')[0].innerHTML = JSON.stringify(position)
+                        $('#position')[0].innerHTML = JSON.stringify(position);
                     }
                     catch {
-                        $('#position')[0].innerHTML = `${position}`
+                        $('#position')[0].innerHTML = `${position}`;
                     }
                 }
                 else {
-                    $('#position')[0].innerHTML = `${position}`
+                    $('#position')[0].innerHTML = `${position}`;
                 }
             }
         
@@ -613,27 +620,27 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='dmap_p'>$map = <span id='dmap'> </span> </p>
-<p id='position_p'>position = <span id='position'> </span> </p>
-<p id='centre_last_p'>centre_last = <span id='centre_last'> </span> </p>
-<p id='centre_p'>centre = <span id='centre'> </span> </p>
-<p id='tilesize_p'>tilesize = <span id='tilesize'> </span> </p>
-<p id='dremove_p'>$remove = <span id='dremove'> </span> </p>
-<p id='name_p'>name = <span id='name'> </span> </p>
-<p id='tile_p'>tile = <span id='tile'> </span> </p>
-<p id='dimage_p'>$image = <span id='dimage'> </span> </p>
+                    <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
+<p id='position_p'>position = <span className ="pt" id='position'> </span> </p>
+<p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p>
+<p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p>
+<p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p>
+<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
+<p id='name_p'>name = <span className ="pt" id='name'> </span> </p>
+<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p>
+<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <pre><plaintext>{codeToShow}</plaintext></pre>
+                        <pre>{codeToShow}</pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: position, $image, name, centre, $remove, centre_last, tile, tilesize, $map?</p>
+                        <p>What is the relationship between the following variables: $remove, name, centre_last, $image, tile, centre, position, tilesize, $map? </p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                     </div>
+                    <a href='/exercise-auto9'>Next Exercise</a>
                 </div>
-                <a href='/exercise-auto9'>Next Exercise</a>
             </div>
         )
     }

@@ -9,7 +9,14 @@ function addNewlines(str) {
         result += str.substring(0, 80) + '\n';
         str = str.substring(80);
     }
-    return result.substring(0,150) + "...";
+    let dotdotdot = "...";
+    if (result.length < 150) 
+        dotdotdot = " ";
+    return result.substring(0,150) + dotdotdot;
+}
+
+function h2t(src) { // html to text
+    return src.replaceAll("<", "&lt;").replaceAll(">", "&gt;"); //.replace("&", " &amp; "); 
 }
 
 export default class ExerciseAG2 extends React.Component {
@@ -65,25 +72,25 @@ var Map = function ($container) {
 
             // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
+                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML))}`;
             }
             else {
                 if ($map && $map.selector) {
-                    $('#dmap')[0].innerHTML = `${$map.selector}`
+                    $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
                 }
                 else if ($map && $map.originalEvent) {
-                    $('#dmap')[0].innerHTML = `${$map.type}`
+                    $('#dmap')[0].innerHTML = `${$map.type}`;
                 }
                 else if (typeof($map) == 'object') {
                     try {
-                        $('#dmap')[0].innerHTML = JSON.stringify($map)
+                        $('#dmap')[0].innerHTML = JSON.stringify($map);
                     }
                     catch {
-                        $('#dmap')[0].innerHTML = `${$map}`
+                        $('#dmap')[0].innerHTML = `${$map}`;
                     }
                 }
                 else {
-                    $('#dmap')[0].innerHTML = `${$map}`
+                    $('#dmap')[0].innerHTML = `${$map}`;
                 }
             }
         
@@ -98,25 +105,25 @@ var Map = function ($container) {
 
             // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
+                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML))}`;
             }
             else {
                 if ($map && $map.selector) {
-                    $('#dmap')[0].innerHTML = `${$map.selector}`
+                    $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
                 }
                 else if ($map && $map.originalEvent) {
-                    $('#dmap')[0].innerHTML = `${$map.type}`
+                    $('#dmap')[0].innerHTML = `${$map.type}`;
                 }
                 else if (typeof($map) == 'object') {
                     try {
-                        $('#dmap')[0].innerHTML = JSON.stringify($map)
+                        $('#dmap')[0].innerHTML = JSON.stringify($map);
                     }
                     catch {
-                        $('#dmap')[0].innerHTML = `${$map}`
+                        $('#dmap')[0].innerHTML = `${$map}`;
                     }
                 }
                 else {
-                    $('#dmap')[0].innerHTML = `${$map}`
+                    $('#dmap')[0].innerHTML = `${$map}`;
                 }
             }
         
@@ -143,25 +150,25 @@ var Map = function ($container) {
 
             // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
+                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML))}`;
             }
             else {
                 if ($map && $map.selector) {
-                    $('#dmap')[0].innerHTML = `${$map.selector}`
+                    $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
                 }
                 else if ($map && $map.originalEvent) {
-                    $('#dmap')[0].innerHTML = `${$map.type}`
+                    $('#dmap')[0].innerHTML = `${$map.type}`;
                 }
                 else if (typeof($map) == 'object') {
                     try {
-                        $('#dmap')[0].innerHTML = JSON.stringify($map)
+                        $('#dmap')[0].innerHTML = JSON.stringify($map);
                     }
                     catch {
-                        $('#dmap')[0].innerHTML = `${$map}`
+                        $('#dmap')[0].innerHTML = `${$map}`;
                     }
                 }
                 else {
-                    $('#dmap')[0].innerHTML = `${$map}`
+                    $('#dmap')[0].innerHTML = `${$map}`;
                 }
             }
         
@@ -185,25 +192,25 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('tile', tile);
             if (JSON.stringify(`${tile}`).includes("object") && tile[0]) {
-                $('#tile')[0].innerHTML += ' \n ' + `<plaintext class="pt">${addNewlines(tile[0].outerHTML)}`
+                $('#tile')[0].innerHTML += ' <br> ' + `${h2t(addNewlines(tile[0].outerHTML))}`;
             }
             else {
                 if (tile && tile.selector) {
-                    $('#tile')[0].innerHTML += ' \n ' + `${tile.selector}`
+                    $('#tile')[0].innerHTML += ' <br> ' + `${tile.selector} (we output the selector when length is 0)`;
                 }
                 else if (tile && tile.originalEvent) {
-                    $('#tile')[0].innerHTML += ' \n ' + `${tile.type}`
+                    $('#tile')[0].innerHTML += ' <br> ' + `${tile.type}`;
                 }
                 else if (typeof(tile) == 'object') {
                     try {
-                        $('#tile')[0].innerHTML += ' \n ' + JSON.stringify(tile)
+                        $('#tile')[0].innerHTML += ' <br> ' + JSON.stringify(tile);
                     }
                     catch {
-                        $('#tile')[0].innerHTML += ' \n ' + `${tile}`
+                        $('#tile')[0].innerHTML += ' <br> ' + `${tile}`;
                     }
                 }
                 else {
-                    $('#tile')[0].innerHTML += ' \n ' + `${tile}`
+                    $('#tile')[0].innerHTML += ' <br> ' + `${tile}`;
                 }
             }
         
@@ -224,25 +231,25 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('$image', $image);
             if (JSON.stringify(`${$image}`).includes("object") && $image[0]) {
-                $('#dimage')[0].innerHTML += ' \n ' + `<plaintext class="pt">${addNewlines($image[0].outerHTML)}`
+                $('#dimage')[0].innerHTML += ' <br> ' + `${h2t(addNewlines($image[0].outerHTML))}`;
             }
             else {
                 if ($image && $image.selector) {
-                    $('#dimage')[0].innerHTML += ' \n ' + `${$image.selector}`
+                    $('#dimage')[0].innerHTML += ' <br> ' + `${$image.selector} (we output the selector when length is 0)`;
                 }
                 else if ($image && $image.originalEvent) {
-                    $('#dimage')[0].innerHTML += ' \n ' + `${$image.type}`
+                    $('#dimage')[0].innerHTML += ' <br> ' + `${$image.type}`;
                 }
                 else if (typeof($image) == 'object') {
                     try {
-                        $('#dimage')[0].innerHTML += ' \n ' + JSON.stringify($image)
+                        $('#dimage')[0].innerHTML += ' <br> ' + JSON.stringify($image);
                     }
                     catch {
-                        $('#dimage')[0].innerHTML += ' \n ' + `${$image}`
+                        $('#dimage')[0].innerHTML += ' <br> ' + `${$image}`;
                     }
                 }
                 else {
-                    $('#dimage')[0].innerHTML += ' \n ' + `${$image}`
+                    $('#dimage')[0].innerHTML += ' <br> ' + `${$image}`;
                 }
             }
         
@@ -257,25 +264,25 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
+                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML))}`;
             }
             else {
                 if ($map && $map.selector) {
-                    $('#dmap')[0].innerHTML = `${$map.selector}`
+                    $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
                 }
                 else if ($map && $map.originalEvent) {
-                    $('#dmap')[0].innerHTML = `${$map.type}`
+                    $('#dmap')[0].innerHTML = `${$map.type}`;
                 }
                 else if (typeof($map) == 'object') {
                     try {
-                        $('#dmap')[0].innerHTML = JSON.stringify($map)
+                        $('#dmap')[0].innerHTML = JSON.stringify($map);
                     }
                     catch {
-                        $('#dmap')[0].innerHTML = `${$map}`
+                        $('#dmap')[0].innerHTML = `${$map}`;
                     }
                 }
                 else {
-                    $('#dmap')[0].innerHTML = `${$map}`
+                    $('#dmap')[0].innerHTML = `${$map}`;
                 }
             }
         
@@ -338,21 +345,21 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='dmap_p'>$map = <span id='dmap'> </span> </p>
-<p id='dimage_p'>$image = <span id='dimage'> </span> </p>
-<p id='tile_p'>tile = <span id='tile'> </span> </p>
+                    <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
+<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p>
+<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <pre><plaintext>{codeToShow}</plaintext></pre>
+                        <pre>{codeToShow}</pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: tile, $remove, $image, $map?</p>
+                        <p>What is the relationship between the following variables: $remove, tile, $map, $image? </p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                     </div>
+                    <a href='/exercise-auto3'>Next Exercise</a>
                 </div>
-                <a href='/exercise-auto3'>Next Exercise</a>
             </div>
         )
     }

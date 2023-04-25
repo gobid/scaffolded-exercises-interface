@@ -9,7 +9,14 @@ function addNewlines(str) {
         result += str.substring(0, 80) + '\n';
         str = str.substring(80);
     }
-    return result.substring(0,150) + "...";
+    let dotdotdot = "...";
+    if (result.length < 150) 
+        dotdotdot = " ";
+    return result.substring(0,150) + dotdotdot;
+}
+
+function h2t(src) { // html to text
+    return src.replaceAll("<", "&lt;").replaceAll(">", "&gt;"); //.replace("&", " &amp; "); 
 }
 
 export default class ExerciseAG0 extends React.Component {
@@ -105,25 +112,25 @@ var Map = function ($container) {
 
             // console.log('$remove', $remove);
             if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
+                $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML))}`;
             }
             else {
                 if ($remove && $remove.selector) {
-                    $('#dremove')[0].innerHTML = `${$remove.selector}`
+                    $('#dremove')[0].innerHTML = `${$remove.selector} (we output the selector when length is 0)`;
                 }
                 else if ($remove && $remove.originalEvent) {
-                    $('#dremove')[0].innerHTML = `${$remove.type}`
+                    $('#dremove')[0].innerHTML = `${$remove.type}`;
                 }
                 else if (typeof($remove) == 'object') {
                     try {
-                        $('#dremove')[0].innerHTML = JSON.stringify($remove)
+                        $('#dremove')[0].innerHTML = JSON.stringify($remove);
                     }
                     catch {
-                        $('#dremove')[0].innerHTML = `${$remove}`
+                        $('#dremove')[0].innerHTML = `${$remove}`;
                     }
                 }
                 else {
-                    $('#dremove')[0].innerHTML = `${$remove}`
+                    $('#dremove')[0].innerHTML = `${$remove}`;
                 }
             }
         
@@ -137,25 +144,25 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('$remove', $remove);
             if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                $('#dremove')[0].innerHTML += ' \n ' + `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
+                $('#dremove')[0].innerHTML += ' <br> ' + `${h2t(addNewlines($remove[0].outerHTML))}`;
             }
             else {
                 if ($remove && $remove.selector) {
-                    $('#dremove')[0].innerHTML += ' \n ' + `${$remove.selector}`
+                    $('#dremove')[0].innerHTML += ' <br> ' + `${$remove.selector} (we output the selector when length is 0)`;
                 }
                 else if ($remove && $remove.originalEvent) {
-                    $('#dremove')[0].innerHTML += ' \n ' + `${$remove.type}`
+                    $('#dremove')[0].innerHTML += ' <br> ' + `${$remove.type}`;
                 }
                 else if (typeof($remove) == 'object') {
                     try {
-                        $('#dremove')[0].innerHTML += ' \n ' + JSON.stringify($remove)
+                        $('#dremove')[0].innerHTML += ' <br> ' + JSON.stringify($remove);
                     }
                     catch {
-                        $('#dremove')[0].innerHTML += ' \n ' + `${$remove}`
+                        $('#dremove')[0].innerHTML += ' <br> ' + `${$remove}`;
                     }
                 }
                 else {
-                    $('#dremove')[0].innerHTML += ' \n ' + `${$remove}`
+                    $('#dremove')[0].innerHTML += ' <br> ' + `${$remove}`;
                 }
             }
         
@@ -187,25 +194,25 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('$remove', $remove);
             if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
+                $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML))}`;
             }
             else {
                 if ($remove && $remove.selector) {
-                    $('#dremove')[0].innerHTML = `${$remove.selector}`
+                    $('#dremove')[0].innerHTML = `${$remove.selector} (we output the selector when length is 0)`;
                 }
                 else if ($remove && $remove.originalEvent) {
-                    $('#dremove')[0].innerHTML = `${$remove.type}`
+                    $('#dremove')[0].innerHTML = `${$remove.type}`;
                 }
                 else if (typeof($remove) == 'object') {
                     try {
-                        $('#dremove')[0].innerHTML = JSON.stringify($remove)
+                        $('#dremove')[0].innerHTML = JSON.stringify($remove);
                     }
                     catch {
-                        $('#dremove')[0].innerHTML = `${$remove}`
+                        $('#dremove')[0].innerHTML = `${$remove}`;
                     }
                 }
                 else {
-                    $('#dremove')[0].innerHTML = `${$remove}`
+                    $('#dremove')[0].innerHTML = `${$remove}`;
                 }
             }
         
@@ -263,19 +270,19 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='dremove_p'>$remove = <span id='dremove'> </span> </p>
+                    <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <pre><plaintext>{codeToShow}</plaintext></pre>
+                        <pre>{codeToShow}</pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: $remove?</p>
+                        <p>What is the relationship between the following variables: $remove? (Give the meaning of the variable if there is only one.)</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                     </div>
+                    <a href='/exercise-auto1'>Next Exercise</a>
                 </div>
-                <a href='/exercise-auto1'>Next Exercise</a>
             </div>
         )
     }
