@@ -6,10 +6,10 @@ window.$ = $;
 function addNewlines(str) {
     var result = '';
     while (str.length > 0) {
-        result += str.substring(0, 40) + '\n';
-        str = str.substring(40);
+        result += str.substring(0, 80) + '\n';
+        str = str.substring(80);
     }
-    return result;
+    return result.substring(0,150) + "...";
 }
 
 export default class ExerciseAG0 extends React.Component {
@@ -103,7 +103,7 @@ var Map = function ($container) {
             var $remove = $map.children().not(".ground");
 
 
-            console.log('$remove', $remove);
+            // console.log('$remove', $remove);
             if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
                 $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
             }
@@ -135,27 +135,27 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
                     if (tile.length) {
                         $remove = $remove.not(tile);
 
-            console.log('$remove', $remove);
+            // console.log('$remove', $remove);
             if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                $('#dremove')[0].innerHTML += ' | ' + `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
+                $('#dremove')[0].innerHTML += ' \n ' + `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
             }
             else {
                 if ($remove && $remove.selector) {
-                    $('#dremove')[0].innerHTML += ' | ' + `${$remove.selector}`
+                    $('#dremove')[0].innerHTML += ' \n ' + `${$remove.selector}`
                 }
                 else if ($remove && $remove.originalEvent) {
-                    $('#dremove')[0].innerHTML += ' | ' + `${$remove.type}`
+                    $('#dremove')[0].innerHTML += ' \n ' + `${$remove.type}`
                 }
                 else if (typeof($remove) == 'object') {
                     try {
-                        $('#dremove')[0].innerHTML += ' | ' + JSON.stringify($remove)
+                        $('#dremove')[0].innerHTML += ' \n ' + JSON.stringify($remove)
                     }
                     catch {
-                        $('#dremove')[0].innerHTML += ' | ' + `${$remove}`
+                        $('#dremove')[0].innerHTML += ' \n ' + `${$remove}`
                     }
                 }
                 else {
-                    $('#dremove')[0].innerHTML += ' | ' + `${$remove}`
+                    $('#dremove')[0].innerHTML += ' \n ' + `${$remove}`
                 }
             }
         
@@ -185,7 +185,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             $remove.remove();
 
-            console.log('$remove', $remove);
+            // console.log('$remove', $remove);
             if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
                 $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
             }
@@ -251,6 +251,8 @@ $(function () {
     }
 
     render() {
+        let codeToShow = '"/* $remove.remove();:112:112 */\n            $remove.remove();"'
+        codeToShow = codeToShow.substring(1, codeToShow.length - 2)
         return (
             <div className="App">
                 <div id="app-title">Scaffolded Exercises</div>
@@ -266,6 +268,7 @@ $(function () {
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
+                        <pre><plaintext>{codeToShow}</plaintext></pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                         <p>What is the relationship between the following variables: $remove?</p>

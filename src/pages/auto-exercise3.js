@@ -6,10 +6,10 @@ window.$ = $;
 function addNewlines(str) {
     var result = '';
     while (str.length > 0) {
-        result += str.substring(0, 40) + '\n';
-        str = str.substring(40);
+        result += str.substring(0, 80) + '\n';
+        str = str.substring(80);
     }
-    return result;
+    return result.substring(0,150) + "...";
 }
 
 export default class ExerciseAG3 extends React.Component {
@@ -63,7 +63,7 @@ var Map = function ($container) {
 
     var $map = $container.children(".map");
 
-            console.log('$map', $map);
+            // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
                 $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
             }
@@ -96,7 +96,7 @@ var Map = function ($container) {
         zIndex: -1
     });
 
-            console.log('$map', $map);
+            // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
                 $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
             }
@@ -141,7 +141,7 @@ var Map = function ($container) {
         });
 
 
-            console.log('$map', $map);
+            // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
                 $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
             }
@@ -205,7 +205,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
                             });
                         $map.append($image);
 
-            console.log('$map', $map);
+            // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
                 $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
             }
@@ -276,6 +276,8 @@ $(function () {
     }
 
     render() {
+        let codeToShow = '"/* rhs-method-$map:48:48 */\n    var $map = $container.children(\".map\");\n    var map_size = [(size[1] + size[3]) * tilesize, (size[0] + size[2]) * tilesize];\n\n\n/* $map.css({:51:56 */\n    $map.css({\n        width: map_size[0],\n        height: map_size[1],\n        position: \"absolute\",\n        zIndex: -1\n    });\n\n\n\n/* $map.find(\".ground\").css({:60:67 */\n    $map.find(\".ground\").css({\n        top: size[0] * tilesize,\n        height: size[2] * tilesize,\n        position: \"absolute\",\n        width: \"100%\",\n        zIndex: -1,\n        background: \"#000\"\n    });"'
+        codeToShow = codeToShow.substring(1, codeToShow.length - 2)
         return (
             <div className="App">
                 <div id="app-title">Scaffolded Exercises</div>
@@ -291,6 +293,7 @@ $(function () {
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
+                        <pre><plaintext>{codeToShow}</plaintext></pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                         <p>What is the relationship between the following variables: tile, $image, $map?</p>

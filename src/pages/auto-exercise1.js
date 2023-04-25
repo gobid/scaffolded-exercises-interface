@@ -6,10 +6,13 @@ window.$ = $;
 function addNewlines(str) {
     var result = '';
     while (str.length > 0) {
-        result += str.substring(0, 40) + '\n';
-        str = str.substring(40);
+        result += str.substring(0, 80) + '\n';
+        str = str.substring(80);
     }
-    return result;
+    let dotdotdot = "...";
+    if (result.length < 150) 
+        dotdotdot = " ";
+    return result.substring(0,150) + dotdotdot;
 }
 
 export default class ExerciseAG1 extends React.Component {
@@ -63,7 +66,7 @@ var Map = function ($container) {
 
     var $map = $container.children(".map");
 
-            console.log('$map', $map);
+            // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
                 $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
             }
@@ -96,7 +99,7 @@ var Map = function ($container) {
         zIndex: -1
     });
 
-            console.log('$map', $map);
+            // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
                 $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
             }
@@ -140,7 +143,7 @@ var Map = function ($container) {
             top: position[1]
         });
 
-            console.log('$map', $map);
+            // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
                 $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
             }
@@ -178,7 +181,7 @@ var Map = function ($container) {
             var $remove = $map.children().not(".ground");
 
 
-            console.log('$remove', $remove);
+            // console.log('$remove', $remove);
             if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
                 $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
             }
@@ -208,54 +211,56 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
                     var name = tile_name(centre[0] + x, centre[1] + y);
                     var tile = $map.find(".tile" + name);
 
-            console.log('tile', tile);
+            // console.log('tile', tile);
             if (JSON.stringify(`${tile}`).includes("object") && tile[0]) {
-                $('#tile')[0].innerHTML += ' | ' + `<plaintext class="pt">${addNewlines(tile[0].outerHTML)}`
+                console.log("tile innerHTML", $('#tile')[0].innerHTML);
+                let to_show_plaintext_tag = '' ? ($('#tile')[0].innerHTML.contains('plaintext')) : '<plaintext class="pt">';
+                $('#tile')[0].innerHTML += ' \n ' + to_show_plaintext_tag + `${addNewlines(tile[0].outerHTML)}`
             }
             else {
                 if (tile && tile.selector) {
-                    $('#tile')[0].innerHTML += ' | ' + `${tile.selector}`
+                    $('#tile')[0].innerHTML += ' \n ' + `${tile.selector}`
                 }
                 else if (tile && tile.originalEvent) {
-                    $('#tile')[0].innerHTML += ' | ' + `${tile.type}`
+                    $('#tile')[0].innerHTML += ' \n ' + `${tile.type}`
                 }
                 else if (typeof(tile) == 'object') {
                     try {
-                        $('#tile')[0].innerHTML += ' | ' + JSON.stringify(tile)
+                        $('#tile')[0].innerHTML += ' \n ' + JSON.stringify(tile)
                     }
                     catch {
-                        $('#tile')[0].innerHTML += ' | ' + `${tile}`
+                        $('#tile')[0].innerHTML += ' \n ' + `${tile}`
                     }
                 }
                 else {
-                    $('#tile')[0].innerHTML += ' | ' + `${tile}`
+                    $('#tile')[0].innerHTML += ' \n ' + `${tile}`
                 }
             }
         
                     if (tile.length) {
                         $remove = $remove.not(tile);
 
-            console.log('$remove', $remove);
+            // console.log('$remove', $remove);
             if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                $('#dremove')[0].innerHTML += ' | ' + `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
+                $('#dremove')[0].innerHTML += ' \n ' + `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
             }
             else {
                 if ($remove && $remove.selector) {
-                    $('#dremove')[0].innerHTML += ' | ' + `${$remove.selector}`
+                    $('#dremove')[0].innerHTML += ' \n ' + `${$remove.selector}`
                 }
                 else if ($remove && $remove.originalEvent) {
-                    $('#dremove')[0].innerHTML += ' | ' + `${$remove.type}`
+                    $('#dremove')[0].innerHTML += ' \n ' + `${$remove.type}`
                 }
                 else if (typeof($remove) == 'object') {
                     try {
-                        $('#dremove')[0].innerHTML += ' | ' + JSON.stringify($remove)
+                        $('#dremove')[0].innerHTML += ' \n ' + JSON.stringify($remove)
                     }
                     catch {
-                        $('#dremove')[0].innerHTML += ' | ' + `${$remove}`
+                        $('#dremove')[0].innerHTML += ' \n ' + `${$remove}`
                     }
                 }
                 else {
-                    $('#dremove')[0].innerHTML += ' | ' + `${$remove}`
+                    $('#dremove')[0].innerHTML += ' \n ' + `${$remove}`
                 }
             }
         
@@ -272,27 +277,27 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
                                 'px; z-index: -1; position: absolute;;" style="display:none" />'
                         );
 
-            console.log('$image', $image);
+            // console.log('$image', $image);
             if (JSON.stringify(`${$image}`).includes("object") && $image[0]) {
-                $('#dimage')[0].innerHTML += ' | ' + `<plaintext class="pt">${addNewlines($image[0].outerHTML)}`
+                $('#dimage')[0].innerHTML += ' \n ' + `<plaintext class="pt">${addNewlines($image[0].outerHTML)}`
             }
             else {
                 if ($image && $image.selector) {
-                    $('#dimage')[0].innerHTML += ' | ' + `${$image.selector}`
+                    $('#dimage')[0].innerHTML += ' \n ' + `${$image.selector}`
                 }
                 else if ($image && $image.originalEvent) {
-                    $('#dimage')[0].innerHTML += ' | ' + `${$image.type}`
+                    $('#dimage')[0].innerHTML += ' \n ' + `${$image.type}`
                 }
                 else if (typeof($image) == 'object') {
                     try {
-                        $('#dimage')[0].innerHTML += ' | ' + JSON.stringify($image)
+                        $('#dimage')[0].innerHTML += ' \n ' + JSON.stringify($image)
                     }
                     catch {
-                        $('#dimage')[0].innerHTML += ' | ' + `${$image}`
+                        $('#dimage')[0].innerHTML += ' \n ' + `${$image}`
                     }
                 }
                 else {
-                    $('#dimage')[0].innerHTML += ' | ' + `${$image}`
+                    $('#dimage')[0].innerHTML += ' \n ' + `${$image}`
                 }
             }
         
@@ -305,7 +310,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
                             });
                         $map.append($image);
 
-            console.log('$map', $map);
+            // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
                 $('#dmap')[0].innerHTML = `<plaintext class="pt">${addNewlines($map[0].outerHTML)}`
             }
@@ -335,7 +340,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             $remove.remove();
 
-            console.log('$remove', $remove);
+            // console.log('$remove', $remove);
             if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
                 $('#dremove')[0].innerHTML = `<plaintext class="pt">${addNewlines($remove[0].outerHTML)}`
             }
@@ -401,6 +406,8 @@ $(function () {
     }
 
     render() {
+        let codeToShow = '"/* rhs-method-$remove:87:87 */\n            var $remove = $map.children().not(\".ground\");"'
+        codeToShow = codeToShow.substring(1, codeToShow.length - 2)
         return (
             <div className="App">
                 <div id="app-title">Scaffolded Exercises</div>
@@ -419,6 +426,7 @@ $(function () {
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
+                        <pre><plaintext>{codeToShow}</plaintext></pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                         <p>What is the relationship between the following variables: tile, $remove, $image, $map?</p>

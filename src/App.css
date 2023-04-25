@@ -732,10 +732,11 @@ ul.comicNav a:hover, ul.comicNav a:focus {
 #transcript {display: none;}
 
 #middleContainer { position:relative; left:50%; margin-left:-390px; }
-#comic .comic { position:absolute; }
+#comic .comic { position:absolute;}
 #comic .panel, #comic .cover, #comic .panel img { position:absolute; }
 #comic .cover { z-index:10; }
 #comic table { margin: auto; }
+#comic { margin-left:-500px!important; }
 
 /* @font-face {
   font-family: 'xkcd-Regular';
@@ -745,15 +746,15 @@ ul.comicNav a:hover, ul.comicNav a:focus {
 .exercises {
   position: absolute;
   top: 100px;
-  right: -300px;
-  width: 300px;
+  right: -100px;
+  width: 600px;
   text-align: left;
 }
 
-.reflection-area {
+/*.reflection-area {
   position: absolute;
   right: 0px;
-}
+}*/
 
 .reflection-textarea {
   width: 100%;
@@ -761,5 +762,5 @@ ul.comicNav a:hover, ul.comicNav a:focus {
 
 .pt {
   word-wrap: break-word;
-  max-width:300px;
+  max-width:800px;
 }

@@ -6,10 +6,10 @@ window.$ = $;
 function addNewlines(str) {
     var result = '';
     while (str.length > 0) {
-        result += str.substring(0, 40) + '\n';
-        str = str.substring(40);
+        result += str.substring(0, 80) + '\n';
+        str = str.substring(80);
     }
-    return result;
+    return result.substring(0,150) + "...";
 }
 
 export default class ExerciseAG9 extends React.Component {
@@ -19,7 +19,7 @@ export default class ExerciseAG9 extends React.Component {
     if (e.type.match(/^touch/)) {
         e = e.originalEvent.changedTouches[0];
 
-            console.log('e', e);
+            // console.log('e', e);
             if (JSON.stringify(`${e}`).includes("object") && e[0]) {
                 $('#e')[0].innerHTML = `<plaintext class="pt">${addNewlines(e[0].outerHTML)}`
             }
@@ -83,7 +83,7 @@ var Map = function ($container) {
     var size = [14, 48, 25, 33];
     var tilesize = 2048;
 
-            console.log('tilesize', tilesize);
+            // console.log('tilesize', tilesize);
             if (JSON.stringify(`${tilesize}`).includes("object") && tilesize[0]) {
                 $('#tilesize')[0].innerHTML = `<plaintext class="pt">${addNewlines(tilesize[0].outerHTML)}`
             }
@@ -110,7 +110,7 @@ var Map = function ($container) {
     var visible = [];
     var container_size = [$container.width(), $container.height()];
 
-            console.log('container_size', container_size);
+            // console.log('container_size', container_size);
             if (JSON.stringify(`${container_size}`).includes("object") && container_size[0]) {
                 $('#container_size')[0].innerHTML = `<plaintext class="pt">${addNewlines(container_size[0].outerHTML)}`
             }
@@ -136,7 +136,7 @@ var Map = function ($container) {
         
     var scroll_delta = null;
 
-            console.log('scroll_delta', scroll_delta);
+            // console.log('scroll_delta', scroll_delta);
             if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
                 $('#scroll_delta')[0].innerHTML = `<plaintext class="pt">${addNewlines(scroll_delta[0].outerHTML)}`
             }
@@ -174,7 +174,7 @@ var Map = function ($container) {
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
 
 
-            console.log('position', position);
+            // console.log('position', position);
             if (JSON.stringify(`${position}`).includes("object") && position[0]) {
                 $('#position')[0].innerHTML = `<plaintext class="pt">${addNewlines(position[0].outerHTML)}`
             }
@@ -268,7 +268,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
         if (scroll_delta) {
             var pos = eventPos(e);
 
-            console.log('pos', pos);
+            // console.log('pos', pos);
             if (JSON.stringify(`${pos}`).includes("object") && pos[0]) {
                 $('#pos')[0].innerHTML = `<plaintext class="pt">${addNewlines(pos[0].outerHTML)}`
             }
@@ -296,7 +296,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
                 clamp(pos.pageX + scroll_delta[0], -(size[1] + size[3]) * tilesize + container_size[0], 0)
             );
 
-            console.log('position', position);
+            // console.log('position', position);
             if (JSON.stringify(`${position}`).includes("object") && position[0]) {
                 $('#position')[0].innerHTML = `<plaintext class="pt">${addNewlines(position[0].outerHTML)}`
             }
@@ -324,7 +324,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
                 clamp(pos.pageY + scroll_delta[1], -(size[0] + size[2]) * tilesize + container_size[1], 0)
             );
 
-            console.log('position', position);
+            // console.log('position', position);
             if (JSON.stringify(`${position}`).includes("object") && position[0]) {
                 $('#position')[0].innerHTML = `<plaintext class="pt">${addNewlines(position[0].outerHTML)}`
             }
@@ -358,7 +358,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
         }
         var pos = eventPos(e);
 
-            console.log('pos', pos);
+            // console.log('pos', pos);
             if (JSON.stringify(`${pos}`).includes("object") && pos[0]) {
                 $('#pos')[0].innerHTML = `<plaintext class="pt">${addNewlines(pos[0].outerHTML)}`
             }
@@ -384,7 +384,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
         
         scroll_delta = [position[0] - pos.pageX, position[1] - pos.pageY];
 
-            console.log('scroll_delta', scroll_delta);
+            // console.log('scroll_delta', scroll_delta);
             if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
                 $('#scroll_delta')[0].innerHTML = `<plaintext class="pt">${addNewlines(scroll_delta[0].outerHTML)}`
             }
@@ -411,7 +411,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
         $(document).on(e.type == "mousedown" ? "mousemove" : "touchmove", drag);
         e.preventDefault();
 
-            console.log('e', e);
+            // console.log('e', e);
             if (JSON.stringify(`${e}`).includes("object") && e[0]) {
                 $('#e')[0].innerHTML = `<plaintext class="pt">${addNewlines(e[0].outerHTML)}`
             }
@@ -440,7 +440,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
         $(document).off("mousemove touchmove", drag);
         scroll_delta = null;
 
-            console.log('scroll_delta', scroll_delta);
+            // console.log('scroll_delta', scroll_delta);
             if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
                 $('#scroll_delta')[0].innerHTML = `<plaintext class="pt">${addNewlines(scroll_delta[0].outerHTML)}`
             }
@@ -476,6 +476,8 @@ $(function () {
     }
 
     render() {
+        let codeToShow = '"/* drag:118:136 */\n    function drag(e) {\n        if (scroll_delta) {\n            var pos = eventPos(e);\n\n            position[0] = Math.round(clamp(\n                pos.pageX + scroll_delta[0],\n                -(size[1] + size[3]) * tilesize + container_size[0],\n                0\n            ));\n\n            position[1] = Math.round(clamp(\n                pos.pageY + scroll_delta[1],\n                -(size[0] + size[2]) * tilesize + container_size[1],\n                0\n            ));\n\n            update();\n        }\n    }"'
+        codeToShow = codeToShow.substring(1, codeToShow.length - 2)
         return (
             <div className="App">
                 <div id="app-title">Scaffolded Exercises</div>
@@ -496,9 +498,10 @@ $(function () {
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
+                        <pre><plaintext>{codeToShow}</plaintext></pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: scroll_delta, position, container_size, tilesize, pos, e?</p>
+                        <p>What is the relationship between the following variables: position, pos, container_size, tilesize, scroll_delta, e?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                     </div>
                 </div>
