@@ -47,11 +47,6 @@ export default class App extends React.Component {
               <ExerciseAG2 />
             </div>
           )} />
-          <Route exact={true} path='/exercise-auto2' render={() => (
-            <div className="App">
-              <ExerciseAG2 />
-            </div>
-          )} />
           <Route exact={true} path='/exercise-auto3' render={() => (
             <div className="App">
               <ExerciseAG3 />

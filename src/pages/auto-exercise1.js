@@ -1,9 +1,25 @@
 import React from 'react';
+import { useState } from 'react';
 import './../App.css';
 import $ from 'jquery';
 window.$ = $;
 
-function addNewlines(str) {
+const selectors = {};
+
+function addNewlines(str, variable_name="$image") {
+    // this runs every time a DOM element is shown as a variable on the page, so we should update the selectors at this stage
+    // we do it by classes for now
+    let class_loc = str.indexOf('class="') + 'class="'.length;
+    let end_class_loc = str.substring(class_loc).indexOf('"');
+    let class_name = str.substring(class_loc, class_loc + end_class_loc);
+    console.log("in addNewLines class_name:", class_name);
+    if (selectors[variable_name]) {
+        selectors[variable_name].push(class_name);
+    }
+    else {
+        selectors[variable_name] = [];
+    }
+
     var result = '';
     while (str.length > 0) {
         result += str.substring(0, 80) + '\n';
@@ -17,6 +33,28 @@ function addNewlines(str) {
 
 function h2t(src) { // html to text
     return src.replaceAll("<", "&lt;").replaceAll(">", "&gt;"); //.replace("&", " &amp; "); 
+}
+
+function HAButton(props) {
+    const [toggle, setToggle] = useState(true);
+  
+    function handleClick() {
+        console.log("in handleClick", toggle, props.id);
+        let element_to_a_h = props.id.split("_")[0];
+        console.log(element_to_a_h);
+        setToggle(!toggle);
+    }
+
+    function buttonText(t) {
+        if (t) return "Annotate / Highlight";
+        else return "Unannotate / Unhighlight";
+    }
+    
+    return (
+      <button onClick={handleClick}>
+          {buttonText(toggle)}
+      </button>
+    );
 }
 
 export default class ExerciseAG1 extends React.Component {
@@ -209,7 +247,7 @@ var Map = function ($container) {
                 }
             }
         
-try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } try { $('#dremove')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } 
+try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } try { $('#dremove')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } // adjust selectors here too
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
                     var name = tile_name(centre[0] + x, centre[1] + y);
@@ -407,6 +445,8 @@ $(function () {
 
     }
 
+
+
     render() {
         let codeToShow = '"/* rhs-method-$remove:87:87 */\n            var $remove = $map.children().not(\".ground\");"'
         codeToShow = codeToShow.substring(1, codeToShow.length - 2)
@@ -422,9 +462,9 @@ $(function () {
                     <br/><br/>
                     <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
 <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
-<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p>
+<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p> 
+<HAButton id="dimage_button"/>
 <p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p>
-
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
