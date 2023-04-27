@@ -14,7 +14,9 @@ function addNewlines(str, variable_name) {
     let class_name = str.substring(class_loc, class_loc + end_class_loc);
     console.log("in addNewLines class_name:", class_name);
     if (selectors[variable_name]) {
-        selectors[variable_name].push(class_name);
+        if (!selectors[variable_name].includes(class_name)) {
+            selectors[variable_name].push(class_name);
+        }
     }
     else {
         selectors[variable_name] = [];
@@ -42,7 +44,11 @@ function HAButton(props) {
         console.log("in handleClick", toggle, props.id);
         let element_to_a_h = props.id.split("_")[0];
         console.log("element_to_a_h", element_to_a_h);
-        console.log("selectors[element_to_a_h]", selectors[element_to_a_h]);
+        console.log("selectors[", element_to_a_h, "]", selectors[element_to_a_h]);
+        for (var selector of selectors[element_to_a_h]) {
+            let element_to_a_h_html = document.getElementsByClassName(selector);
+            console.log("selector", selector, "element_to_a_h_html", element_to_a_h_html);
+        }
         setToggle(!toggle);
     }
 
@@ -675,7 +681,7 @@ $(function () {
                         <pre>{codeToShow}</pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: name, tilesize, tile, centre, $remove, $image, centre_last, $map, position? </p>
+                        <p>What is the relationship between the following variables: centre_last, name, centre, $remove, $map, position, tile, $image, tilesize? </p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto9'>Next Exercise</a>
