@@ -41,7 +41,8 @@ function HAButton(props) {
     function handleClick() {
         console.log("in handleClick", toggle, props.id);
         let element_to_a_h = props.id.split("_")[0];
-        console.log(element_to_a_h);
+        console.log("element_to_a_h", element_to_a_h);
+        console.log("selectors[element_to_a_h]", selectors[element_to_a_h]);
         setToggle(!toggle);
     }
 
@@ -110,7 +111,7 @@ var Map = function ($container) {
 
             // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML))}`;
+                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
             }
             else {
                 if ($map && $map.selector) {
@@ -143,7 +144,7 @@ var Map = function ($container) {
 
             // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML))}`;
+                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
             }
             else {
                 if ($map && $map.selector) {
@@ -188,7 +189,7 @@ var Map = function ($container) {
 
             // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML))}`;
+                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
             }
             else {
                 if ($map && $map.selector) {
@@ -222,7 +223,7 @@ var Map = function ($container) {
         if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {
             var $remove = $map.children().not(".ground");
 
-try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } selectors['name'] = [];try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } selectors['tile'] = [];try { $('#dremove')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } selectors['dremove'] = [];try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } selectors['dimage'] = [];
+try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dremove')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }selectors['dremove'] = [];selectors['tile'] = [];selectors['dimage'] = [];selectors['dmap'] = [];
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
                     var name = tile_name(centre[0] + x, centre[1] + y);
@@ -252,7 +253,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('$map', $map);
             if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML))}`;
+                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
             }
             else {
                 if ($map && $map.selector) {
@@ -333,7 +334,7 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <HAButton id="dmap_button"/><p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
+                    <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p><HAButton id="dmap_button"/>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
@@ -341,7 +342,7 @@ $(function () {
                         <pre>{codeToShow}</pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: $map, tile, $image? </p>
+                        <p>What is the relationship between the following variables: $image, $map, tile? </p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto4'>Next Exercise</a>

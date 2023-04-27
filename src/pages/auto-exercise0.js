@@ -41,7 +41,8 @@ function HAButton(props) {
     function handleClick() {
         console.log("in handleClick", toggle, props.id);
         let element_to_a_h = props.id.split("_")[0];
-        console.log(element_to_a_h);
+        console.log("element_to_a_h", element_to_a_h);
+        console.log("selectors[element_to_a_h]", selectors[element_to_a_h]);
         setToggle(!toggle);
     }
 
@@ -150,7 +151,7 @@ var Map = function ($container) {
 
             // console.log('$remove', $remove);
             if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML))}`;
+                $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
             }
             else {
                 if ($remove && $remove.selector) {
@@ -172,7 +173,7 @@ var Map = function ($container) {
                 }
             }
         
-try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } selectors['name'] = [];try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } selectors['tile'] = [];try { $('#dremove')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } selectors['dremove'] = [];try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } selectors['dimage'] = [];
+try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dremove')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }selectors['dremove'] = [];selectors['tile'] = [];selectors['dimage'] = [];selectors['dmap'] = [];
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
                     var name = tile_name(centre[0] + x, centre[1] + y);
@@ -182,7 +183,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('$remove', $remove);
             if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                $('#dremove')[0].innerHTML += ' <br> ' + `${h2t(addNewlines($remove[0].outerHTML))}`;
+                $('#dremove')[0].innerHTML += ' <br> ' + `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
             }
             else {
                 if ($remove && $remove.selector) {
@@ -232,7 +233,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('$remove', $remove);
             if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML))}`;
+                $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
             }
             else {
                 if ($remove && $remove.selector) {
@@ -308,7 +309,7 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <HAButton id="dremove_button"/><p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
+                    <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p><HAButton id="dremove_button"/>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>

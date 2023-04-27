@@ -41,7 +41,8 @@ function HAButton(props) {
     function handleClick() {
         console.log("in handleClick", toggle, props.id);
         let element_to_a_h = props.id.split("_")[0];
-        console.log(element_to_a_h);
+        console.log("element_to_a_h", element_to_a_h);
+        console.log("selectors[element_to_a_h]", selectors[element_to_a_h]);
         setToggle(!toggle);
     }
 
@@ -66,7 +67,7 @@ export default class ExerciseAG9 extends React.Component {
 
             // console.log('e', e);
             if (JSON.stringify(`${e}`).includes("object") && e[0]) {
-                $('#e')[0].innerHTML = `${h2t(addNewlines(e[0].outerHTML))}`;
+                $('#e')[0].innerHTML = `${h2t(addNewlines(e[0].outerHTML, 'e'))}`;
             }
             else {
                 if (e && e.selector) {
@@ -130,7 +131,7 @@ var Map = function ($container) {
 
             // console.log('tilesize', tilesize);
             if (JSON.stringify(`${tilesize}`).includes("object") && tilesize[0]) {
-                $('#tilesize')[0].innerHTML = `${h2t(addNewlines(tilesize[0].outerHTML))}`;
+                $('#tilesize')[0].innerHTML = `${h2t(addNewlines(tilesize[0].outerHTML, 'tilesize'))}`;
             }
             else {
                 if (tilesize && tilesize.selector) {
@@ -157,7 +158,7 @@ var Map = function ($container) {
 
             // console.log('container_size', container_size);
             if (JSON.stringify(`${container_size}`).includes("object") && container_size[0]) {
-                $('#container_size')[0].innerHTML = `${h2t(addNewlines(container_size[0].outerHTML))}`;
+                $('#container_size')[0].innerHTML = `${h2t(addNewlines(container_size[0].outerHTML, 'container_size'))}`;
             }
             else {
                 if (container_size && container_size.selector) {
@@ -183,7 +184,7 @@ var Map = function ($container) {
 
             // console.log('scroll_delta', scroll_delta);
             if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
-                $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML))}`;
+                $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML, 'scroll_delta'))}`;
             }
             else {
                 if (scroll_delta && scroll_delta.selector) {
@@ -221,7 +222,7 @@ var Map = function ($container) {
 
             // console.log('position', position);
             if (JSON.stringify(`${position}`).includes("object") && position[0]) {
-                $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML))}`;
+                $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML, 'position'))}`;
             }
             else {
                 if (position && position.selector) {
@@ -272,7 +273,7 @@ var Map = function ($container) {
         if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {
             var $remove = $map.children().not(".ground");
 
-try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } selectors['name'] = [];try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } selectors['tile'] = [];try { $('#dremove')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } selectors['dremove'] = [];try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } selectors['dimage'] = [];
+try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dremove')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }selectors['dremove'] = [];selectors['tile'] = [];selectors['dimage'] = [];selectors['dmap'] = [];
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
                     var name = tile_name(centre[0] + x, centre[1] + y);
@@ -315,7 +316,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('pos', pos);
             if (JSON.stringify(`${pos}`).includes("object") && pos[0]) {
-                $('#pos')[0].innerHTML = `${h2t(addNewlines(pos[0].outerHTML))}`;
+                $('#pos')[0].innerHTML = `${h2t(addNewlines(pos[0].outerHTML, 'pos'))}`;
             }
             else {
                 if (pos && pos.selector) {
@@ -343,7 +344,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('position', position);
             if (JSON.stringify(`${position}`).includes("object") && position[0]) {
-                $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML))}`;
+                $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML, 'position'))}`;
             }
             else {
                 if (position && position.selector) {
@@ -371,7 +372,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('position', position);
             if (JSON.stringify(`${position}`).includes("object") && position[0]) {
-                $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML))}`;
+                $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML, 'position'))}`;
             }
             else {
                 if (position && position.selector) {
@@ -405,7 +406,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('pos', pos);
             if (JSON.stringify(`${pos}`).includes("object") && pos[0]) {
-                $('#pos')[0].innerHTML = `${h2t(addNewlines(pos[0].outerHTML))}`;
+                $('#pos')[0].innerHTML = `${h2t(addNewlines(pos[0].outerHTML, 'pos'))}`;
             }
             else {
                 if (pos && pos.selector) {
@@ -431,7 +432,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('scroll_delta', scroll_delta);
             if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
-                $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML))}`;
+                $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML, 'scroll_delta'))}`;
             }
             else {
                 if (scroll_delta && scroll_delta.selector) {
@@ -458,7 +459,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('e', e);
             if (JSON.stringify(`${e}`).includes("object") && e[0]) {
-                $('#e')[0].innerHTML = `${h2t(addNewlines(e[0].outerHTML))}`;
+                $('#e')[0].innerHTML = `${h2t(addNewlines(e[0].outerHTML, 'e'))}`;
             }
             else {
                 if (e && e.selector) {
@@ -487,7 +488,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
 
             // console.log('scroll_delta', scroll_delta);
             if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
-                $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML))}`;
+                $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML, 'scroll_delta'))}`;
             }
             else {
                 if (scroll_delta && scroll_delta.selector) {
@@ -546,7 +547,7 @@ $(function () {
                         <pre>{codeToShow}</pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: scroll_delta, pos, position, container_size, e, tilesize? </p>
+                        <p>What is the relationship between the following variables: container_size, tilesize, pos, scroll_delta, e, position? </p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto10'>Next Exercise</a>
