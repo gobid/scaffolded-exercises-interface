@@ -6,7 +6,7 @@ window.$ = $;
 
 const selectors = {};
 
-function addNewlines(str, variable_name="$image") {
+function addNewlines(str, variable_name) {
     // this runs every time a DOM element is shown as a variable on the page, so we should update the selectors at this stage
     // we do it by classes for now
     let class_loc = str.indexOf('class="') + 'class="'.length;
@@ -41,7 +41,8 @@ function HAButton(props) {
     function handleClick() {
         console.log("in handleClick", toggle, props.id);
         let element_to_a_h = props.id.split("_")[0];
-        console.log(element_to_a_h);
+        console.log("element_to_a_h", element_to_a_h);
+        console.log("selectors", selectors[element_to_a_h]);
         setToggle(!toggle);
     }
 
@@ -247,7 +248,7 @@ var Map = function ($container) {
                 }
             }
         
-try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } try { $('#dremove')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } // adjust selectors here too
+try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } selectors['name'] = [];try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } selectors['tile'] = [];try { $('#dremove')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } selectors['dremove'] = [];try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); } selectors['dimage'] = [];
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
                     var name = tile_name(centre[0] + x, centre[1] + y);
@@ -445,8 +446,6 @@ $(function () {
 
     }
 
-
-
     render() {
         let codeToShow = '"/* rhs-method-$remove:87:87 */\n            var $remove = $map.children().not(\".ground\");"'
         codeToShow = codeToShow.substring(1, codeToShow.length - 2)
@@ -460,18 +459,18 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
-<p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
-<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p> 
-<HAButton id="dimage_button"/>
-<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p>
+                    <HAButton id="dremove_button"/><p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
+<HAButton id="dmap_button"/><p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
+<HAButton id="dimage_button"/><p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p>
+<HAButton id="tile_button"/><p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p>
+
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                         <pre>{codeToShow}</pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: $remove, tile, $map, $image? </p>
+                        <p>What is the relationship between the following variables: $map, tile, $image, $remove? </p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto2'>Next Exercise</a>
