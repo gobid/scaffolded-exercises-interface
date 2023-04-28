@@ -39,8 +39,46 @@ function h2t(src) { // html to text
 
 function HAButton(props) {
     const [toggle, setToggle] = useState(true);
-  
+    const annotations_to_show_by_tag = [ 'dimage', 'tile' ];
+    
+    function markBorder(element) {
+        console.log("markBorder", element);
+        if (element) {  
+            if (toggle) {
+                element.style.border = "5px solid black";
+            }
+            else {
+                element.style.border = "0px solid black";
+            }
+        }
+    }
+
+    function annotate(variable, element) {
+        console.log("in annotate", variable, element, toggle);
+        element = element[0];
+        if (!element) return;
+        if (annotations_to_show_by_tag.includes(variable)) {
+            console.log(variable, "in annotations_to_show_by_tag");
+            let tag = element.tagName;
+            console.log("tag", tag);
+            let tag_elems = document.getElementsByTagName(tag);
+            console.log("tag_elems", tag_elems);
+            for (var tag_elem of tag_elems) {
+                markBorder(tag_elem);
+            }
+        }
+        else {   
+            markBorder(element);
+        }
+    }
+    
+    function highlightInCode(element) {
+    
+    }
+
     function handleClick() {
+        if (toggle)
+            alert("Annotated! Play around and check.");
         console.log("in handleClick", toggle, props.id);
         let element_to_a_h = props.id.split("_")[0];
         console.log("element_to_a_h", element_to_a_h);
@@ -48,6 +86,7 @@ function HAButton(props) {
         for (var selector of selectors[element_to_a_h]) {
             let element_to_a_h_html = document.getElementsByClassName(selector);
             console.log("selector", selector, "element_to_a_h_html", element_to_a_h_html);
+            annotate(element_to_a_h, element_to_a_h_html, toggle);
         }
         setToggle(!toggle);
     }
@@ -665,12 +704,12 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p><HAButton id="dmap_button"/>
+                    <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
 <p id='position_p'>position = <span className ="pt" id='position'> </span> </p>
 <p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p>
 <p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p>
 <p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p>
-<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p><HAButton id="dremove_button"/>
+<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
 <p id='name_p'>name = <span className ="pt" id='name'> </span> </p>
 <p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p><HAButton id="tile_button"/>
 <p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p><HAButton id="dimage_button"/>
@@ -681,7 +720,7 @@ $(function () {
                         <pre>{codeToShow}</pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: centre_last, name, centre, $remove, $map, position, tile, $image, tilesize? </p>
+                        <p>What is the relationship between the following variables: tilesize, $remove, centre, $image, $map, centre_last, tile, position, name? </p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto9'>Next Exercise</a>

@@ -37,18 +37,50 @@ function h2t(src) { // html to text
     return src.replaceAll("<", "&lt;").replaceAll(">", "&gt;"); //.replace("&", " &amp; "); 
 }
 
-function annotate(element) {
-
-}
-
-function highlightInCode(element) {
-
-}
-
 function HAButton(props) {
     const [toggle, setToggle] = useState(true);
-  
+    const annotations_to_show_by_tag = [ 'dimage', 'tile' ];
+    
+    function markBorder(element) {
+        console.log("markBorder", element);
+        if (element) {  
+            if (toggle) {
+                element.style.border = "5px solid black";
+            }
+            else {
+                element.style.border = "0px solid black";
+            }
+        }
+        // get bounding rectangle
+        // add element html at the corners of the html element
+    }
+
+    function annotate(variable, element) {
+        console.log("in annotate", variable, element, toggle);
+        element = element[0];
+        if (!element) return;
+        if (annotations_to_show_by_tag.includes(variable)) {
+            console.log(variable, "in annotations_to_show_by_tag");
+            let tag = element.tagName;
+            console.log("tag", tag);
+            let tag_elems = document.getElementsByTagName(tag);
+            console.log("tag_elems", tag_elems);
+            for (var tag_elem of tag_elems) {
+                markBorder(tag_elem);
+            }
+        }
+        else {   
+            markBorder(element);
+        }
+    }
+    
+    function highlightInCode(element) {
+    
+    }
+
     function handleClick() {
+        if (toggle)
+            alert("Annotated! Play around and check.");
         console.log("in handleClick", toggle, props.id);
         let element_to_a_h = props.id.split("_")[0];
         console.log("element_to_a_h", element_to_a_h);
@@ -56,10 +88,7 @@ function HAButton(props) {
         for (var selector of selectors[element_to_a_h]) {
             let element_to_a_h_html = document.getElementsByClassName(selector);
             console.log("selector", selector, "element_to_a_h_html", element_to_a_h_html);
-            if (element_to_a_h_html.length) {
-                element_to_a_h_html = element_to_a_h_html[0];
-                element_to_a_h_html.style.border = "5px solid black";
-            }
+            annotate(element_to_a_h, element_to_a_h_html, toggle);
         }
         setToggle(!toggle);
     }
@@ -477,8 +506,8 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p><HAButton id="dremove_button"/>
-<p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p><HAButton id="dmap_button"/>
+                    <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
+<p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
 <p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p><HAButton id="dimage_button"/>
 <p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p><HAButton id="tile_button"/>
 
@@ -488,7 +517,7 @@ $(function () {
                         <pre>{codeToShow}</pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: $remove, $image, $map, tile? </p>
+                        <p>What is the relationship between the following variables: tile, $image, $remove, $map? </p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto2'>Next Exercise</a>
