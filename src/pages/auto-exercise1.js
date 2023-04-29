@@ -5,6 +5,8 @@ import $ from 'jquery';
 window.$ = $;
 
 const selectors = {};
+const annotables = []; // keys are the specific annotations
+const elements_annotated = {};
 
 function addNewlines(str, variable_name) {
     // this runs every time a DOM element is shown as a variable on the page, so we should update the selectors at this stage
@@ -12,7 +14,7 @@ function addNewlines(str, variable_name) {
     let class_loc = str.indexOf('class="') + 'class="'.length;
     let end_class_loc = str.substring(class_loc).indexOf('"');
     let class_name = str.substring(class_loc, class_loc + end_class_loc);
-    console.log("in addNewLines class_name:", class_name);
+    // console.log("in addNewLines class_name:", class_name);
     if (selectors[variable_name]) {
         if (!selectors[variable_name].includes(class_name)) {
             selectors[variable_name].push(class_name);
@@ -41,8 +43,37 @@ function HAButton(props) {
     const [toggle, setToggle] = useState(true);
     const annotations_to_show_by_tag = [ 'dimage', 'tile' ];
     
+    function reAnnotate(){ // for reannotating when user behavior erases annotations
+        let existing_annotations = document.getElementsByClassName(".annotation");
+        if (existing_annotations.length < 1) { // only reannotate if the annotations aren't already there
+            for (var elem_to_annotate of annotables) {
+                addAnnotation(elem_to_annotate);
+            }
+        }
+    }
+    
+    function addAnnotation(element) {
+        // console.log("element", element);
+        let text_to_display = element.outerHTML; // .replaceAll("<", "&lt;").replaceAll(">", "&gt;") - not needed apparently
+        if (elements_annotated[text_to_display] > 0) return; // since text_to_display uniquely identifies the element created, and we don't want to annotate if this element was already annotated
+        elements_annotated[text_to_display] = 1; 
+        var para = document.createElement("p");
+        var variable_from_exercise = props.id.split("_")[0];
+        if (variable_from_exercise.substring(0,1) == 'd') // assumes variable can't start with a d
+            variable_from_exercise = "$" + variable_from_exercise.substring(1);
+        var node = document.createTextNode(variable_from_exercise + " " + text_to_display);
+        para.appendChild(node);
+        para.style.top = element.style.top;
+        para.style.left = element.style.left;
+        para.style.margin = "20px";
+        para.style.position = "absolute";
+        para.classList.add("annotation");
+        para.style.color = "gray";
+        document.getElementsByClassName('map')[0].appendChild(para);
+    }
+
     function markBorder(element) {
-        console.log("markBorder", element);
+        // console.log("markBorder", element);
         if (element) {  
             if (toggle) {
                 element.style.border = "5px solid black";
@@ -53,25 +84,15 @@ function HAButton(props) {
         }
         // get bounding rectangle - need to position relative to moving elem
         if (toggle) {
-            console.log("element", element);
-            let text_to_display = element.outerHTML; // .replaceAll("<", "&lt;").replaceAll(">", "&gt;") - not needed apparently
-            var para = document.createElement("p")
-            var variable_from_exercise = props.id.split("_")[0]
-            if (variable_from_exercise.substring(0,1) == 'd') // assumes variable can't start with a d
-                variable_from_exercise = "$" + variable_from_exercise.substring(1);
-            var node = document.createTextNode(variable_from_exercise + " " + text_to_display);
-            para.appendChild(node);
-            para.style.top = element.style.top;
-            para.style.left = element.style.left;
-            para.style.margin = "20px";
-            para.style.position = "absolute";
-            para.classList.add("annotation");
-            para.style.color = "gray";
-            document.getElementsByClassName('map')[0].appendChild(para);
+            addAnnotation(element);
             // the annotation should also be retained upon user actions (mousemove / mousedown / mouseup / keyboard)
+            annotables.push(element);
+            $(document).on("mousemove mouseup mousedown keydown keyup", reAnnotate);
         }
         else {
             $(".annotation").remove();
+            elements_annotated = {};
+            $(document).off("mousemove mouseup mousedown keydown keyup", reAnnotate);
         }
         // add element html at the corners of the html element
     }
@@ -81,11 +102,11 @@ function HAButton(props) {
         element = element[0];
         if (!element) return;
         if (annotations_to_show_by_tag.includes(variable)) {
-            console.log(variable, "in annotations_to_show_by_tag");
+            // console.log(variable, "in annotations_to_show_by_tag");
             let tag = element.tagName;
             console.log("tag", tag);
             let tag_elems = document.getElementsByTagName(tag);
-            console.log("tag_elems", tag_elems);
+            // console.log("tag_elems", tag_elems);
             for (var tag_elem of tag_elems) {
                 markBorder(tag_elem);
             }
@@ -104,11 +125,11 @@ function HAButton(props) {
             alert("Annotated! Play around and check.");
         console.log("in handleClick", toggle, props.id);
         let element_to_a_h = props.id.split("_")[0];
-        console.log("element_to_a_h", element_to_a_h);
-        console.log("selectors[", element_to_a_h, "]", selectors[element_to_a_h]);
+        // console.log("element_to_a_h", element_to_a_h);
+        // console.log("selectors[", element_to_a_h, "]", selectors[element_to_a_h]);
         for (var selector of selectors[element_to_a_h]) {
             let element_to_a_h_html = document.getElementsByClassName(selector);
-            console.log("selector", selector, "element_to_a_h_html", element_to_a_h_html);
+            // console.log("selector", selector, "element_to_a_h_html", element_to_a_h_html);
             annotate(element_to_a_h, element_to_a_h_html);
         }
         setToggle(!toggle);
