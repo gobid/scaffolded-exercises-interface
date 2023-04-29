@@ -6,7 +6,6 @@ window.$ = $;
 
 const selectors = {};
 const annotables = []; // keys are the specific annotations
-const elements_annotated = {};
 
 function addNewlines(str, variable_name) {
     // this runs every time a DOM element is shown as a variable on the page, so we should update the selectors at this stage
@@ -44,7 +43,7 @@ function HAButton(props) {
     const annotations_to_show_by_tag = [ 'dimage', 'tile' ];
     
     function reAnnotate(){ // for reannotating when user behavior erases annotations
-        let existing_annotations = document.getElementsByClassName(".annotation");
+        let existing_annotations = document.getElementsByClassName("annotation");
         if (existing_annotations.length < 1) { // only reannotate if the annotations aren't already there
             for (var elem_to_annotate of annotables) {
                 addAnnotation(elem_to_annotate);
@@ -55,8 +54,6 @@ function HAButton(props) {
     function addAnnotation(element) {
         // console.log("element", element);
         let text_to_display = element.outerHTML; // .replaceAll("<", "&lt;").replaceAll(">", "&gt;") - not needed apparently
-        if (elements_annotated[text_to_display] > 0) return; // since text_to_display uniquely identifies the element created, and we don't want to annotate if this element was already annotated
-        elements_annotated[text_to_display] = 1; 
         var para = document.createElement("p");
         var variable_from_exercise = props.id.split("_")[0];
         if (variable_from_exercise.substring(0,1) == 'd') // assumes variable can't start with a d
@@ -82,17 +79,15 @@ function HAButton(props) {
                 element.style.border = "0px solid black";
             }
         }
-        // get bounding rectangle - need to position relative to moving elem
         if (toggle) {
             addAnnotation(element);
             // the annotation should also be retained upon user actions (mousemove / mousedown / mouseup / keyboard)
             annotables.push(element);
-            $(document).on("mousemove mouseup mousedown keydown keyup", reAnnotate);
+            $(document).on("mouseup keydown keyup", reAnnotate);
         }
         else {
             $(".annotation").remove();
-            elements_annotated = {};
-            $(document).off("mousemove mouseup mousedown keydown keyup", reAnnotate);
+            $(document).off("mouseup keydown keyup", reAnnotate);
         }
         // add element html at the corners of the html element
     }
@@ -550,7 +545,7 @@ $(function () {
                     <br/><br/>
                     <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
 <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
-<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p><HAButton id="dimage_button"/>
+<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p><HAButton id="dimage_button"/> Note undoing and then redoing can annotate/highlight new elements on the page.
 <p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p><HAButton id="tile_button"/>
 
                     <div className="reflection-area">
