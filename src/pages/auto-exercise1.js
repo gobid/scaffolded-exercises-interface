@@ -51,7 +51,28 @@ function HAButton(props) {
                 element.style.border = "0px solid black";
             }
         }
-        // get bounding rectangle
+        // get bounding rectangle - need to position relative to moving elem
+        if (toggle) {
+            console.log("element", element);
+            let text_to_display = element.outerHTML; // .replaceAll("<", "&lt;").replaceAll(">", "&gt;") - not needed apparently
+            var para = document.createElement("p")
+            var variable_from_exercise = props.id.split("_")[0]
+            if (variable_from_exercise.substring(0,1) == 'd') // assumes variable can't start with a d
+                variable_from_exercise = "$" + variable_from_exercise.substring(1);
+            var node = document.createTextNode(variable_from_exercise + " " + text_to_display);
+            para.appendChild(node);
+            para.style.top = element.style.top;
+            para.style.left = element.style.left;
+            para.style.margin = "20px";
+            para.style.position = "absolute";
+            para.classList.add("annotation");
+            para.style.color = "gray";
+            document.getElementsByClassName('map')[0].appendChild(para);
+            // the annotation should also be retained upon user actions (mousemove / mousedown / mouseup / keyboard)
+        }
+        else {
+            $(".annotation").remove();
+        }
         // add element html at the corners of the html element
     }
 
@@ -88,7 +109,7 @@ function HAButton(props) {
         for (var selector of selectors[element_to_a_h]) {
             let element_to_a_h_html = document.getElementsByClassName(selector);
             console.log("selector", selector, "element_to_a_h_html", element_to_a_h_html);
-            annotate(element_to_a_h, element_to_a_h_html, toggle);
+            annotate(element_to_a_h, element_to_a_h_html);
         }
         setToggle(!toggle);
     }
