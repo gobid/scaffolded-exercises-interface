@@ -41,6 +41,7 @@ function h2t(src) { // html to text
 function HAButton(props) {
     const [toggle, setToggle] = useState(true);
     const annotations_to_show_by_tag = [ 'dimage', 'tile' ];
+    const noannotations = ['dmap']
     
     function reAnnotate(){ // for reannotating when user behavior erases annotations
         let existing_annotations = document.getElementsByClassName("annotation");
@@ -51,13 +52,17 @@ function HAButton(props) {
         }
     }
     
+    function dollarifyVar(variable_from_exercise) {
+        if (variable_from_exercise.substring(0,1) == 'd') // assumes variable can't start with a d
+            return "$" + variable_from_exercise.substring(1);
+    }
+
     function addAnnotation(element) {
         // console.log("element", element);
         let text_to_display = element.outerHTML; // .replaceAll("<", "&lt;").replaceAll(">", "&gt;") - not needed apparently
         var para = document.createElement("p");
         var variable_from_exercise = props.id.split("_")[0];
-        if (variable_from_exercise.substring(0,1) == 'd') // assumes variable can't start with a d
-            variable_from_exercise = "$" + variable_from_exercise.substring(1);
+        variable_from_exercise = dollarifyVar(variable_from_exercise);
         var node = document.createTextNode(variable_from_exercise + " " + text_to_display);
         para.appendChild(node);
         para.style.top = element.style.top;
@@ -112,8 +117,11 @@ function HAButton(props) {
             // console.log(variable, "in annotations_to_show_by_tag");
             let tag = element.tagName;
             annotateTag(tag);
-            $(document).on("mouseup keydown keyup", function() {
+            $("body").on("mouseup keydown keyup", function() {
                 annotateTag(tag); // redo the annotation if in new territory
+                if (!toggle) {
+                    $("body").off();
+                }
             });
         }
         else {   
@@ -122,22 +130,37 @@ function HAButton(props) {
         }
     }
     
-    function highlightInCode(element) {
-    
+    function highlightInCode(variable) {
+        let codetoshow = document.getElementById("codetoshow");
+        if (toggle) {
+            let vartohighlight = dollarifyVar(variable);
+            console.log("vartohighlight: ", vartohighlight, "codetoshow", codetoshow);
+            codetoshow.outerHTML = codetoshow.outerHTML.replaceAll(vartohighlight, "<mark>" + vartohighlight + "</mark>");
+        }
+        else {
+            codetoshow.outerHTML = codetoshow.outerHTML.replaceAll("<mark>", "").replaceAll("</mark>", "");
+        }
     }
 
     function handleClick() {
-        if (toggle)
-            alert("Annotated! Play around and check.");
         console.log("in handleClick", toggle, props.id);
         let element_to_a_h = props.id.split("_")[0];
-        // console.log("element_to_a_h", element_to_a_h);
-        // console.log("selectors[", element_to_a_h, "]", selectors[element_to_a_h]);
-        for (var selector of selectors[element_to_a_h]) {
-            let element_to_a_h_html = document.getElementsByClassName(selector);
-            // console.log("selector", selector, "element_to_a_h_html", element_to_a_h_html);
-            annotate(element_to_a_h, element_to_a_h_html);
+        if (!noannotations.includes(element_to_a_h)) {
+            if (toggle)
+                alert("Annotated and highlighted! Play around and check.");
+            // console.log("element_to_a_h", element_to_a_h);
+            // console.log("selectors[", element_to_a_h, "]", selectors[element_to_a_h]);
+            for (var selector of selectors[element_to_a_h]) {
+                let element_to_a_h_html = document.getElementsByClassName(selector);
+                // console.log("selector", selector, "element_to_a_h_html", element_to_a_h_html);
+                annotate(element_to_a_h, element_to_a_h_html);
+            }
         }
+        else {
+            if (toggle)
+                alert("Highlighted! Play around and check.");
+        }
+        highlightInCode(element_to_a_h);
         setToggle(!toggle);
     }
 
@@ -555,14 +578,14 @@ $(function () {
                     Variables:
                     <br/><br/>
                     <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
-<p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
+<p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p> <HAButton id="dmap_button"/>
 <p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p><HAButton id="dimage_button"/> Note undoing and then redoing can annotate/highlight new elements on the page.
 <p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p><HAButton id="tile_button"/>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <pre>{codeToShow}</pre>
+                        <pre id="codetoshow">{codeToShow}</pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                         <p>What is the relationship between the following variables: tile, $image, $remove, $map? </p>
