@@ -43,6 +43,7 @@ function HAButton(props) {
     const annotations_to_show_by_tag = [ 'dimage', 'tile' ];
     
     function reAnnotate(){ // for reannotating when user behavior erases annotations
+        console.log("in reAnnotate");
         let existing_annotations = document.getElementsByClassName("annotation");
         if (existing_annotations.length < 1) { // only reannotate if the annotations aren't already there
             for (var elem_to_annotate of annotables) {
@@ -52,26 +53,33 @@ function HAButton(props) {
     }
     
     function addAnnotation(element) {
+        if (toggle) {
+            let text_to_display = element.outerHTML; // .replaceAll("<", "&lt;").replaceAll(">", "&gt;") - not needed apparently
+            var para = document.createElement("p");
+            var variable_from_exercise = props.id.split("_")[0];
+            if (variable_from_exercise.substring(0,1) == 'd') // assumes variable can't start with a d
+                variable_from_exercise = "$" + variable_from_exercise.substring(1);
+            var node = document.createTextNode(variable_from_exercise + " " + text_to_display);
+            para.appendChild(node);
+            para.style.top = element.style.top;
+            para.style.left = element.style.left;
+            para.style.margin = "20px";
+            para.style.position = "absolute";
+            para.classList.add("annotation");
+            para.style.color = "gray";
+            document.getElementsByClassName('map')[0].appendChild(para);
+            annotables.push(element);
+        }
+        else {
+            $(".annotation").remove();
+        }
+        // add element html at the corners of the html element
         // console.log("element", element);
-        let text_to_display = element.outerHTML; // .replaceAll("<", "&lt;").replaceAll(">", "&gt;") - not needed apparently
-        var para = document.createElement("p");
-        var variable_from_exercise = props.id.split("_")[0];
-        if (variable_from_exercise.substring(0,1) == 'd') // assumes variable can't start with a d
-            variable_from_exercise = "$" + variable_from_exercise.substring(1);
-        var node = document.createTextNode(variable_from_exercise + " " + text_to_display);
-        para.appendChild(node);
-        para.style.top = element.style.top;
-        para.style.left = element.style.left;
-        para.style.margin = "20px";
-        para.style.position = "absolute";
-        para.classList.add("annotation");
-        para.style.color = "gray";
-        document.getElementsByClassName('map')[0].appendChild(para);
     }
 
     function markBorder(element) {
         // console.log("markBorder", element);
-        if (element) {  
+        if (element) {
             if (toggle) {
                 element.style.border = "5px solid black";
             }
@@ -79,17 +87,15 @@ function HAButton(props) {
                 element.style.border = "0px solid black";
             }
         }
-        if (toggle) {
-            addAnnotation(element);
-            // the annotation should also be retained upon user actions (mousemove / mousedown / mouseup / keyboard)
-            annotables.push(element);
-            $(document).on("mouseup keydown keyup", reAnnotate);
+    }
+
+    function annotateTag(tag) {
+        let tag_elems = document.getElementsByTagName(tag);
+        // console.log("tag_elems", tag_elems);
+        for (var tag_elem of tag_elems) {
+            markBorder(tag_elem);
+            addAnnotation(tag_elem);
         }
-        else {
-            $(".annotation").remove();
-            $(document).off("mouseup keydown keyup", reAnnotate);
-        }
-        // add element html at the corners of the html element
     }
 
     function annotate(variable, element) {
@@ -100,14 +106,21 @@ function HAButton(props) {
             // console.log(variable, "in annotations_to_show_by_tag");
             let tag = element.tagName;
             console.log("tag", tag);
-            let tag_elems = document.getElementsByTagName(tag);
-            // console.log("tag_elems", tag_elems);
-            for (var tag_elem of tag_elems) {
-                markBorder(tag_elem);
+            annotateTag(tag);
+            /*if (toggle) {
+                $(document).on("mouseup keydown keyup", function(){
+                    annotateTag(tag);
+                });
             }
+            else {
+                $(document).off("mouseup keydown keyup", function(){
+                    annotateTag(tag);
+                });
+            }*/
         }
         else {   
             markBorder(element);
+            addAnnotation(element);
         }
     }
     
@@ -127,6 +140,13 @@ function HAButton(props) {
             // console.log("selector", selector, "element_to_a_h_html", element_to_a_h_html);
             annotate(element_to_a_h, element_to_a_h_html);
         }
+        // the annotation should also be retained upon user actions (mousemove / mousedown / mouseup / keyboard)
+        /*if (toggle) {
+            $(document).on("mouseup keydown keyup", reAnnotate);
+        }
+        else {
+            $(document).off("mouseup keydown keyup", reAnnotate);
+        }*/
         setToggle(!toggle);
     }
 
