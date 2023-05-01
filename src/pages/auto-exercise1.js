@@ -69,16 +69,7 @@ function HAButton(props) {
         document.getElementsByClassName('map')[0].appendChild(para);
     }
 
-    function markBorder(element) {
-        // console.log("markBorder", element);
-        if (element) {  
-            if (toggle) {
-                element.style.border = "5px solid black";
-            }
-            else {
-                element.style.border = "0px solid black";
-            }
-        }
+    function addOrRemoveAnnotations(element) {
         if (toggle) {
             addAnnotation(element);
             // the annotation should also be retained upon user actions (mousemove / mousedown / mouseup / keyboard)
@@ -92,6 +83,27 @@ function HAButton(props) {
         // add element html at the corners of the html element
     }
 
+    function markBorder(element) {
+        // console.log("markBorder", element);
+        if (element) {  
+            if (toggle) {
+                element.style.border = "5px solid black";
+            }
+            else {
+                element.style.border = "0px solid black";
+            }
+        }
+    }
+    function annotateTag(tag) {
+        console.log("tag", tag);
+        let tag_elems = document.getElementsByTagName(tag);
+        // console.log("tag_elems", tag_elems);
+        for (var tag_elem of tag_elems) {
+            markBorder(tag_elem);
+            addOrRemoveAnnotations(tag_elem);
+        }
+    }
+
     function annotate(variable, element) {
         console.log("in annotate", variable, element, toggle);
         element = element[0];
@@ -99,15 +111,14 @@ function HAButton(props) {
         if (annotations_to_show_by_tag.includes(variable)) {
             // console.log(variable, "in annotations_to_show_by_tag");
             let tag = element.tagName;
-            console.log("tag", tag);
-            let tag_elems = document.getElementsByTagName(tag);
-            // console.log("tag_elems", tag_elems);
-            for (var tag_elem of tag_elems) {
-                markBorder(tag_elem);
-            }
+            annotateTag(tag);
+            $(document).on("mouseup keydown keyup", function() {
+                annotateTag(tag); // redo the annotation if in new territory
+            });
         }
         else {   
             markBorder(element);
+            addOrRemoveAnnotations(element);
         }
     }
     
