@@ -6,6 +6,9 @@ window.$ = $;
 
 const selectors = {};
 const annotables = []; // keys are the specific annotations
+const BORDER_ON = "5px solid black";
+
+const BORDER_OFF = "0px solid black";
 
 function addNewlines(str, variable_name) {
     // this runs every time a DOM element is shown as a variable on the page, so we should update the selectors at this stage
@@ -38,10 +41,15 @@ function h2t(src) { // html to text
     return src.replaceAll("<", "&lt;").replaceAll(">", "&gt;"); //.replace("&", " &amp; "); 
 }
 
+function splitByLastUnderscore(splittable) {
+    var split_index = splittable.lastIndexOf("_");
+    return splittable.substr(0, split_index);
+}
+
 function HAButton(props) {
     const [toggle, setToggle] = useState(true);
-    const annotations_to_show_by_tag = [ 'dimage', 'tile' ];
-    const noannotations = ['dmap']
+    const annotations_to_show_by_tag = [ 'dimage', 'tile', 'dremove' ];
+    const noannotations = [ 'dmap', 'position', 'centre_last', 'centre', 'tilesize', 'name', 'e', 'scroll_delta', 'pos', 'container_size' ];
     
     function reAnnotate(){ // for reannotating when user behavior erases annotations
         let existing_annotations = document.getElementsByClassName("annotation");
@@ -51,19 +59,31 @@ function HAButton(props) {
             }
         }
     }
-    
+
     function dollarifyVar(variable_from_exercise) {
         if (variable_from_exercise.substring(0,1) == 'd') // assumes variable can't start with a d
             return "$" + variable_from_exercise.substring(1);
+        else
+            return variable_from_exercise;
     }
 
     function addAnnotation(element) {
-        // console.log("element", element);
+        // console.log("element", element, "props.id", props.id);
         let text_to_display = element.outerHTML; // .replaceAll("<", "&lt;").replaceAll(">", "&gt;") - not needed apparently
         var para = document.createElement("p");
-        var variable_from_exercise = props.id.split("_")[0];
+        var variable_from_exercise = splitByLastUnderscore(props.id);
+        // only mention the variable if it is the specific html that variable includes
+        var variable_html = document.getElementById(variable_from_exercise).innerHTML;
+        
+        var text_to_display_to_compare = text_to_display.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("border: " + BORDER_OFF, "").replaceAll("border: " + BORDER_ON, "").replaceAll(" ", "").replace("border:" + BORDER_OFF);
+        var variable_html_to_compare = variable_html.replaceAll("\n","").replaceAll("border: " + BORDER_OFF, "").replaceAll("border: " + BORDER_ON, "").replaceAll(" ", "");
+        console.log("variable_html", variable_html_to_compare);
+        console.log("text_to_display", text_to_display_to_compare);
+        console.log("variable_html includes text_to_display", variable_html_to_compare.includes(text_to_display_to_compare));
+        var show_var = variable_html_to_compare.includes(text_to_display_to_compare);
+
         variable_from_exercise = dollarifyVar(variable_from_exercise);
-        var node = document.createTextNode(variable_from_exercise + " " + text_to_display);
+        var node = document.createTextNode(show_var ? (variable_from_exercise + " " + text_to_display) : text_to_display);
         para.appendChild(node);
         para.style.top = element.style.top;
         para.style.left = element.style.left;
@@ -99,8 +119,9 @@ function HAButton(props) {
             }
         }
     }
+
     function annotateTag(tag) {
-        console.log("tag", tag);
+        // console.log("tag", tag);
         let tag_elems = document.getElementsByTagName(tag);
         // console.log("tag_elems", tag_elems);
         for (var tag_elem of tag_elems) {
@@ -110,7 +131,7 @@ function HAButton(props) {
     }
 
     function annotate(variable, element) {
-        console.log("in annotate", variable, element, toggle);
+        // console.log("in annotate", variable, element, toggle);
         element = element[0];
         if (!element) return;
         if (annotations_to_show_by_tag.includes(variable)) {
@@ -134,7 +155,7 @@ function HAButton(props) {
         let codetoshow = document.getElementById("codetoshow");
         if (toggle) {
             let vartohighlight = dollarifyVar(variable);
-            console.log("vartohighlight: ", vartohighlight, "codetoshow", codetoshow);
+            // console.log("vartohighlight: ", vartohighlight, "codetoshow", codetoshow);
             codetoshow.outerHTML = codetoshow.outerHTML.replaceAll(vartohighlight, "<mark>" + vartohighlight + "</mark>");
         }
         else {
@@ -143,8 +164,16 @@ function HAButton(props) {
     }
 
     function handleClick() {
-        console.log("in handleClick", toggle, props.id);
-        let element_to_a_h = props.id.split("_")[0];
+        // console.log("in handleClick", toggle, props.id);
+
+        // remove all existing annotations to avoid confusion
+        if (!toggle) {
+            $(".annotation").remove();
+            $(document).off("mouseup keydown keyup", reAnnotate);
+            $("body").off();
+        }
+        
+        let element_to_a_h = splitByLastUnderscore(props.id);
         if (!noannotations.includes(element_to_a_h)) {
             if (toggle)
                 alert("Annotated and highlighted! Play around and check.");
@@ -577,10 +606,10 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
-<p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p> <HAButton id="dmap_button"/>
+                    <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p><HAButton id="dremove_button"/> Note undoing and then redoing can annotate/highlight new elements on the page.
+<p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p><HAButton id="dmap_button"/> Note undoing and then redoing can annotate/highlight new elements on the page.
 <p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p><HAButton id="dimage_button"/> Note undoing and then redoing can annotate/highlight new elements on the page.
-<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p><HAButton id="tile_button"/>
+<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p><HAButton id="tile_button"/> Note undoing and then redoing can annotate/highlight new elements on the page.
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
@@ -588,7 +617,7 @@ $(function () {
                         <pre id="codetoshow">{codeToShow}</pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: tile, $image, $remove, $map? </p>
+                        <p>What is the relationship between the following variables: $map, $remove, tile, $image? </p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto2'>Next Exercise</a>
