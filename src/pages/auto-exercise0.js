@@ -4,6 +4,12 @@ import './../App.css';
 import $ from 'jquery';
 window.$ = $;
 
+// store variable notes in exercises
+$('textarea').on("change keyup paste", function(){
+    console.log("text area has changed 2", $(this).val(), $(this).prop("id"), window.location.href.at(-1));
+    localStorage.setItem($(this).prop("id") + "_ex" + window.location.href.at(-1), $(this).val());
+})
+
 const selectors = {};
 const annotables = []; // keys are the specific annotations
 
@@ -459,7 +465,7 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p><HAButton id="dremove_button"/> Note undoing and then redoing can annotate/highlight new elements on the page.
+                    <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p><HAButton id="dremove_button"/> Note un/redoing can annotate new elements on the page.<textarea class='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dremove_notes'></textarea>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>

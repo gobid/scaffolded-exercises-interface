@@ -4,6 +4,12 @@ import './../App.css';
 import $ from 'jquery';
 window.$ = $;
 
+// store variable notes in exercises
+$('textarea').on("change keyup paste", function(){
+    console.log("text area has changed 2", $(this).val(), $(this).prop("id"), window.location.href.at(-1));
+    localStorage.setItem($(this).prop("id") + "_ex" + window.location.href.at(-1), $(this).val());
+})
+
 const selectors = {};
 const annotables = []; // keys are the specific annotations
 
@@ -552,9 +558,9 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p><HAButton id="dmap_button"/> Note undoing and then redoing can annotate/highlight new elements on the page.
-<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p><HAButton id="dimage_button"/> Note undoing and then redoing can annotate/highlight new elements on the page.
-<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p><HAButton id="tile_button"/> Note undoing and then redoing can annotate/highlight new elements on the page.
+                    <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p><HAButton id="dmap_button"/> Note un/redoing can annotate new elements on the page.<textarea class='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dmap_notes'></textarea>
+<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p><HAButton id="dimage_button"/> Note un/redoing can annotate new elements on the page.<textarea class='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dimage_notes'></textarea>
+<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p><HAButton id="tile_button"/> Note un/redoing can annotate new elements on the page.<textarea class='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tile_notes'></textarea>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
@@ -562,7 +568,7 @@ $(function () {
                         <pre id="codetoshow">{codeToShow}</pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: $map, $image, tile? </p>
+                        <p>What is the relationship between the following variables: $image, tile, $map? </p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto6'>Next Exercise</a>

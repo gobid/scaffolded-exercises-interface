@@ -760,6 +760,10 @@ ul.comicNav a:hover, ul.comicNav a:focus {
   width: 100%;
 }
 
+.var-notes {
+  margin-top:5px;
+}
+
 .pt {
   word-wrap: break-word;
   max-width: 800px;

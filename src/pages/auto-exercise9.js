@@ -4,6 +4,12 @@ import './../App.css';
 import $ from 'jquery';
 window.$ = $;
 
+// store variable notes in exercises
+$('textarea').on("change keyup paste", function(){
+    console.log("text area has changed 2", $(this).val(), $(this).prop("id"), window.location.href.at(-1));
+    localStorage.setItem($(this).prop("id") + "_ex" + window.location.href.at(-1), $(this).val());
+})
+
 const selectors = {};
 const annotables = []; // keys are the specific annotations
 
@@ -738,12 +744,12 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='e_p'>e = <span className ="pt" id='e'> </span> </p>
-<p id='scroll_delta_p'>scroll_delta = <span className ="pt" id='scroll_delta'> </span> </p><HAButton id="scroll_delta_button"/> Note undoing and then redoing can annotate/highlight new elements on the page.
-<p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p><HAButton id="pos_button"/> Note undoing and then redoing can annotate/highlight new elements on the page.
-<p id='position_p'>position = <span className ="pt" id='position'> </span> </p><HAButton id="position_button"/> Note undoing and then redoing can annotate/highlight new elements on the page.
-<p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p><HAButton id="tilesize_button"/> Note undoing and then redoing can annotate/highlight new elements on the page.
-<p id='container_size_p'>container_size = <span className ="pt" id='container_size'> </span> </p><HAButton id="container_size_button"/> Note undoing and then redoing can annotate/highlight new elements on the page.
+                    <p id='e_p'>e = <span className ="pt" id='e'> </span> </p><textarea class='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='e_notes'></textarea>
+<p id='scroll_delta_p'>scroll_delta = <span className ="pt" id='scroll_delta'> </span> </p><HAButton id="scroll_delta_button"/> Note un/redoing can annotate new elements on the page.<textarea class='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='scroll_delta_notes'></textarea>
+<p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p><HAButton id="pos_button"/> Note un/redoing can annotate new elements on the page.<textarea class='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='pos_notes'></textarea>
+<p id='position_p'>position = <span className ="pt" id='position'> </span> </p><HAButton id="position_button"/> Note un/redoing can annotate new elements on the page.<textarea class='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='position_notes'></textarea>
+<p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p><HAButton id="tilesize_button"/> Note un/redoing can annotate new elements on the page.<textarea class='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tilesize_notes'></textarea>
+<p id='container_size_p'>container_size = <span className ="pt" id='container_size'> </span> </p><HAButton id="container_size_button"/> Note un/redoing can annotate new elements on the page.<textarea class='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='container_size_notes'></textarea>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
@@ -751,7 +757,7 @@ $(function () {
                         <pre id="codetoshow">{codeToShow}</pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: position, tilesize, scroll_delta, container_size, e, pos? </p>
+                        <p>What is the relationship between the following variables: pos, tilesize, container_size, scroll_delta, position, e? </p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto10'>Next Exercise</a>
