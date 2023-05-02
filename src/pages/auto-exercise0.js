@@ -70,7 +70,7 @@ function HAButton(props) {
         var para = document.createElement("p");
         var variable_from_exercise = splitByLastUnderscore(props.id);
         variable_from_exercise = dollarifyVar(variable_from_exercise);
-        var node = document.createTextNode(variable_from_exercise + " " + text_to_display);
+        var node = document.createTextNode(text_to_display);
         para.appendChild(node);
         para.style.top = element.style.top;
         para.style.left = element.style.left;
@@ -282,26 +282,32 @@ var Map = function ($container) {
 
 
             // console.log('$remove', $remove);
-            if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
+            // exclude annotations
+            if ($remove && $remove[0] && $remove[0].outerHTML && $remove[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
             }
             else {
-                if ($remove && $remove.selector) {
-                    $('#dremove')[0].innerHTML = `${$remove.selector} (we output the selector when length is 0)`;
-                }
-                else if ($remove && $remove.originalEvent) {
-                    $('#dremove')[0].innerHTML = `${$remove.type}`;
-                }
-                else if (typeof($remove) == 'object') {
-                    try {
-                        $('#dremove')[0].innerHTML = JSON.stringify($remove);
-                    }
-                    catch {
-                        $('#dremove')[0].innerHTML = `${$remove}`;
-                    }
+                if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
+                    $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
                 }
                 else {
-                    $('#dremove')[0].innerHTML = `${$remove}`;
+                    if ($remove && $remove.selector) {
+                        $('#dremove')[0].innerHTML = `${$remove.selector} (we output the selector when length is 0)`;
+                    }
+                    else if ($remove && $remove.originalEvent) {
+                        $('#dremove')[0].innerHTML = `${$remove.type}`;
+                    }
+                    else if (typeof($remove) == 'object') {
+                        try {
+                            $('#dremove')[0].innerHTML = JSON.stringify($remove);
+                        }
+                        catch {
+                            $('#dremove')[0].innerHTML = `${$remove}`;
+                        }
+                    }
+                    else {
+                        $('#dremove')[0].innerHTML = `${$remove}`;
+                    }
                 }
             }
         
@@ -314,26 +320,32 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
                         $remove = $remove.not(tile);
 
             // console.log('$remove', $remove);
-            if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                $('#dremove')[0].innerHTML += ' <br> ' + `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
+            // exclude annotations
+            if ($remove && $remove[0] && $remove[0].outerHTML && $remove[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
             }
             else {
-                if ($remove && $remove.selector) {
-                    $('#dremove')[0].innerHTML += ' <br> ' + `${$remove.selector} (we output the selector when length is 0)`;
-                }
-                else if ($remove && $remove.originalEvent) {
-                    $('#dremove')[0].innerHTML += ' <br> ' + `${$remove.type}`;
-                }
-                else if (typeof($remove) == 'object') {
-                    try {
-                        $('#dremove')[0].innerHTML += ' <br> ' + JSON.stringify($remove);
-                    }
-                    catch {
-                        $('#dremove')[0].innerHTML += ' <br> ' + `${$remove}`;
-                    }
+                if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
+                    $('#dremove')[0].innerHTML += ' <br> ' + `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
                 }
                 else {
-                    $('#dremove')[0].innerHTML += ' <br> ' + `${$remove}`;
+                    if ($remove && $remove.selector) {
+                        $('#dremove')[0].innerHTML += ' <br> ' + `${$remove.selector} (we output the selector when length is 0)`;
+                    }
+                    else if ($remove && $remove.originalEvent) {
+                        $('#dremove')[0].innerHTML += ' <br> ' + `${$remove.type}`;
+                    }
+                    else if (typeof($remove) == 'object') {
+                        try {
+                            $('#dremove')[0].innerHTML += ' <br> ' + JSON.stringify($remove);
+                        }
+                        catch {
+                            $('#dremove')[0].innerHTML += ' <br> ' + `${$remove}`;
+                        }
+                    }
+                    else {
+                        $('#dremove')[0].innerHTML += ' <br> ' + `${$remove}`;
+                    }
                 }
             }
         
@@ -364,26 +376,32 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             $remove.remove();
 
             // console.log('$remove', $remove);
-            if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
+            // exclude annotations
+            if ($remove && $remove[0] && $remove[0].outerHTML && $remove[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
             }
             else {
-                if ($remove && $remove.selector) {
-                    $('#dremove')[0].innerHTML = `${$remove.selector} (we output the selector when length is 0)`;
-                }
-                else if ($remove && $remove.originalEvent) {
-                    $('#dremove')[0].innerHTML = `${$remove.type}`;
-                }
-                else if (typeof($remove) == 'object') {
-                    try {
-                        $('#dremove')[0].innerHTML = JSON.stringify($remove);
-                    }
-                    catch {
-                        $('#dremove')[0].innerHTML = `${$remove}`;
-                    }
+                if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
+                    $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
                 }
                 else {
-                    $('#dremove')[0].innerHTML = `${$remove}`;
+                    if ($remove && $remove.selector) {
+                        $('#dremove')[0].innerHTML = `${$remove.selector} (we output the selector when length is 0)`;
+                    }
+                    else if ($remove && $remove.originalEvent) {
+                        $('#dremove')[0].innerHTML = `${$remove.type}`;
+                    }
+                    else if (typeof($remove) == 'object') {
+                        try {
+                            $('#dremove')[0].innerHTML = JSON.stringify($remove);
+                        }
+                        catch {
+                            $('#dremove')[0].innerHTML = `${$remove}`;
+                        }
+                    }
+                    else {
+                        $('#dremove')[0].innerHTML = `${$remove}`;
+                    }
                 }
             }
         

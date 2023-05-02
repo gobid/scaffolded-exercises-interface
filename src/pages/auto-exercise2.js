@@ -70,7 +70,7 @@ function HAButton(props) {
         var para = document.createElement("p");
         var variable_from_exercise = splitByLastUnderscore(props.id);
         variable_from_exercise = dollarifyVar(variable_from_exercise);
-        var node = document.createTextNode(variable_from_exercise + " " + text_to_display);
+        var node = document.createTextNode(text_to_display);
         para.appendChild(node);
         para.style.top = element.style.top;
         para.style.left = element.style.left;
@@ -242,26 +242,32 @@ var Map = function ($container) {
     var $map = $container.children(".map");
 
             // console.log('$map', $map);
-            if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
+            // exclude annotations
+            if ($map && $map[0] && $map[0].outerHTML && $map[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
             }
             else {
-                if ($map && $map.selector) {
-                    $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
-                }
-                else if ($map && $map.originalEvent) {
-                    $('#dmap')[0].innerHTML = `${$map.type}`;
-                }
-                else if (typeof($map) == 'object') {
-                    try {
-                        $('#dmap')[0].innerHTML = JSON.stringify($map);
-                    }
-                    catch {
-                        $('#dmap')[0].innerHTML = `${$map}`;
-                    }
+                if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
+                    $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
                 }
                 else {
-                    $('#dmap')[0].innerHTML = `${$map}`;
+                    if ($map && $map.selector) {
+                        $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
+                    }
+                    else if ($map && $map.originalEvent) {
+                        $('#dmap')[0].innerHTML = `${$map.type}`;
+                    }
+                    else if (typeof($map) == 'object') {
+                        try {
+                            $('#dmap')[0].innerHTML = JSON.stringify($map);
+                        }
+                        catch {
+                            $('#dmap')[0].innerHTML = `${$map}`;
+                        }
+                    }
+                    else {
+                        $('#dmap')[0].innerHTML = `${$map}`;
+                    }
                 }
             }
         
@@ -275,26 +281,32 @@ var Map = function ($container) {
     });
 
             // console.log('$map', $map);
-            if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
+            // exclude annotations
+            if ($map && $map[0] && $map[0].outerHTML && $map[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
             }
             else {
-                if ($map && $map.selector) {
-                    $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
-                }
-                else if ($map && $map.originalEvent) {
-                    $('#dmap')[0].innerHTML = `${$map.type}`;
-                }
-                else if (typeof($map) == 'object') {
-                    try {
-                        $('#dmap')[0].innerHTML = JSON.stringify($map);
-                    }
-                    catch {
-                        $('#dmap')[0].innerHTML = `${$map}`;
-                    }
+                if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
+                    $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
                 }
                 else {
-                    $('#dmap')[0].innerHTML = `${$map}`;
+                    if ($map && $map.selector) {
+                        $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
+                    }
+                    else if ($map && $map.originalEvent) {
+                        $('#dmap')[0].innerHTML = `${$map.type}`;
+                    }
+                    else if (typeof($map) == 'object') {
+                        try {
+                            $('#dmap')[0].innerHTML = JSON.stringify($map);
+                        }
+                        catch {
+                            $('#dmap')[0].innerHTML = `${$map}`;
+                        }
+                    }
+                    else {
+                        $('#dmap')[0].innerHTML = `${$map}`;
+                    }
                 }
             }
         
@@ -320,26 +332,32 @@ var Map = function ($container) {
 
 
             // console.log('$map', $map);
-            if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
+            // exclude annotations
+            if ($map && $map[0] && $map[0].outerHTML && $map[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
             }
             else {
-                if ($map && $map.selector) {
-                    $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
-                }
-                else if ($map && $map.originalEvent) {
-                    $('#dmap')[0].innerHTML = `${$map.type}`;
-                }
-                else if (typeof($map) == 'object') {
-                    try {
-                        $('#dmap')[0].innerHTML = JSON.stringify($map);
-                    }
-                    catch {
-                        $('#dmap')[0].innerHTML = `${$map}`;
-                    }
+                if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
+                    $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
                 }
                 else {
-                    $('#dmap')[0].innerHTML = `${$map}`;
+                    if ($map && $map.selector) {
+                        $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
+                    }
+                    else if ($map && $map.originalEvent) {
+                        $('#dmap')[0].innerHTML = `${$map.type}`;
+                    }
+                    else if (typeof($map) == 'object') {
+                        try {
+                            $('#dmap')[0].innerHTML = JSON.stringify($map);
+                        }
+                        catch {
+                            $('#dmap')[0].innerHTML = `${$map}`;
+                        }
+                    }
+                    else {
+                        $('#dmap')[0].innerHTML = `${$map}`;
+                    }
                 }
             }
         
@@ -362,26 +380,32 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
                     var tile = $map.find(".tile" + name);
 
             // console.log('tile', tile);
-            if (JSON.stringify(`${tile}`).includes("object") && tile[0]) {
-                $('#tile')[0].innerHTML += ' <br> ' + `${h2t(addNewlines(tile[0].outerHTML, 'tile'))}`;
+            // exclude annotations
+            if (tile && tile[0] && tile[0].outerHTML && tile[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
             }
             else {
-                if (tile && tile.selector) {
-                    $('#tile')[0].innerHTML += ' <br> ' + `${tile.selector} (we output the selector when length is 0)`;
-                }
-                else if (tile && tile.originalEvent) {
-                    $('#tile')[0].innerHTML += ' <br> ' + `${tile.type}`;
-                }
-                else if (typeof(tile) == 'object') {
-                    try {
-                        $('#tile')[0].innerHTML += ' <br> ' + JSON.stringify(tile);
-                    }
-                    catch {
-                        $('#tile')[0].innerHTML += ' <br> ' + `${tile}`;
-                    }
+                if (JSON.stringify(`${tile}`).includes("object") && tile[0]) {
+                    $('#tile')[0].innerHTML += ' <br> ' + `${h2t(addNewlines(tile[0].outerHTML, 'tile'))}`;
                 }
                 else {
-                    $('#tile')[0].innerHTML += ' <br> ' + `${tile}`;
+                    if (tile && tile.selector) {
+                        $('#tile')[0].innerHTML += ' <br> ' + `${tile.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (tile && tile.originalEvent) {
+                        $('#tile')[0].innerHTML += ' <br> ' + `${tile.type}`;
+                    }
+                    else if (typeof(tile) == 'object') {
+                        try {
+                            $('#tile')[0].innerHTML += ' <br> ' + JSON.stringify(tile);
+                        }
+                        catch {
+                            $('#tile')[0].innerHTML += ' <br> ' + `${tile}`;
+                        }
+                    }
+                    else {
+                        $('#tile')[0].innerHTML += ' <br> ' + `${tile}`;
+                    }
                 }
             }
         
@@ -401,26 +425,32 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
                         );
 
             // console.log('$image', $image);
-            if (JSON.stringify(`${$image}`).includes("object") && $image[0]) {
-                $('#dimage')[0].innerHTML += ' <br> ' + `${h2t(addNewlines($image[0].outerHTML, 'dimage'))}`;
+            // exclude annotations
+            if ($image && $image[0] && $image[0].outerHTML && $image[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
             }
             else {
-                if ($image && $image.selector) {
-                    $('#dimage')[0].innerHTML += ' <br> ' + `${$image.selector} (we output the selector when length is 0)`;
-                }
-                else if ($image && $image.originalEvent) {
-                    $('#dimage')[0].innerHTML += ' <br> ' + `${$image.type}`;
-                }
-                else if (typeof($image) == 'object') {
-                    try {
-                        $('#dimage')[0].innerHTML += ' <br> ' + JSON.stringify($image);
-                    }
-                    catch {
-                        $('#dimage')[0].innerHTML += ' <br> ' + `${$image}`;
-                    }
+                if (JSON.stringify(`${$image}`).includes("object") && $image[0]) {
+                    $('#dimage')[0].innerHTML += ' <br> ' + `${h2t(addNewlines($image[0].outerHTML, 'dimage'))}`;
                 }
                 else {
-                    $('#dimage')[0].innerHTML += ' <br> ' + `${$image}`;
+                    if ($image && $image.selector) {
+                        $('#dimage')[0].innerHTML += ' <br> ' + `${$image.selector} (we output the selector when length is 0)`;
+                    }
+                    else if ($image && $image.originalEvent) {
+                        $('#dimage')[0].innerHTML += ' <br> ' + `${$image.type}`;
+                    }
+                    else if (typeof($image) == 'object') {
+                        try {
+                            $('#dimage')[0].innerHTML += ' <br> ' + JSON.stringify($image);
+                        }
+                        catch {
+                            $('#dimage')[0].innerHTML += ' <br> ' + `${$image}`;
+                        }
+                    }
+                    else {
+                        $('#dimage')[0].innerHTML += ' <br> ' + `${$image}`;
+                    }
                 }
             }
         
@@ -434,26 +464,32 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
                         $map.append($image);
 
             // console.log('$map', $map);
-            if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
+            // exclude annotations
+            if ($map && $map[0] && $map[0].outerHTML && $map[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
             }
             else {
-                if ($map && $map.selector) {
-                    $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
-                }
-                else if ($map && $map.originalEvent) {
-                    $('#dmap')[0].innerHTML = `${$map.type}`;
-                }
-                else if (typeof($map) == 'object') {
-                    try {
-                        $('#dmap')[0].innerHTML = JSON.stringify($map);
-                    }
-                    catch {
-                        $('#dmap')[0].innerHTML = `${$map}`;
-                    }
+                if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
+                    $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
                 }
                 else {
-                    $('#dmap')[0].innerHTML = `${$map}`;
+                    if ($map && $map.selector) {
+                        $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
+                    }
+                    else if ($map && $map.originalEvent) {
+                        $('#dmap')[0].innerHTML = `${$map.type}`;
+                    }
+                    else if (typeof($map) == 'object') {
+                        try {
+                            $('#dmap')[0].innerHTML = JSON.stringify($map);
+                        }
+                        catch {
+                            $('#dmap')[0].innerHTML = `${$map}`;
+                        }
+                    }
+                    else {
+                        $('#dmap')[0].innerHTML = `${$map}`;
+                    }
                 }
             }
         
@@ -526,7 +562,7 @@ $(function () {
                         <pre id="codetoshow">{codeToShow}</pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: $map, $remove, tile, $image? </p>
+                        <p>What is the relationship between the following variables: $remove, $map, $image, tile? </p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto3'>Next Exercise</a>
