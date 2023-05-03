@@ -36,17 +36,18 @@ $(document).on("ready", function(){
 });
 
 function getPrevNotes() {
-    var prev_notes = "";
+    var prev_notes = "<ul style='position: fixed; left: 100px;'>";
     var prev_ex = parseInt(window.location.href.at(-1)) - 1;
     if (prev_ex > -1) {
         for (var i = 0; i < localStorage.length; i++){
             var k = localStorage.key(i);
             if (k.includes("_ex" + prev_ex)) {
                 console.log("prev ex notes: ", localStorage.getItem(k));
-                prev_notes += k + ": " + localStorage.getItem(k) + " <br>";
+                prev_notes += "<li style='text-align:left; margin:20px;'>" + k + ": " + localStorage.getItem(k) + " <br></li>";
             }
         }
     }
+    prev_notes += "</ul>";
     return prev_notes;
 }
 
@@ -933,20 +934,19 @@ $(function () {
 let codeToShow = '"/* update:71:114 */\n    function update() {\n        $map.css({\n            left: position[0],\n            top: position[1]\n        });\n\n        var centre_last = centre;\n        centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];\n\n        function tile_name(x, y) {\n            x -= size[3];\n            y -= size[0];\n            return (y >= 0 ? y + 1 + \"s\" : -y + \"n\") + (x >= 0 ? x + 1 + \"e\" : -x + \"w\");\n        }\n\n        if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {\n            var $remove = $map.children().not(\".ground\");\n\n            for (var y = -1; y <= +1; y++) {\n                for (var x = -1; x <= +1; x++) {\n                    var name = tile_name(centre[0] + x, centre[1] + y);\n                    var tile = $map.find(\".tile\" + name);\n\n                    if (tile.length) {\n                        $remove = $remove.not(tile);\n                    } else {\n                        var $image = $(\n                            \"<img class=\\\"tile\" + name + \"\\\" src=\\\"http://imgs.xkcd.com/clickdrag/\" + name + \".png\\\" style=\\\"top:\" + (centre[1] + y) * tilesize + \"px;left:\" + (centre[0] + x) * tilesize + \"px; z-index: -1; position: absolute;;\\\" style=\\\"display:none\\\" />\"\n                        );\n\n                        $image.load(function() {\n                            $(this).show();\n                        }).error(function() {\n                            $(this).remove();\n                        });\n\n                        $map.append($image);\n                    }\n                }\n            }\n\n            $remove.remove();\n        }\n    }"'
         codeToShow = codeToShow.substring(1, codeToShow.length - 2);
         document.getElementById("codetoshow").innerHTML = getTutoronifiedHTML(codeToShow);
-
+        var prevNotes = getPrevNotes();
+        document.getElementById("prev_notes").innerHTML = getPrevNotes();
     }
 
     render() {
-        
-        var prevNotes = getPrevNotes();
         return (
             <div className="App">
                 <div id="app-title">Scaffolded Exercises</div>
                 <br/><br/><br/>
                 DOM
-                <p>{prevNotes}</p>
                 <div id="comic"><div className="map"><div className="ground"></div></div></div>
                 <br/>
+                <p id="prev_notes"></p>
                 <div className="exercises">
                     Variables:
                     <br/><br/>
