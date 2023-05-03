@@ -12,6 +12,19 @@ $('textarea').on("change keyup paste", function(){
 
 const selectors = {};
 const annotables = []; // keys are the specific annotations
+const tutorons = {
+    "left": "The left CSS property participates in specifying the horizontal position of a positioned element. It has no effect on non-positioned elements.",
+    "top": "The top CSS property participates in specifying the vertical position of a positioned element. It has no effect on non-positioned elements.",
+    "load": "Load data from the server and place the returned HTML into the matched elements.",
+    "show()": "Display the matched elements.",
+    "error": "Bind an event handler to the \"error\" JavaScript event.",
+    "remove()": "Remove the set of matched elements from the DOM.",
+    "append": "Insert content, specified by the parameter, to the end of each element in the set of matched elements.",
+    "Math.floor()": "The static method always rounds down and returns the largest integer less than or equal to a given number.", // JS MDN site
+    ".children()": "Returns a live HTMLCollection which contains all of the child elements of the element upon which it was called",
+    ".not": "A.not(B) returns all A elements that do not have the class name B",
+    "find": "Returns the first element in the provided array that satisfies the provided testing function.",
+};
 
 $(document).on("ready", function(){
     // store variable notes in exercises
@@ -35,6 +48,15 @@ function getPrevNotes() {
         }
     }
     return prev_notes;
+}
+
+function getTutoronifiedHTML(code) {
+    code = code.replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+    for (const [key, value] of Object.entries(tutorons)) {
+        var tutorons_html = "<span class='border-underline' title='" + value + "'>" + key + "</span>";
+        code = code.replaceAll(key, tutorons_html);
+    }
+    return code;
 }
 
 function addNewlines(str, variable_name) {
@@ -908,11 +930,14 @@ $(function () {
     var map = new Map($("#comic"));
 });
 
+let codeToShow = '"/* update:71:114 */\n    function update() {\n        $map.css({\n            left: position[0],\n            top: position[1]\n        });\n\n        var centre_last = centre;\n        centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];\n\n        function tile_name(x, y) {\n            x -= size[3];\n            y -= size[0];\n            return (y >= 0 ? y + 1 + \"s\" : -y + \"n\") + (x >= 0 ? x + 1 + \"e\" : -x + \"w\");\n        }\n\n        if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {\n            var $remove = $map.children().not(\".ground\");\n\n            for (var y = -1; y <= +1; y++) {\n                for (var x = -1; x <= +1; x++) {\n                    var name = tile_name(centre[0] + x, centre[1] + y);\n                    var tile = $map.find(\".tile\" + name);\n\n                    if (tile.length) {\n                        $remove = $remove.not(tile);\n                    } else {\n                        var $image = $(\n                            \"<img class=\\\"tile\" + name + \"\\\" src=\\\"http://imgs.xkcd.com/clickdrag/\" + name + \".png\\\" style=\\\"top:\" + (centre[1] + y) * tilesize + \"px;left:\" + (centre[0] + x) * tilesize + \"px; z-index: -1; position: absolute;;\\\" style=\\\"display:none\\\" />\"\n                        );\n\n                        $image.load(function() {\n                            $(this).show();\n                        }).error(function() {\n                            $(this).remove();\n                        });\n\n                        $map.append($image);\n                    }\n                }\n            }\n\n            $remove.remove();\n        }\n    }"'
+        codeToShow = codeToShow.substring(1, codeToShow.length - 2);
+        document.getElementById("codetoshow").innerHTML = getTutoronifiedHTML(codeToShow);
+
     }
 
     render() {
-        let codeToShow = '"/* update:71:114 */\n    function update() {\n        $map.css({\n            left: position[0],\n            top: position[1]\n        });\n\n        var centre_last = centre;\n        centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];\n\n        function tile_name(x, y) {\n            x -= size[3];\n            y -= size[0];\n            return (y >= 0 ? y + 1 + \"s\" : -y + \"n\") + (x >= 0 ? x + 1 + \"e\" : -x + \"w\");\n        }\n\n        if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {\n            var $remove = $map.children().not(\".ground\");\n\n            for (var y = -1; y <= +1; y++) {\n                for (var x = -1; x <= +1; x++) {\n                    var name = tile_name(centre[0] + x, centre[1] + y);\n                    var tile = $map.find(\".tile\" + name);\n\n                    if (tile.length) {\n                        $remove = $remove.not(tile);\n                    } else {\n                        var $image = $(\n                            \"<img class=\\\"tile\" + name + \"\\\" src=\\\"http://imgs.xkcd.com/clickdrag/\" + name + \".png\\\" style=\\\"top:\" + (centre[1] + y) * tilesize + \"px;left:\" + (centre[0] + x) * tilesize + \"px; z-index: -1; position: absolute;;\\\" style=\\\"display:none\\\" />\"\n                        );\n\n                        $image.load(function() {\n                            $(this).show();\n                        }).error(function() {\n                            $(this).remove();\n                        });\n\n                        $map.append($image);\n                    }\n                }\n            }\n\n            $remove.remove();\n        }\n    }"'
-        codeToShow = codeToShow.substring(1, codeToShow.length - 2)
+        
         var prevNotes = getPrevNotes();
         return (
             <div className="App">
@@ -938,7 +963,7 @@ $(function () {
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
-                        <pre id="codetoshow">{codeToShow}</pre>
+                        <pre id="codetoshow"></pre>
                         <p>What is happening in the code?</p>
                         <textarea className="reflection-textarea" rows="6"></textarea>
                         <p>What is the relationship between the following variables: $image, $map, name, centre_last, position, centre, tilesize, tile, $remove? </p>
