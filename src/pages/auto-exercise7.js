@@ -625,7 +625,7 @@ $(function () {
                         <pre id="codetoshow"></pre>
                         <p>What is happening in the code?</p>
                         <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the meaning / purpose of the variable ?</p>
+                        <p>What is the meaning / purpose of the variable $image?</p>
                         <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto8'>Next Exercise</a>
