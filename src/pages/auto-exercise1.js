@@ -40,6 +40,15 @@ $(document).on("ready", function(){
     });
 });
 
+function createHTMLArray(html_array) {
+    var html_array_str = '';
+    for (var html_var of html_array) {
+        html_array_str += html_var.outerHTML + ' and ';
+    }
+    console.log("html_array_str", html_array_str);
+    return html_array_str;
+}
+
 function getPrevNotes() {
     var prev_notes = "<ul style='position: fixed; left: 100px;'>";
     var prev_ex = parseInt(window.location.href.at(-1)) - 1;
@@ -65,31 +74,34 @@ function getTutoronifiedHTML(code) {
     return code;
 }
 
-function addNewlines(str, variable_name) {
-    // this runs every time a DOM element is shown as a variable on the page, so we should update the selectors at this stage
-    // we do it by classes for now
-    let class_loc = str.indexOf('class="') + 'class="'.length;
-    let end_class_loc = str.substring(class_loc).indexOf('"');
-    let class_name = str.substring(class_loc, class_loc + end_class_loc);
-    // console.log("in addNewLines class_name:", class_name);
-    if (selectors[variable_name]) {
-        if (!selectors[variable_name].includes(class_name)) {
-            selectors[variable_name].push(class_name);
+function addNewlines(str, variable_name, perform=1) {
+    if (perform) {
+        // this runs every time a DOM element is shown as a variable on the page, so we should update the selectors at this stage
+        // we do it by classes for now
+        let class_loc = str.indexOf('class="') + 'class="'.length;
+        let end_class_loc = str.substring(class_loc).indexOf('"');
+        let class_name = str.substring(class_loc, class_loc + end_class_loc);
+        // console.log("in addNewLines class_name:", class_name);
+        if (selectors[variable_name]) {
+            if (!selectors[variable_name].includes(class_name)) {
+                selectors[variable_name].push(class_name);
+            }
         }
-    }
-    else {
-        selectors[variable_name] = [];
-    }
+        else {
+            selectors[variable_name] = [];
+        }
 
-    var result = '';
-    while (str.length > 0) {
-        result += str.substring(0, 80) + '\n';
-        str = str.substring(80);
+        var result = '';
+        while (str.length > 0) {
+            result += str.substring(0, 80) + '\n';
+            str = str.substring(80);
+        }
+        let dotdotdot = "...";
+        if (result.length < 150) 
+            dotdotdot = " ";
+        return result.substring(0,150) + dotdotdot;
     }
-    let dotdotdot = "...";
-    if (result.length < 150) 
-        dotdotdot = " ";
-    return result.substring(0,150) + dotdotdot;
+    else return str;
 }
 
 function h2t(src) { // html to text
@@ -439,7 +451,7 @@ var Map = function ($container) {
             }
             else {
                 if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                    $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
+                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove'))}`;
                 }
                 else {
                     if ($remove && $remove.selector) {
@@ -462,7 +474,7 @@ var Map = function ($container) {
                 }
             }
         
-try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dremove')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }selectors['dremove'] = [];selectors['tile'] = [];selectors['dimage'] = [];selectors['dmap'] = [];
+try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }selectors['dremove'] = [];selectors['tile'] = [];selectors['dimage'] = [];selectors['dmap'] = [];
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
                     var name = tile_name(centre[0] + x, centre[1] + y);
@@ -508,25 +520,25 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                    $('#dremove')[0].innerHTML += ' <br> ' + `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
+                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove'))}`;
                 }
                 else {
                     if ($remove && $remove.selector) {
-                        $('#dremove')[0].innerHTML += ' <br> ' + `${$remove.selector} (we output the selector when length is 0)`;
+                        $('#dremove')[0].innerHTML = `${$remove.selector} (we output the selector when length is 0)`;
                     }
                     else if ($remove && $remove.originalEvent) {
-                        $('#dremove')[0].innerHTML += ' <br> ' + `${$remove.type}`;
+                        $('#dremove')[0].innerHTML = `${$remove.type}`;
                     }
                     else if (typeof($remove) == 'object') {
                         try {
-                            $('#dremove')[0].innerHTML += ' <br> ' + JSON.stringify($remove);
+                            $('#dremove')[0].innerHTML = JSON.stringify($remove);
                         }
                         catch {
-                            $('#dremove')[0].innerHTML += ' <br> ' + `${$remove}`;
+                            $('#dremove')[0].innerHTML = `${$remove}`;
                         }
                     }
                     else {
-                        $('#dremove')[0].innerHTML += ' <br> ' + `${$remove}`;
+                        $('#dremove')[0].innerHTML = `${$remove}`;
                     }
                 }
             }
@@ -626,7 +638,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                    $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
+                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove'))}`;
                 }
                 else {
                     if ($remove && $remove.selector) {
@@ -719,7 +731,7 @@ $(function () {
                         <pre id="codetoshow"></pre>
                         <p>What is happening in the code?</p>
                         <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: $remove, $map? </p>
+                        <p>What is the relationship between the following variables: $map, $remove? </p>
                         <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto2'>Next Exercise</a>

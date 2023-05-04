@@ -40,6 +40,14 @@ $(document).on("ready", function(){
     });
 });
 
+function createHTMLArray(html_array) {
+    var html_array_str = '';
+    for (var html_var of html_array) {
+        html_array_str += html_var.outerHTML + '\n';
+    }
+    return html_array_str;
+}
+
 function getPrevNotes() {
     var prev_notes = "<ul style='position: fixed; left: 100px;'>";
     var prev_ex = parseInt(window.location.href.at(-1)) - 1;
@@ -346,7 +354,7 @@ var Map = function ($container) {
             }
             else {
                 if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                    $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
+                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove'))}`;
                 }
                 else {
                     if ($remove && $remove.selector) {
@@ -369,7 +377,7 @@ var Map = function ($container) {
                 }
             }
         
-try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dremove')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }selectors['dremove'] = [];selectors['tile'] = [];selectors['dimage'] = [];selectors['dmap'] = [];
+try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }selectors['dremove'] = [];selectors['tile'] = [];selectors['dimage'] = [];selectors['dmap'] = [];
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
                     var name = tile_name(centre[0] + x, centre[1] + y);
@@ -384,25 +392,25 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                    $('#dremove')[0].innerHTML += ' <br> ' + `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
+                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove'))}`;
                 }
                 else {
                     if ($remove && $remove.selector) {
-                        $('#dremove')[0].innerHTML += ' <br> ' + `${$remove.selector} (we output the selector when length is 0)`;
+                        $('#dremove')[0].innerHTML = `${$remove.selector} (we output the selector when length is 0)`;
                     }
                     else if ($remove && $remove.originalEvent) {
-                        $('#dremove')[0].innerHTML += ' <br> ' + `${$remove.type}`;
+                        $('#dremove')[0].innerHTML = `${$remove.type}`;
                     }
                     else if (typeof($remove) == 'object') {
                         try {
-                            $('#dremove')[0].innerHTML += ' <br> ' + JSON.stringify($remove);
+                            $('#dremove')[0].innerHTML = JSON.stringify($remove);
                         }
                         catch {
-                            $('#dremove')[0].innerHTML += ' <br> ' + `${$remove}`;
+                            $('#dremove')[0].innerHTML = `${$remove}`;
                         }
                     }
                     else {
-                        $('#dremove')[0].innerHTML += ' <br> ' + `${$remove}`;
+                        $('#dremove')[0].innerHTML = `${$remove}`;
                     }
                 }
             }
@@ -440,7 +448,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                    $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
+                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove'))}`;
                 }
                 else {
                     if ($remove && $remove.selector) {

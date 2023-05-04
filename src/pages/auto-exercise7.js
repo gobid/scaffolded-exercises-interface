@@ -40,6 +40,14 @@ $(document).on("ready", function(){
     });
 });
 
+function createHTMLArray(html_array) {
+    var html_array_str = '';
+    for (var html_var of html_array) {
+        html_array_str += html_var.outerHTML + '\n';
+    }
+    return html_array_str;
+}
+
 function getPrevNotes() {
     var prev_notes = "<ul style='position: fixed; left: 100px;'>";
     var prev_ex = parseInt(window.location.href.at(-1)) - 1;
@@ -293,6 +301,37 @@ var Map = function ($container) {
     var padding_top = 200;
     var size = [14, 48, 25, 33];
     var tilesize = 2048;
+
+            // console.log('tilesize', tilesize);
+            // exclude annotations
+            if (tilesize && tilesize[0] && tilesize[0].outerHTML && tilesize[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${tilesize}`).includes("object") && tilesize[0]) {
+                    $('#tilesize')[0].innerHTML = `${h2t(addNewlines(tilesize[0].outerHTML, 'tilesize'))}`;
+                }
+                else {
+                    if (tilesize && tilesize.selector) {
+                        $('#tilesize')[0].innerHTML = `${tilesize.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (tilesize && tilesize.originalEvent) {
+                        $('#tilesize')[0].innerHTML = `${tilesize.type}`;
+                    }
+                    else if (typeof(tilesize) == 'object') {
+                        try {
+                            $('#tilesize')[0].innerHTML = JSON.stringify(tilesize);
+                        }
+                        catch {
+                            $('#tilesize')[0].innerHTML = `${tilesize}`;
+                        }
+                    }
+                    else {
+                        $('#tilesize')[0].innerHTML = `${tilesize}`;
+                    }
+                }
+            }
+        
     var visible = [];
     var container_size = [$container.width(), $container.height()];
     var scroll_delta = null;
@@ -371,6 +410,37 @@ var Map = function ($container) {
 
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
 
+            // console.log('position', position);
+            // exclude annotations
+            if (position && position[0] && position[0].outerHTML && position[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${position}`).includes("object") && position[0]) {
+                    $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML, 'position'))}`;
+                }
+                else {
+                    if (position && position.selector) {
+                        $('#position')[0].innerHTML = `${position.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (position && position.originalEvent) {
+                        $('#position')[0].innerHTML = `${position.type}`;
+                    }
+                    else if (typeof(position) == 'object') {
+                        try {
+                            $('#position')[0].innerHTML = JSON.stringify(position);
+                        }
+                        catch {
+                            $('#position')[0].innerHTML = `${position}`;
+                        }
+                    }
+                    else {
+                        $('#position')[0].innerHTML = `${position}`;
+                    }
+                }
+            }
+        
+
     $map.find(".ground").css({
         top: size[0] * tilesize,
         height: size[2] * tilesize,
@@ -382,12 +452,42 @@ var Map = function ($container) {
 
     var centre = [-1, 0];
 
+            // console.log('centre', centre);
+            // exclude annotations
+            if (centre && centre[0] && centre[0].outerHTML && centre[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${centre}`).includes("object") && centre[0]) {
+                    $('#centre')[0].innerHTML = `${h2t(addNewlines(centre[0].outerHTML, 'centre'))}`;
+                }
+                else {
+                    if (centre && centre.selector) {
+                        $('#centre')[0].innerHTML = `${centre.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (centre && centre.originalEvent) {
+                        $('#centre')[0].innerHTML = `${centre.type}`;
+                    }
+                    else if (typeof(centre) == 'object') {
+                        try {
+                            $('#centre')[0].innerHTML = JSON.stringify(centre);
+                        }
+                        catch {
+                            $('#centre')[0].innerHTML = `${centre}`;
+                        }
+                    }
+                    else {
+                        $('#centre')[0].innerHTML = `${centre}`;
+                    }
+                }
+            }
+        
+
     var update = function () {
         $map.css({
             left: position[0],
             top: position[1]
         });
-
 
             // console.log('$map', $map);
             // exclude annotations
@@ -419,8 +519,71 @@ var Map = function ($container) {
                 }
             }
         
+
         var centre_last = centre;
+
+            // console.log('centre_last', centre_last);
+            // exclude annotations
+            if (centre_last && centre_last[0] && centre_last[0].outerHTML && centre_last[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${centre_last}`).includes("object") && centre_last[0]) {
+                    $('#centre_last')[0].innerHTML = `${h2t(addNewlines(centre_last[0].outerHTML, 'centre_last'))}`;
+                }
+                else {
+                    if (centre_last && centre_last.selector) {
+                        $('#centre_last')[0].innerHTML = `${centre_last.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (centre_last && centre_last.originalEvent) {
+                        $('#centre_last')[0].innerHTML = `${centre_last.type}`;
+                    }
+                    else if (typeof(centre_last) == 'object') {
+                        try {
+                            $('#centre_last')[0].innerHTML = JSON.stringify(centre_last);
+                        }
+                        catch {
+                            $('#centre_last')[0].innerHTML = `${centre_last}`;
+                        }
+                    }
+                    else {
+                        $('#centre_last')[0].innerHTML = `${centre_last}`;
+                    }
+                }
+            }
+        
         centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];
+
+            // console.log('centre', centre);
+            // exclude annotations
+            if (centre && centre[0] && centre[0].outerHTML && centre[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${centre}`).includes("object") && centre[0]) {
+                    $('#centre')[0].innerHTML = `${h2t(addNewlines(centre[0].outerHTML, 'centre'))}`;
+                }
+                else {
+                    if (centre && centre.selector) {
+                        $('#centre')[0].innerHTML = `${centre.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (centre && centre.originalEvent) {
+                        $('#centre')[0].innerHTML = `${centre.type}`;
+                    }
+                    else if (typeof(centre) == 'object') {
+                        try {
+                            $('#centre')[0].innerHTML = JSON.stringify(centre);
+                        }
+                        catch {
+                            $('#centre')[0].innerHTML = `${centre}`;
+                        }
+                    }
+                    else {
+                        $('#centre')[0].innerHTML = `${centre}`;
+                    }
+                }
+            }
+        
 
         var tile_name = function (x, y) {
             x -= size[3];
@@ -431,10 +594,72 @@ var Map = function ($container) {
         if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {
             var $remove = $map.children().not(".ground");
 
-try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dremove')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }selectors['dremove'] = [];selectors['tile'] = [];selectors['dimage'] = [];selectors['dmap'] = [];
+
+            // console.log('$remove', $remove);
+            // exclude annotations
+            if ($remove && $remove[0] && $remove[0].outerHTML && $remove[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
+                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove'))}`;
+                }
+                else {
+                    if ($remove && $remove.selector) {
+                        $('#dremove')[0].innerHTML = `${$remove.selector} (we output the selector when length is 0)`;
+                    }
+                    else if ($remove && $remove.originalEvent) {
+                        $('#dremove')[0].innerHTML = `${$remove.type}`;
+                    }
+                    else if (typeof($remove) == 'object') {
+                        try {
+                            $('#dremove')[0].innerHTML = JSON.stringify($remove);
+                        }
+                        catch {
+                            $('#dremove')[0].innerHTML = `${$remove}`;
+                        }
+                    }
+                    else {
+                        $('#dremove')[0].innerHTML = `${$remove}`;
+                    }
+                }
+            }
+        
+try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }selectors['dremove'] = [];selectors['tile'] = [];selectors['dimage'] = [];selectors['dmap'] = [];
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
                     var name = tile_name(centre[0] + x, centre[1] + y);
+
+            // console.log('name', name);
+            // exclude annotations
+            if (name && name[0] && name[0].outerHTML && name[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${name}`).includes("object") && name[0]) {
+                    $('#name')[0].innerHTML += ' <br> ' + `${h2t(addNewlines(name[0].outerHTML, 'name'))}`;
+                }
+                else {
+                    if (name && name.selector) {
+                        $('#name')[0].innerHTML += ' <br> ' + `${name.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (name && name.originalEvent) {
+                        $('#name')[0].innerHTML += ' <br> ' + `${name.type}`;
+                    }
+                    else if (typeof(name) == 'object') {
+                        try {
+                            $('#name')[0].innerHTML += ' <br> ' + JSON.stringify(name);
+                        }
+                        catch {
+                            $('#name')[0].innerHTML += ' <br> ' + `${name}`;
+                        }
+                    }
+                    else {
+                        $('#name')[0].innerHTML += ' <br> ' + `${name}`;
+                    }
+                }
+            }
+        
                     var tile = $map.find(".tile" + name);
 
             // console.log('tile', tile);
@@ -469,6 +694,37 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
         
                     if (tile.length) {
                         $remove = $remove.not(tile);
+
+            // console.log('$remove', $remove);
+            // exclude annotations
+            if ($remove && $remove[0] && $remove[0].outerHTML && $remove[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
+                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove'))}`;
+                }
+                else {
+                    if ($remove && $remove.selector) {
+                        $('#dremove')[0].innerHTML = `${$remove.selector} (we output the selector when length is 0)`;
+                    }
+                    else if ($remove && $remove.originalEvent) {
+                        $('#dremove')[0].innerHTML = `${$remove.type}`;
+                    }
+                    else if (typeof($remove) == 'object') {
+                        try {
+                            $('#dremove')[0].innerHTML = JSON.stringify($remove);
+                        }
+                        catch {
+                            $('#dremove')[0].innerHTML = `${$remove}`;
+                        }
+                    }
+                    else {
+                        $('#dremove')[0].innerHTML = `${$remove}`;
+                    }
+                }
+            }
+        
                     } else {
                         var $image = $(
                             '<img class="tile' +
@@ -556,6 +812,37 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
 
             $remove.remove();
+
+            // console.log('$remove', $remove);
+            // exclude annotations
+            if ($remove && $remove[0] && $remove[0].outerHTML && $remove[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
+                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove'))}`;
+                }
+                else {
+                    if ($remove && $remove.selector) {
+                        $('#dremove')[0].innerHTML = `${$remove.selector} (we output the selector when length is 0)`;
+                    }
+                    else if ($remove && $remove.originalEvent) {
+                        $('#dremove')[0].innerHTML = `${$remove.type}`;
+                    }
+                    else if (typeof($remove) == 'object') {
+                        try {
+                            $('#dremove')[0].innerHTML = JSON.stringify($remove);
+                        }
+                        catch {
+                            $('#dremove')[0].innerHTML = `${$remove}`;
+                        }
+                    }
+                    else {
+                        $('#dremove')[0].innerHTML = `${$remove}`;
+                    }
+                }
+            }
+        
         }
     };
 
@@ -567,9 +854,71 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             position[0] = Math.round(
                 clamp(pos.pageX + scroll_delta[0], -(size[1] + size[3]) * tilesize + container_size[0], 0)
             );
+
+            // console.log('position', position);
+            // exclude annotations
+            if (position && position[0] && position[0].outerHTML && position[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${position}`).includes("object") && position[0]) {
+                    $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML, 'position'))}`;
+                }
+                else {
+                    if (position && position.selector) {
+                        $('#position')[0].innerHTML = `${position.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (position && position.originalEvent) {
+                        $('#position')[0].innerHTML = `${position.type}`;
+                    }
+                    else if (typeof(position) == 'object') {
+                        try {
+                            $('#position')[0].innerHTML = JSON.stringify(position);
+                        }
+                        catch {
+                            $('#position')[0].innerHTML = `${position}`;
+                        }
+                    }
+                    else {
+                        $('#position')[0].innerHTML = `${position}`;
+                    }
+                }
+            }
+        
             position[1] = Math.round(
                 clamp(pos.pageY + scroll_delta[1], -(size[0] + size[2]) * tilesize + container_size[1], 0)
             );
+
+            // console.log('position', position);
+            // exclude annotations
+            if (position && position[0] && position[0].outerHTML && position[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${position}`).includes("object") && position[0]) {
+                    $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML, 'position'))}`;
+                }
+                else {
+                    if (position && position.selector) {
+                        $('#position')[0].innerHTML = `${position.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (position && position.originalEvent) {
+                        $('#position')[0].innerHTML = `${position.type}`;
+                    }
+                    else if (typeof(position) == 'object') {
+                        try {
+                            $('#position')[0].innerHTML = JSON.stringify(position);
+                        }
+                        catch {
+                            $('#position')[0].innerHTML = `${position}`;
+                        }
+                    }
+                    else {
+                        $('#position')[0].innerHTML = `${position}`;
+                    }
+                }
+            }
+        
             update();
         }
     }
@@ -595,7 +944,7 @@ $(function () {
     var map = new Map($("#comic"));
 });
 
-        let codeToShow = '"/* $overlay.css({:24:27 */\n    $overlay.css({\n        background: \"transparent\",\n        position: \"relative\"\n    });"'
+        let codeToShow = '"/* update:71:114 */\n    function update() {\n        $map.css({\n            left: position[0],\n            top: position[1]\n        });\n\n        var centre_last = centre;\n        centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];\n\n        function tile_name(x, y) {\n            x -= size[3];\n            y -= size[0];\n            return (y >= 0 ? y + 1 + \"s\" : -y + \"n\") + (x >= 0 ? x + 1 + \"e\" : -x + \"w\");\n        }\n\n        if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {\n            var $remove = $map.children().not(\".ground\");\n\n            for (var y = -1; y <= +1; y++) {\n                for (var x = -1; x <= +1; x++) {\n                    var name = tile_name(centre[0] + x, centre[1] + y);\n                    var tile = $map.find(\".tile\" + name);\n\n                    if (tile.length) {\n                        $remove = $remove.not(tile);\n                    } else {\n                        var $image = $(\n                            \"<img class=\\\"tile\" + name + \"\\\" src=\\\"http://imgs.xkcd.com/clickdrag/\" + name + \".png\\\" style=\\\"top:\" + (centre[1] + y) * tilesize + \"px;left:\" + (centre[0] + x) * tilesize + \"px; z-index: -1; position: absolute;;\\\" style=\\\"display:none\\\" />\"\n                        );\n\n                        $image.load(function() {\n                            $(this).show();\n                        }).error(function() {\n                            $(this).remove();\n                        });\n\n                        $map.append($image);\n                    }\n                }\n            }\n\n            $remove.remove();\n        }\n    }"'
         codeToShow = codeToShow.substring(1, codeToShow.length - 2);
         document.getElementById("codetoshow").innerHTML = getTutoronifiedHTML(codeToShow);
         var prevNotes = getPrevNotes();
@@ -616,8 +965,14 @@ $(function () {
                     Variables:
                     <br/><br/>
                     <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p><HAButton id="dmap_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dmap_notes'></textarea>
-<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p><HAButton id="dimage_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dimage_notes'></textarea>
+<p id='position_p'>position = <span className ="pt" id='position'> </span> </p><HAButton id="position_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='position_notes'></textarea>
+<p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p><HAButton id="centre_last_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='centre_last_notes'></textarea>
+<p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p><HAButton id="centre_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='centre_notes'></textarea>
+<p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p><HAButton id="tilesize_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tilesize_notes'></textarea>
+<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p><HAButton id="dremove_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dremove_notes'></textarea>
+<p id='name_p'>name = <span className ="pt" id='name'> </span> </p><HAButton id="name_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='name_notes'></textarea>
 <p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p><HAButton id="tile_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tile_notes'></textarea>
+<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p><HAButton id="dimage_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dimage_notes'></textarea>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
@@ -625,7 +980,7 @@ $(function () {
                         <pre id="codetoshow"></pre>
                         <p>What is happening in the code?</p>
                         <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the meaning / purpose of the variable $image?</p>
+                        <p>What is the relationship between the following variables: name, centre, centre_last, tilesize, $map, position? </p>
                         <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto8'>Next Exercise</a>

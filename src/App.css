@@ -772,3 +772,8 @@ ul.comicNav a:hover, ul.comicNav a:focus {
 .border-underline {
   border-bottom: 1px dotted black;
 }
+
+#codetoshow {
+  background-color: #D3D3D3;
+  width:1000px
+}

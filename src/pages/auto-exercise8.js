@@ -40,6 +40,14 @@ $(document).on("ready", function(){
     });
 });
 
+function createHTMLArray(html_array) {
+    var html_array_str = '';
+    for (var html_var of html_array) {
+        html_array_str += html_var.outerHTML + '\n';
+    }
+    return html_array_str;
+}
+
 function getPrevNotes() {
     var prev_notes = "<ul style='position: fixed; left: 100px;'>";
     var prev_ex = parseInt(window.location.href.at(-1)) - 1;
@@ -254,6 +262,37 @@ export default class ExerciseAG8 extends React.Component {
         function eventPos(e) {
     if (e.type.match(/^touch/)) {
         e = e.originalEvent.changedTouches[0];
+
+            // console.log('e', e);
+            // exclude annotations
+            if (e && e[0] && e[0].outerHTML && e[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${e}`).includes("object") && e[0]) {
+                    $('#e')[0].innerHTML = `${h2t(addNewlines(e[0].outerHTML, 'e'))}`;
+                }
+                else {
+                    if (e && e.selector) {
+                        $('#e')[0].innerHTML = `${e.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (e && e.originalEvent) {
+                        $('#e')[0].innerHTML = `${e.type}`;
+                    }
+                    else if (typeof(e) == 'object') {
+                        try {
+                            $('#e')[0].innerHTML = JSON.stringify(e);
+                        }
+                        catch {
+                            $('#e')[0].innerHTML = `${e}`;
+                        }
+                    }
+                    else {
+                        $('#e')[0].innerHTML = `${e}`;
+                    }
+                }
+            }
+        
     }
     return {
         pageX: e.pageX,
@@ -326,40 +365,71 @@ var Map = function ($container) {
         
     var visible = [];
     var container_size = [$container.width(), $container.height()];
-    var scroll_delta = null;
 
-    var $map = $container.children(".map");
-
-            // console.log('$map', $map);
+            // console.log('container_size', container_size);
             // exclude annotations
-            if ($map && $map[0] && $map[0].outerHTML && $map[0].outerHTML.includes("annotation")) {
+            if (container_size && container_size[0] && container_size[0].outerHTML && container_size[0].outerHTML.includes("annotation")) {
                 console.log("it's annotation so skipping showing");
             }
             else {
-                if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                    $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
+                if (JSON.stringify(`${container_size}`).includes("object") && container_size[0]) {
+                    $('#container_size')[0].innerHTML = `${h2t(addNewlines(container_size[0].outerHTML, 'container_size'))}`;
                 }
                 else {
-                    if ($map && $map.selector) {
-                        $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
+                    if (container_size && container_size.selector) {
+                        $('#container_size')[0].innerHTML = `${container_size.selector} (we output the selector when length is 0)`;
                     }
-                    else if ($map && $map.originalEvent) {
-                        $('#dmap')[0].innerHTML = `${$map.type}`;
+                    else if (container_size && container_size.originalEvent) {
+                        $('#container_size')[0].innerHTML = `${container_size.type}`;
                     }
-                    else if (typeof($map) == 'object') {
+                    else if (typeof(container_size) == 'object') {
                         try {
-                            $('#dmap')[0].innerHTML = JSON.stringify($map);
+                            $('#container_size')[0].innerHTML = JSON.stringify(container_size);
                         }
                         catch {
-                            $('#dmap')[0].innerHTML = `${$map}`;
+                            $('#container_size')[0].innerHTML = `${container_size}`;
                         }
                     }
                     else {
-                        $('#dmap')[0].innerHTML = `${$map}`;
+                        $('#container_size')[0].innerHTML = `${container_size}`;
                     }
                 }
             }
         
+    var scroll_delta = null;
+
+            // console.log('scroll_delta', scroll_delta);
+            // exclude annotations
+            if (scroll_delta && scroll_delta[0] && scroll_delta[0].outerHTML && scroll_delta[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
+                    $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML, 'scroll_delta'))}`;
+                }
+                else {
+                    if (scroll_delta && scroll_delta.selector) {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (scroll_delta && scroll_delta.originalEvent) {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta.type}`;
+                    }
+                    else if (typeof(scroll_delta) == 'object') {
+                        try {
+                            $('#scroll_delta')[0].innerHTML = JSON.stringify(scroll_delta);
+                        }
+                        catch {
+                            $('#scroll_delta')[0].innerHTML = `${scroll_delta}`;
+                        }
+                    }
+                    else {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta}`;
+                    }
+                }
+            }
+        
+
+    var $map = $container.children(".map");
 
     var map_size = [(size[1] + size[3]) * tilesize, (size[0] + size[2]) * tilesize];
     $map.css({
@@ -369,38 +439,8 @@ var Map = function ($container) {
         zIndex: -1
     });
 
-            // console.log('$map', $map);
-            // exclude annotations
-            if ($map && $map[0] && $map[0].outerHTML && $map[0].outerHTML.includes("annotation")) {
-                console.log("it's annotation so skipping showing");
-            }
-            else {
-                if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                    $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
-                }
-                else {
-                    if ($map && $map.selector) {
-                        $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
-                    }
-                    else if ($map && $map.originalEvent) {
-                        $('#dmap')[0].innerHTML = `${$map.type}`;
-                    }
-                    else if (typeof($map) == 'object') {
-                        try {
-                            $('#dmap')[0].innerHTML = JSON.stringify($map);
-                        }
-                        catch {
-                            $('#dmap')[0].innerHTML = `${$map}`;
-                        }
-                    }
-                    else {
-                        $('#dmap')[0].innerHTML = `${$map}`;
-                    }
-                }
-            }
-        
-
     var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];
+
 
             // console.log('position', position);
             // exclude annotations
@@ -432,7 +472,6 @@ var Map = function ($container) {
                 }
             }
         
-
     $map.find(".ground").css({
         top: size[0] * tilesize,
         height: size[2] * tilesize,
@@ -444,138 +483,14 @@ var Map = function ($container) {
 
     var centre = [-1, 0];
 
-            // console.log('centre', centre);
-            // exclude annotations
-            if (centre && centre[0] && centre[0].outerHTML && centre[0].outerHTML.includes("annotation")) {
-                console.log("it's annotation so skipping showing");
-            }
-            else {
-                if (JSON.stringify(`${centre}`).includes("object") && centre[0]) {
-                    $('#centre')[0].innerHTML = `${h2t(addNewlines(centre[0].outerHTML, 'centre'))}`;
-                }
-                else {
-                    if (centre && centre.selector) {
-                        $('#centre')[0].innerHTML = `${centre.selector} (we output the selector when length is 0)`;
-                    }
-                    else if (centre && centre.originalEvent) {
-                        $('#centre')[0].innerHTML = `${centre.type}`;
-                    }
-                    else if (typeof(centre) == 'object') {
-                        try {
-                            $('#centre')[0].innerHTML = JSON.stringify(centre);
-                        }
-                        catch {
-                            $('#centre')[0].innerHTML = `${centre}`;
-                        }
-                    }
-                    else {
-                        $('#centre')[0].innerHTML = `${centre}`;
-                    }
-                }
-            }
-        
-
     var update = function () {
         $map.css({
             left: position[0],
             top: position[1]
         });
 
-            // console.log('$map', $map);
-            // exclude annotations
-            if ($map && $map[0] && $map[0].outerHTML && $map[0].outerHTML.includes("annotation")) {
-                console.log("it's annotation so skipping showing");
-            }
-            else {
-                if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                    $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
-                }
-                else {
-                    if ($map && $map.selector) {
-                        $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
-                    }
-                    else if ($map && $map.originalEvent) {
-                        $('#dmap')[0].innerHTML = `${$map.type}`;
-                    }
-                    else if (typeof($map) == 'object') {
-                        try {
-                            $('#dmap')[0].innerHTML = JSON.stringify($map);
-                        }
-                        catch {
-                            $('#dmap')[0].innerHTML = `${$map}`;
-                        }
-                    }
-                    else {
-                        $('#dmap')[0].innerHTML = `${$map}`;
-                    }
-                }
-            }
-        
-
         var centre_last = centre;
-
-            // console.log('centre_last', centre_last);
-            // exclude annotations
-            if (centre_last && centre_last[0] && centre_last[0].outerHTML && centre_last[0].outerHTML.includes("annotation")) {
-                console.log("it's annotation so skipping showing");
-            }
-            else {
-                if (JSON.stringify(`${centre_last}`).includes("object") && centre_last[0]) {
-                    $('#centre_last')[0].innerHTML = `${h2t(addNewlines(centre_last[0].outerHTML, 'centre_last'))}`;
-                }
-                else {
-                    if (centre_last && centre_last.selector) {
-                        $('#centre_last')[0].innerHTML = `${centre_last.selector} (we output the selector when length is 0)`;
-                    }
-                    else if (centre_last && centre_last.originalEvent) {
-                        $('#centre_last')[0].innerHTML = `${centre_last.type}`;
-                    }
-                    else if (typeof(centre_last) == 'object') {
-                        try {
-                            $('#centre_last')[0].innerHTML = JSON.stringify(centre_last);
-                        }
-                        catch {
-                            $('#centre_last')[0].innerHTML = `${centre_last}`;
-                        }
-                    }
-                    else {
-                        $('#centre_last')[0].innerHTML = `${centre_last}`;
-                    }
-                }
-            }
-        
         centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];
-
-            // console.log('centre', centre);
-            // exclude annotations
-            if (centre && centre[0] && centre[0].outerHTML && centre[0].outerHTML.includes("annotation")) {
-                console.log("it's annotation so skipping showing");
-            }
-            else {
-                if (JSON.stringify(`${centre}`).includes("object") && centre[0]) {
-                    $('#centre')[0].innerHTML = `${h2t(addNewlines(centre[0].outerHTML, 'centre'))}`;
-                }
-                else {
-                    if (centre && centre.selector) {
-                        $('#centre')[0].innerHTML = `${centre.selector} (we output the selector when length is 0)`;
-                    }
-                    else if (centre && centre.originalEvent) {
-                        $('#centre')[0].innerHTML = `${centre.type}`;
-                    }
-                    else if (typeof(centre) == 'object') {
-                        try {
-                            $('#centre')[0].innerHTML = JSON.stringify(centre);
-                        }
-                        catch {
-                            $('#centre')[0].innerHTML = `${centre}`;
-                        }
-                    }
-                    else {
-                        $('#centre')[0].innerHTML = `${centre}`;
-                    }
-                }
-            }
-        
 
         var tile_name = function (x, y) {
             x -= size[3];
@@ -586,137 +501,13 @@ var Map = function ($container) {
         if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {
             var $remove = $map.children().not(".ground");
 
-
-            // console.log('$remove', $remove);
-            // exclude annotations
-            if ($remove && $remove[0] && $remove[0].outerHTML && $remove[0].outerHTML.includes("annotation")) {
-                console.log("it's annotation so skipping showing");
-            }
-            else {
-                if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                    $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
-                }
-                else {
-                    if ($remove && $remove.selector) {
-                        $('#dremove')[0].innerHTML = `${$remove.selector} (we output the selector when length is 0)`;
-                    }
-                    else if ($remove && $remove.originalEvent) {
-                        $('#dremove')[0].innerHTML = `${$remove.type}`;
-                    }
-                    else if (typeof($remove) == 'object') {
-                        try {
-                            $('#dremove')[0].innerHTML = JSON.stringify($remove);
-                        }
-                        catch {
-                            $('#dremove')[0].innerHTML = `${$remove}`;
-                        }
-                    }
-                    else {
-                        $('#dremove')[0].innerHTML = `${$remove}`;
-                    }
-                }
-            }
-        
-try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dremove')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }selectors['dremove'] = [];selectors['tile'] = [];selectors['dimage'] = [];selectors['dmap'] = [];
+try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#tile')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }try { $('#dimage')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on this page.'); }selectors['dremove'] = [];selectors['tile'] = [];selectors['dimage'] = [];selectors['dmap'] = [];
             for (var y = -1; y <= +1; y++) {
                 for (var x = -1; x <= +1; x++) {
                     var name = tile_name(centre[0] + x, centre[1] + y);
-
-            // console.log('name', name);
-            // exclude annotations
-            if (name && name[0] && name[0].outerHTML && name[0].outerHTML.includes("annotation")) {
-                console.log("it's annotation so skipping showing");
-            }
-            else {
-                if (JSON.stringify(`${name}`).includes("object") && name[0]) {
-                    $('#name')[0].innerHTML += ' <br> ' + `${h2t(addNewlines(name[0].outerHTML, 'name'))}`;
-                }
-                else {
-                    if (name && name.selector) {
-                        $('#name')[0].innerHTML += ' <br> ' + `${name.selector} (we output the selector when length is 0)`;
-                    }
-                    else if (name && name.originalEvent) {
-                        $('#name')[0].innerHTML += ' <br> ' + `${name.type}`;
-                    }
-                    else if (typeof(name) == 'object') {
-                        try {
-                            $('#name')[0].innerHTML += ' <br> ' + JSON.stringify(name);
-                        }
-                        catch {
-                            $('#name')[0].innerHTML += ' <br> ' + `${name}`;
-                        }
-                    }
-                    else {
-                        $('#name')[0].innerHTML += ' <br> ' + `${name}`;
-                    }
-                }
-            }
-        
                     var tile = $map.find(".tile" + name);
-
-            // console.log('tile', tile);
-            // exclude annotations
-            if (tile && tile[0] && tile[0].outerHTML && tile[0].outerHTML.includes("annotation")) {
-                console.log("it's annotation so skipping showing");
-            }
-            else {
-                if (JSON.stringify(`${tile}`).includes("object") && tile[0]) {
-                    $('#tile')[0].innerHTML += ' <br> ' + `${h2t(addNewlines(tile[0].outerHTML, 'tile'))}`;
-                }
-                else {
-                    if (tile && tile.selector) {
-                        $('#tile')[0].innerHTML += ' <br> ' + `${tile.selector} (we output the selector when length is 0)`;
-                    }
-                    else if (tile && tile.originalEvent) {
-                        $('#tile')[0].innerHTML += ' <br> ' + `${tile.type}`;
-                    }
-                    else if (typeof(tile) == 'object') {
-                        try {
-                            $('#tile')[0].innerHTML += ' <br> ' + JSON.stringify(tile);
-                        }
-                        catch {
-                            $('#tile')[0].innerHTML += ' <br> ' + `${tile}`;
-                        }
-                    }
-                    else {
-                        $('#tile')[0].innerHTML += ' <br> ' + `${tile}`;
-                    }
-                }
-            }
-        
                     if (tile.length) {
                         $remove = $remove.not(tile);
-
-            // console.log('$remove', $remove);
-            // exclude annotations
-            if ($remove && $remove[0] && $remove[0].outerHTML && $remove[0].outerHTML.includes("annotation")) {
-                console.log("it's annotation so skipping showing");
-            }
-            else {
-                if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                    $('#dremove')[0].innerHTML += ' <br> ' + `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
-                }
-                else {
-                    if ($remove && $remove.selector) {
-                        $('#dremove')[0].innerHTML += ' <br> ' + `${$remove.selector} (we output the selector when length is 0)`;
-                    }
-                    else if ($remove && $remove.originalEvent) {
-                        $('#dremove')[0].innerHTML += ' <br> ' + `${$remove.type}`;
-                    }
-                    else if (typeof($remove) == 'object') {
-                        try {
-                            $('#dremove')[0].innerHTML += ' <br> ' + JSON.stringify($remove);
-                        }
-                        catch {
-                            $('#dremove')[0].innerHTML += ' <br> ' + `${$remove}`;
-                        }
-                    }
-                    else {
-                        $('#dremove')[0].innerHTML += ' <br> ' + `${$remove}`;
-                    }
-                }
-            }
-        
                     } else {
                         var $image = $(
                             '<img class="tile' +
@@ -729,37 +520,6 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
                                 (centre[0] + x) * tilesize +
                                 'px; z-index: -1; position: absolute;;" style="display:none" />'
                         );
-
-            // console.log('$image', $image);
-            // exclude annotations
-            if ($image && $image[0] && $image[0].outerHTML && $image[0].outerHTML.includes("annotation")) {
-                console.log("it's annotation so skipping showing");
-            }
-            else {
-                if (JSON.stringify(`${$image}`).includes("object") && $image[0]) {
-                    $('#dimage')[0].innerHTML += ' <br> ' + `${h2t(addNewlines($image[0].outerHTML, 'dimage'))}`;
-                }
-                else {
-                    if ($image && $image.selector) {
-                        $('#dimage')[0].innerHTML += ' <br> ' + `${$image.selector} (we output the selector when length is 0)`;
-                    }
-                    else if ($image && $image.originalEvent) {
-                        $('#dimage')[0].innerHTML += ' <br> ' + `${$image.type}`;
-                    }
-                    else if (typeof($image) == 'object') {
-                        try {
-                            $('#dimage')[0].innerHTML += ' <br> ' + JSON.stringify($image);
-                        }
-                        catch {
-                            $('#dimage')[0].innerHTML += ' <br> ' + `${$image}`;
-                        }
-                    }
-                    else {
-                        $('#dimage')[0].innerHTML += ' <br> ' + `${$image}`;
-                    }
-                }
-            }
-        
                         $image
                             .load(function () {
                                 $(this).show();
@@ -768,73 +528,11 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
                                 $(this).remove();
                             });
                         $map.append($image);
-
-            // console.log('$map', $map);
-            // exclude annotations
-            if ($map && $map[0] && $map[0].outerHTML && $map[0].outerHTML.includes("annotation")) {
-                console.log("it's annotation so skipping showing");
-            }
-            else {
-                if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                    $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
-                }
-                else {
-                    if ($map && $map.selector) {
-                        $('#dmap')[0].innerHTML = `${$map.selector} (we output the selector when length is 0)`;
-                    }
-                    else if ($map && $map.originalEvent) {
-                        $('#dmap')[0].innerHTML = `${$map.type}`;
-                    }
-                    else if (typeof($map) == 'object') {
-                        try {
-                            $('#dmap')[0].innerHTML = JSON.stringify($map);
-                        }
-                        catch {
-                            $('#dmap')[0].innerHTML = `${$map}`;
-                        }
-                    }
-                    else {
-                        $('#dmap')[0].innerHTML = `${$map}`;
-                    }
-                }
-            }
-        
                     }
                 }
             }
 
             $remove.remove();
-
-            // console.log('$remove', $remove);
-            // exclude annotations
-            if ($remove && $remove[0] && $remove[0].outerHTML && $remove[0].outerHTML.includes("annotation")) {
-                console.log("it's annotation so skipping showing");
-            }
-            else {
-                if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                    $('#dremove')[0].innerHTML = `${h2t(addNewlines($remove[0].outerHTML, 'dremove'))}`;
-                }
-                else {
-                    if ($remove && $remove.selector) {
-                        $('#dremove')[0].innerHTML = `${$remove.selector} (we output the selector when length is 0)`;
-                    }
-                    else if ($remove && $remove.originalEvent) {
-                        $('#dremove')[0].innerHTML = `${$remove.type}`;
-                    }
-                    else if (typeof($remove) == 'object') {
-                        try {
-                            $('#dremove')[0].innerHTML = JSON.stringify($remove);
-                        }
-                        catch {
-                            $('#dremove')[0].innerHTML = `${$remove}`;
-                        }
-                    }
-                    else {
-                        $('#dremove')[0].innerHTML = `${$remove}`;
-                    }
-                }
-            }
-        
         }
     };
 
@@ -843,6 +541,37 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
     function drag(e) {
         if (scroll_delta) {
             var pos = eventPos(e);
+
+            // console.log('pos', pos);
+            // exclude annotations
+            if (pos && pos[0] && pos[0].outerHTML && pos[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${pos}`).includes("object") && pos[0]) {
+                    $('#pos')[0].innerHTML = `${h2t(addNewlines(pos[0].outerHTML, 'pos'))}`;
+                }
+                else {
+                    if (pos && pos.selector) {
+                        $('#pos')[0].innerHTML = `${pos.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (pos && pos.originalEvent) {
+                        $('#pos')[0].innerHTML = `${pos.type}`;
+                    }
+                    else if (typeof(pos) == 'object') {
+                        try {
+                            $('#pos')[0].innerHTML = JSON.stringify(pos);
+                        }
+                        catch {
+                            $('#pos')[0].innerHTML = `${pos}`;
+                        }
+                    }
+                    else {
+                        $('#pos')[0].innerHTML = `${pos}`;
+                    }
+                }
+            }
+        
             position[0] = Math.round(
                 clamp(pos.pageX + scroll_delta[0], -(size[1] + size[3]) * tilesize + container_size[0], 0)
             );
@@ -920,13 +649,137 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             return;
         }
         var pos = eventPos(e);
+
+            // console.log('pos', pos);
+            // exclude annotations
+            if (pos && pos[0] && pos[0].outerHTML && pos[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${pos}`).includes("object") && pos[0]) {
+                    $('#pos')[0].innerHTML = `${h2t(addNewlines(pos[0].outerHTML, 'pos'))}`;
+                }
+                else {
+                    if (pos && pos.selector) {
+                        $('#pos')[0].innerHTML = `${pos.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (pos && pos.originalEvent) {
+                        $('#pos')[0].innerHTML = `${pos.type}`;
+                    }
+                    else if (typeof(pos) == 'object') {
+                        try {
+                            $('#pos')[0].innerHTML = JSON.stringify(pos);
+                        }
+                        catch {
+                            $('#pos')[0].innerHTML = `${pos}`;
+                        }
+                    }
+                    else {
+                        $('#pos')[0].innerHTML = `${pos}`;
+                    }
+                }
+            }
+        
         scroll_delta = [position[0] - pos.pageX, position[1] - pos.pageY];
+
+            // console.log('scroll_delta', scroll_delta);
+            // exclude annotations
+            if (scroll_delta && scroll_delta[0] && scroll_delta[0].outerHTML && scroll_delta[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
+                    $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML, 'scroll_delta'))}`;
+                }
+                else {
+                    if (scroll_delta && scroll_delta.selector) {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (scroll_delta && scroll_delta.originalEvent) {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta.type}`;
+                    }
+                    else if (typeof(scroll_delta) == 'object') {
+                        try {
+                            $('#scroll_delta')[0].innerHTML = JSON.stringify(scroll_delta);
+                        }
+                        catch {
+                            $('#scroll_delta')[0].innerHTML = `${scroll_delta}`;
+                        }
+                    }
+                    else {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta}`;
+                    }
+                }
+            }
+        
         $(document).on(e.type == "mousedown" ? "mousemove" : "touchmove", drag);
         e.preventDefault();
+
+            // console.log('e', e);
+            // exclude annotations
+            if (e && e[0] && e[0].outerHTML && e[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${e}`).includes("object") && e[0]) {
+                    $('#e')[0].innerHTML = `${h2t(addNewlines(e[0].outerHTML, 'e'))}`;
+                }
+                else {
+                    if (e && e.selector) {
+                        $('#e')[0].innerHTML = `${e.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (e && e.originalEvent) {
+                        $('#e')[0].innerHTML = `${e.type}`;
+                    }
+                    else if (typeof(e) == 'object') {
+                        try {
+                            $('#e')[0].innerHTML = JSON.stringify(e);
+                        }
+                        catch {
+                            $('#e')[0].innerHTML = `${e}`;
+                        }
+                    }
+                    else {
+                        $('#e')[0].innerHTML = `${e}`;
+                    }
+                }
+            }
+        
     });
     $(document).on("mouseup touchend", function (e) {
         $(document).off("mousemove touchmove", drag);
         scroll_delta = null;
+
+            // console.log('scroll_delta', scroll_delta);
+            // exclude annotations
+            if (scroll_delta && scroll_delta[0] && scroll_delta[0].outerHTML && scroll_delta[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
+                    $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML, 'scroll_delta'))}`;
+                }
+                else {
+                    if (scroll_delta && scroll_delta.selector) {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (scroll_delta && scroll_delta.originalEvent) {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta.type}`;
+                    }
+                    else if (typeof(scroll_delta) == 'object') {
+                        try {
+                            $('#scroll_delta')[0].innerHTML = JSON.stringify(scroll_delta);
+                        }
+                        catch {
+                            $('#scroll_delta')[0].innerHTML = `${scroll_delta}`;
+                        }
+                    }
+                    else {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta}`;
+                    }
+                }
+            }
+        
     });
 };
 
@@ -936,7 +789,7 @@ $(function () {
     var map = new Map($("#comic"));
 });
 
-        let codeToShow = '"/* update:71:114 */\n    function update() {\n        $map.css({\n            left: position[0],\n            top: position[1]\n        });\n\n        var centre_last = centre;\n        centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];\n\n        function tile_name(x, y) {\n            x -= size[3];\n            y -= size[0];\n            return (y >= 0 ? y + 1 + \"s\" : -y + \"n\") + (x >= 0 ? x + 1 + \"e\" : -x + \"w\");\n        }\n\n        if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {\n            var $remove = $map.children().not(\".ground\");\n\n            for (var y = -1; y <= +1; y++) {\n                for (var x = -1; x <= +1; x++) {\n                    var name = tile_name(centre[0] + x, centre[1] + y);\n                    var tile = $map.find(\".tile\" + name);\n\n                    if (tile.length) {\n                        $remove = $remove.not(tile);\n                    } else {\n                        var $image = $(\n                            \"<img class=\\\"tile\" + name + \"\\\" src=\\\"http://imgs.xkcd.com/clickdrag/\" + name + \".png\\\" style=\\\"top:\" + (centre[1] + y) * tilesize + \"px;left:\" + (centre[0] + x) * tilesize + \"px; z-index: -1; position: absolute;;\\\" style=\\\"display:none\\\" />\"\n                        );\n\n                        $image.load(function() {\n                            $(this).show();\n                        }).error(function() {\n                            $(this).remove();\n                        });\n\n                        $map.append($image);\n                    }\n                }\n            }\n\n            $remove.remove();\n        }\n    }"'
+        let codeToShow = '"/* drag:118:136 */\n    function drag(e) {\n        if (scroll_delta) {\n            var pos = eventPos(e);\n\n            position[0] = Math.round(clamp(\n                pos.pageX + scroll_delta[0],\n                -(size[1] + size[3]) * tilesize + container_size[0],\n                0\n            ));\n\n            position[1] = Math.round(clamp(\n                pos.pageY + scroll_delta[1],\n                -(size[0] + size[2]) * tilesize + container_size[1],\n                0\n            ));\n\n            update();\n        }\n    }"'
         codeToShow = codeToShow.substring(1, codeToShow.length - 2);
         document.getElementById("codetoshow").innerHTML = getTutoronifiedHTML(codeToShow);
         var prevNotes = getPrevNotes();
@@ -956,15 +809,12 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p><HAButton id="dmap_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dmap_notes'></textarea>
+                    <p id='e_p'>e = <span className ="pt" id='e'> </span> </p><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='e_notes'></textarea>
+<p id='scroll_delta_p'>scroll_delta = <span className ="pt" id='scroll_delta'> </span> </p><HAButton id="scroll_delta_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='scroll_delta_notes'></textarea>
+<p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p><HAButton id="pos_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='pos_notes'></textarea>
 <p id='position_p'>position = <span className ="pt" id='position'> </span> </p><HAButton id="position_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='position_notes'></textarea>
-<p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p><HAButton id="centre_last_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='centre_last_notes'></textarea>
-<p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p><HAButton id="centre_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='centre_notes'></textarea>
 <p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p><HAButton id="tilesize_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tilesize_notes'></textarea>
-<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p><HAButton id="dremove_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dremove_notes'></textarea>
-<p id='name_p'>name = <span className ="pt" id='name'> </span> </p><HAButton id="name_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='name_notes'></textarea>
-<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p><HAButton id="tile_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tile_notes'></textarea>
-<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p><HAButton id="dimage_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dimage_notes'></textarea>
+<p id='container_size_p'>container_size = <span className ="pt" id='container_size'> </span> </p><HAButton id="container_size_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='container_size_notes'></textarea>
 
                     <div className="reflection-area">
                         <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
@@ -972,7 +822,7 @@ $(function () {
                         <pre id="codetoshow"></pre>
                         <p>What is happening in the code?</p>
                         <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: centre, centre_last, tilesize, position, tile, name? </p>
+                        <p>What is the relationship between the following variables: container_size, tilesize, e, pos, scroll_delta, position? </p>
                         <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto9'>Next Exercise</a>
