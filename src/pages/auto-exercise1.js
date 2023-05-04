@@ -42,11 +42,19 @@ $(document).on("ready", function(){
 
 function createHTMLArray(html_array) {
     var html_array_str = '';
+    var i = 0;
     for (var html_var of html_array) {
         html_array_str += html_var.outerHTML + ' and ';
+        if (i > 3) {
+            html_array_str += "many more.";
+            break;
+        }
+        i++;
     }
-    console.log("html_array_str", html_array_str);
-    return html_array_str;
+    if (html_array_str.substr(-5) == ' and ')
+        return html_array_str.substring(0, html_array_str.length - 5)
+    else
+        return html_array_str;
 }
 
 function getPrevNotes() {
@@ -318,7 +326,7 @@ var Map = function ($container) {
             }
             else {
                 if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                    $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
+                    $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap', 1))}`;
                 }
                 else {
                     if ($map && $map.selector) {
@@ -357,7 +365,7 @@ var Map = function ($container) {
             }
             else {
                 if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                    $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
+                    $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap', 1))}`;
                 }
                 else {
                     if ($map && $map.selector) {
@@ -407,7 +415,7 @@ var Map = function ($container) {
             }
             else {
                 if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                    $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
+                    $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap', 1))}`;
                 }
                 else {
                     if ($map && $map.selector) {
@@ -451,7 +459,7 @@ var Map = function ($container) {
             }
             else {
                 if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove'))}`;
+                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove', 0))}`;
                 }
                 else {
                     if ($remove && $remove.selector) {
@@ -487,7 +495,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${tile}`).includes("object") && tile[0]) {
-                    $('#tile')[0].innerHTML += ' <br> ' + `${h2t(addNewlines(tile[0].outerHTML, 'tile'))}`;
+                    $('#tile')[0].innerHTML += ' <br> ' + `${h2t(addNewlines(tile[0].outerHTML, 'tile', 1))}`;
                 }
                 else {
                     if (tile && tile.selector) {
@@ -520,7 +528,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove'))}`;
+                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove', 0))}`;
                 }
                 else {
                     if ($remove && $remove.selector) {
@@ -563,7 +571,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${$image}`).includes("object") && $image[0]) {
-                    $('#dimage')[0].innerHTML += ' <br> ' + `${h2t(addNewlines($image[0].outerHTML, 'dimage'))}`;
+                    $('#dimage')[0].innerHTML += ' <br> ' + `${h2t(addNewlines($image[0].outerHTML, 'dimage', 1))}`;
                 }
                 else {
                     if ($image && $image.selector) {
@@ -602,7 +610,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${$map}`).includes("object") && $map[0]) {
-                    $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap'))}`;
+                    $('#dmap')[0].innerHTML = `${h2t(addNewlines($map[0].outerHTML, 'dmap', 1))}`;
                 }
                 else {
                     if ($map && $map.selector) {
@@ -638,7 +646,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove'))}`;
+                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove', 0))}`;
                 }
                 else {
                     if ($remove && $remove.selector) {

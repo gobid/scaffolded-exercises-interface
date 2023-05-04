@@ -43,7 +43,7 @@ $(document).on("ready", function(){
 function createHTMLArray(html_array) {
     var html_array_str = '';
     for (var html_var of html_array) {
-        html_array_str += html_var.outerHTML + '\n';
+        html_array_str += html_var.outerHTML + ' and ';
     }
     return html_array_str;
 }
@@ -73,31 +73,34 @@ function getTutoronifiedHTML(code) {
     return code;
 }
 
-function addNewlines(str, variable_name) {
-    // this runs every time a DOM element is shown as a variable on the page, so we should update the selectors at this stage
-    // we do it by classes for now
-    let class_loc = str.indexOf('class="') + 'class="'.length;
-    let end_class_loc = str.substring(class_loc).indexOf('"');
-    let class_name = str.substring(class_loc, class_loc + end_class_loc);
-    // console.log("in addNewLines class_name:", class_name);
-    if (selectors[variable_name]) {
-        if (!selectors[variable_name].includes(class_name)) {
-            selectors[variable_name].push(class_name);
+function addNewlines(str, variable_name, perform=1) {
+    if (perform) {
+        // this runs every time a DOM element is shown as a variable on the page, so we should update the selectors at this stage
+        // we do it by classes for now
+        let class_loc = str.indexOf('class="') + 'class="'.length;
+        let end_class_loc = str.substring(class_loc).indexOf('"');
+        let class_name = str.substring(class_loc, class_loc + end_class_loc);
+        // console.log("in addNewLines class_name:", class_name);
+        if (selectors[variable_name]) {
+            if (!selectors[variable_name].includes(class_name)) {
+                selectors[variable_name].push(class_name);
+            }
         }
-    }
-    else {
-        selectors[variable_name] = [];
-    }
+        else {
+            selectors[variable_name] = [];
+        }
 
-    var result = '';
-    while (str.length > 0) {
-        result += str.substring(0, 80) + '\n';
-        str = str.substring(80);
+        var result = '';
+        while (str.length > 0) {
+            result += str.substring(0, 80) + '\n';
+            str = str.substring(80);
+        }
+        let dotdotdot = "...";
+        if (result.length < 150) 
+            dotdotdot = " ";
+        return result.substring(0,150) + dotdotdot;
     }
-    let dotdotdot = "...";
-    if (result.length < 150) 
-        dotdotdot = " ";
-    return result.substring(0,150) + dotdotdot;
+    else return str;
 }
 
 function h2t(src) { // html to text
@@ -270,7 +273,7 @@ export default class ExerciseAG8 extends React.Component {
             }
             else {
                 if (JSON.stringify(`${e}`).includes("object") && e[0]) {
-                    $('#e')[0].innerHTML = `${h2t(addNewlines(e[0].outerHTML, 'e'))}`;
+                    $('#e')[0].innerHTML = `${h2t(addNewlines(e[0].outerHTML, 'e', 1))}`;
                 }
                 else {
                     if (e && e.selector) {
@@ -340,7 +343,7 @@ var Map = function ($container) {
             }
             else {
                 if (JSON.stringify(`${tilesize}`).includes("object") && tilesize[0]) {
-                    $('#tilesize')[0].innerHTML = `${h2t(addNewlines(tilesize[0].outerHTML, 'tilesize'))}`;
+                    $('#tilesize')[0].innerHTML = `${h2t(addNewlines(tilesize[0].outerHTML, 'tilesize', 1))}`;
                 }
                 else {
                     if (tilesize && tilesize.selector) {
@@ -373,7 +376,7 @@ var Map = function ($container) {
             }
             else {
                 if (JSON.stringify(`${container_size}`).includes("object") && container_size[0]) {
-                    $('#container_size')[0].innerHTML = `${h2t(addNewlines(container_size[0].outerHTML, 'container_size'))}`;
+                    $('#container_size')[0].innerHTML = `${h2t(addNewlines(container_size[0].outerHTML, 'container_size', 1))}`;
                 }
                 else {
                     if (container_size && container_size.selector) {
@@ -405,7 +408,7 @@ var Map = function ($container) {
             }
             else {
                 if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
-                    $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML, 'scroll_delta'))}`;
+                    $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML, 'scroll_delta', 1))}`;
                 }
                 else {
                     if (scroll_delta && scroll_delta.selector) {
@@ -449,7 +452,7 @@ var Map = function ($container) {
             }
             else {
                 if (JSON.stringify(`${position}`).includes("object") && position[0]) {
-                    $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML, 'position'))}`;
+                    $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML, 'position', 1))}`;
                 }
                 else {
                     if (position && position.selector) {
@@ -549,7 +552,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${pos}`).includes("object") && pos[0]) {
-                    $('#pos')[0].innerHTML = `${h2t(addNewlines(pos[0].outerHTML, 'pos'))}`;
+                    $('#pos')[0].innerHTML = `${h2t(addNewlines(pos[0].outerHTML, 'pos', 1))}`;
                 }
                 else {
                     if (pos && pos.selector) {
@@ -583,7 +586,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${position}`).includes("object") && position[0]) {
-                    $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML, 'position'))}`;
+                    $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML, 'position', 1))}`;
                 }
                 else {
                     if (position && position.selector) {
@@ -617,7 +620,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${position}`).includes("object") && position[0]) {
-                    $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML, 'position'))}`;
+                    $('#position')[0].innerHTML = `${h2t(addNewlines(position[0].outerHTML, 'position', 1))}`;
                 }
                 else {
                     if (position && position.selector) {
@@ -657,7 +660,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${pos}`).includes("object") && pos[0]) {
-                    $('#pos')[0].innerHTML = `${h2t(addNewlines(pos[0].outerHTML, 'pos'))}`;
+                    $('#pos')[0].innerHTML = `${h2t(addNewlines(pos[0].outerHTML, 'pos', 1))}`;
                 }
                 else {
                     if (pos && pos.selector) {
@@ -689,7 +692,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
-                    $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML, 'scroll_delta'))}`;
+                    $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML, 'scroll_delta', 1))}`;
                 }
                 else {
                     if (scroll_delta && scroll_delta.selector) {
@@ -722,7 +725,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${e}`).includes("object") && e[0]) {
-                    $('#e')[0].innerHTML = `${h2t(addNewlines(e[0].outerHTML, 'e'))}`;
+                    $('#e')[0].innerHTML = `${h2t(addNewlines(e[0].outerHTML, 'e', 1))}`;
                 }
                 else {
                     if (e && e.selector) {
@@ -757,7 +760,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
-                    $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML, 'scroll_delta'))}`;
+                    $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML, 'scroll_delta', 1))}`;
                 }
                 else {
                     if (scroll_delta && scroll_delta.selector) {
@@ -822,7 +825,7 @@ $(function () {
                         <pre id="codetoshow"></pre>
                         <p>What is happening in the code?</p>
                         <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: container_size, tilesize, e, pos, scroll_delta, position? </p>
+                        <p>What is the relationship between the following variables: scroll_delta, position, tilesize, pos, container_size, e? </p>
                         <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto9'>Next Exercise</a>

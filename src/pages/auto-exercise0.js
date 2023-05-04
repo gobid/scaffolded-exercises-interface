@@ -43,7 +43,7 @@ $(document).on("ready", function(){
 function createHTMLArray(html_array) {
     var html_array_str = '';
     for (var html_var of html_array) {
-        html_array_str += html_var.outerHTML + '\n';
+        html_array_str += html_var.outerHTML + ' and ';
     }
     return html_array_str;
 }
@@ -73,31 +73,34 @@ function getTutoronifiedHTML(code) {
     return code;
 }
 
-function addNewlines(str, variable_name) {
-    // this runs every time a DOM element is shown as a variable on the page, so we should update the selectors at this stage
-    // we do it by classes for now
-    let class_loc = str.indexOf('class="') + 'class="'.length;
-    let end_class_loc = str.substring(class_loc).indexOf('"');
-    let class_name = str.substring(class_loc, class_loc + end_class_loc);
-    // console.log("in addNewLines class_name:", class_name);
-    if (selectors[variable_name]) {
-        if (!selectors[variable_name].includes(class_name)) {
-            selectors[variable_name].push(class_name);
+function addNewlines(str, variable_name, perform=1) {
+    if (perform) {
+        // this runs every time a DOM element is shown as a variable on the page, so we should update the selectors at this stage
+        // we do it by classes for now
+        let class_loc = str.indexOf('class="') + 'class="'.length;
+        let end_class_loc = str.substring(class_loc).indexOf('"');
+        let class_name = str.substring(class_loc, class_loc + end_class_loc);
+        // console.log("in addNewLines class_name:", class_name);
+        if (selectors[variable_name]) {
+            if (!selectors[variable_name].includes(class_name)) {
+                selectors[variable_name].push(class_name);
+            }
         }
-    }
-    else {
-        selectors[variable_name] = [];
-    }
+        else {
+            selectors[variable_name] = [];
+        }
 
-    var result = '';
-    while (str.length > 0) {
-        result += str.substring(0, 80) + '\n';
-        str = str.substring(80);
+        var result = '';
+        while (str.length > 0) {
+            result += str.substring(0, 80) + '\n';
+            str = str.substring(80);
+        }
+        let dotdotdot = "...";
+        if (result.length < 150) 
+            dotdotdot = " ";
+        return result.substring(0,150) + dotdotdot;
     }
-    let dotdotdot = "...";
-    if (result.length < 150) 
-        dotdotdot = " ";
-    return result.substring(0,150) + dotdotdot;
+    else return str;
 }
 
 function h2t(src) { // html to text
@@ -354,7 +357,7 @@ var Map = function ($container) {
             }
             else {
                 if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove'))}`;
+                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove', 0))}`;
                 }
                 else {
                     if ($remove && $remove.selector) {
@@ -392,7 +395,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove'))}`;
+                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove', 0))}`;
                 }
                 else {
                     if ($remove && $remove.selector) {
@@ -448,7 +451,7 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             }
             else {
                 if (JSON.stringify(`${$remove}`).includes("object") && $remove[0]) {
-                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove'))}`;
+                    $('#dremove')[0].innerHTML = `${h2t(addNewlines(createHTMLArray($remove), 'dremove', 0))}`;
                 }
                 else {
                     if ($remove && $remove.selector) {
