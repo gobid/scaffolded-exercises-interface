@@ -60,7 +60,9 @@ function createHTMLArray(html_array) {
 function getPrevNotes() {
     var prev_notes = "<ul style='position: fixed; left: 100px;'>";
     var prev_ex = parseInt(window.location.href.at(-1)) - 1;
-    if (prev_ex > -1) {
+    if (prev_ex == -1)
+        prev_ex = 'v'
+    if (prev_ex > -1 || prev_ex == 'v') {
         for (var i = 0; i < localStorage.length; i++){
             var k = localStorage.key(i);
             if (k.includes("_ex" + prev_ex)) {
@@ -576,7 +578,7 @@ $(function () {
                     <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p><HAButton id="dmap_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dmap_notes'></textarea>
 
                     <div className="reflection-area">
-                        <p>As you interact with the screen, what is happening visually? What is happening to the variable values shown above?</p>
+                        <p>What is happening to the variable values shown above?</p>
                         <textarea id="visualreflect" className="reflection-textarea" rows="6"></textarea>
                         <pre id="codetoshow"></pre>
                         <p>What is happening in the code?</p>
