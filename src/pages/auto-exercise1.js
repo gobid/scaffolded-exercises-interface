@@ -42,10 +42,19 @@ $(document).on("ready", function(){
 
 function createHTMLArray(html_array) {
     var html_array_str = '';
+    var i = 0;
     for (var html_var of html_array) {
         html_array_str += html_var.outerHTML + ' and ';
+        if (i > 3) {
+            html_array_str += "many more.";
+            break;
+        }
+        i++;
     }
-    return html_array_str;
+    if (html_array_str.substr(-5) == ' and ')
+        return html_array_str.substring(0, html_array_str.length - 5)
+    else
+        return html_array_str.substring(0, 500)
 }
 
 function getPrevNotes() {

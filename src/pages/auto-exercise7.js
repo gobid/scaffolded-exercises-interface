@@ -42,10 +42,19 @@ $(document).on("ready", function(){
 
 function createHTMLArray(html_array) {
     var html_array_str = '';
+    var i = 0;
     for (var html_var of html_array) {
         html_array_str += html_var.outerHTML + ' and ';
+        if (i > 3) {
+            html_array_str += "many more.";
+            break;
+        }
+        i++;
     }
-    return html_array_str;
+    if (html_array_str.substr(-5) == ' and ')
+        return html_array_str.substring(0, html_array_str.length - 5)
+    else
+        return html_array_str.substring(0, 500)
 }
 
 function getPrevNotes() {
@@ -983,7 +992,7 @@ $(function () {
                         <pre id="codetoshow"></pre>
                         <p>What is happening in the code?</p>
                         <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: tile, $image, position, name, centre_last, tilesize, centre? </p>
+                        <p>What is the relationship between the following variables: tile, centre_last, centre, tilesize, name, position? </p>
                         <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto8'>Next Exercise</a>
