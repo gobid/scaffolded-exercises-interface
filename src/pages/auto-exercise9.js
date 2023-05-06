@@ -270,12 +270,43 @@ function HAButton(props) {
     );
 }
 
-export default class ExerciseAG7 extends React.Component {
+export default class ExerciseAG9 extends React.Component {
 
     componentDidMount() {
         function eventPos(e) {
     if (e.type.match(/^touch/)) {
         e = e.originalEvent.changedTouches[0];
+
+            // console.log('e', e);
+            // exclude annotations
+            if (e && e[0] && e[0].outerHTML && e[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${e}`).includes("object") && e[0]) {
+                    $('#e')[0].innerHTML = `${h2t(addNewlines(e[0].outerHTML, 'e', 1))}`;
+                }
+                else {
+                    if (e && e.selector) {
+                        $('#e')[0].innerHTML = `${e.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (e && e.originalEvent) {
+                        $('#e')[0].innerHTML = `${e.type}`;
+                    }
+                    else if (typeof(e) == 'object') {
+                        try {
+                            $('#e')[0].innerHTML = JSON.stringify(e);
+                        }
+                        catch {
+                            $('#e')[0].innerHTML = `${e}`;
+                        }
+                    }
+                    else {
+                        $('#e')[0].innerHTML = `${e}`;
+                    }
+                }
+            }
+        
     }
     return {
         pageX: e.pageX,
@@ -348,7 +379,69 @@ var Map = function ($container) {
         
     var visible = [];
     var container_size = [$container.width(), $container.height()];
+
+            // console.log('container_size', container_size);
+            // exclude annotations
+            if (container_size && container_size[0] && container_size[0].outerHTML && container_size[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${container_size}`).includes("object") && container_size[0]) {
+                    $('#container_size')[0].innerHTML = `${h2t(addNewlines(container_size[0].outerHTML, 'container_size', 1))}`;
+                }
+                else {
+                    if (container_size && container_size.selector) {
+                        $('#container_size')[0].innerHTML = `${container_size.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (container_size && container_size.originalEvent) {
+                        $('#container_size')[0].innerHTML = `${container_size.type}`;
+                    }
+                    else if (typeof(container_size) == 'object') {
+                        try {
+                            $('#container_size')[0].innerHTML = JSON.stringify(container_size);
+                        }
+                        catch {
+                            $('#container_size')[0].innerHTML = `${container_size}`;
+                        }
+                    }
+                    else {
+                        $('#container_size')[0].innerHTML = `${container_size}`;
+                    }
+                }
+            }
+        
     var scroll_delta = null;
+
+            // console.log('scroll_delta', scroll_delta);
+            // exclude annotations
+            if (scroll_delta && scroll_delta[0] && scroll_delta[0].outerHTML && scroll_delta[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
+                    $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML, 'scroll_delta', 1))}`;
+                }
+                else {
+                    if (scroll_delta && scroll_delta.selector) {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (scroll_delta && scroll_delta.originalEvent) {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta.type}`;
+                    }
+                    else if (typeof(scroll_delta) == 'object') {
+                        try {
+                            $('#scroll_delta')[0].innerHTML = JSON.stringify(scroll_delta);
+                        }
+                        catch {
+                            $('#scroll_delta')[0].innerHTML = `${scroll_delta}`;
+                        }
+                    }
+                    else {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta}`;
+                    }
+                }
+            }
+        
 
     var $map = $container.children(".map");
 
@@ -865,6 +958,37 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
     function drag(e) {
         if (scroll_delta) {
             var pos = eventPos(e);
+
+            // console.log('pos', pos);
+            // exclude annotations
+            if (pos && pos[0] && pos[0].outerHTML && pos[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${pos}`).includes("object") && pos[0]) {
+                    $('#pos')[0].innerHTML = `${h2t(addNewlines(pos[0].outerHTML, 'pos', 1))}`;
+                }
+                else {
+                    if (pos && pos.selector) {
+                        $('#pos')[0].innerHTML = `${pos.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (pos && pos.originalEvent) {
+                        $('#pos')[0].innerHTML = `${pos.type}`;
+                    }
+                    else if (typeof(pos) == 'object') {
+                        try {
+                            $('#pos')[0].innerHTML = JSON.stringify(pos);
+                        }
+                        catch {
+                            $('#pos')[0].innerHTML = `${pos}`;
+                        }
+                    }
+                    else {
+                        $('#pos')[0].innerHTML = `${pos}`;
+                    }
+                }
+            }
+        
             position[0] = Math.round(
                 clamp(pos.pageX + scroll_delta[0], -(size[1] + size[3]) * tilesize + container_size[0], 0)
             );
@@ -942,13 +1066,137 @@ try { $('#name')[0].innerHTML = ''; } catch { console.log('1 unfurlable not on t
             return;
         }
         var pos = eventPos(e);
+
+            // console.log('pos', pos);
+            // exclude annotations
+            if (pos && pos[0] && pos[0].outerHTML && pos[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${pos}`).includes("object") && pos[0]) {
+                    $('#pos')[0].innerHTML = `${h2t(addNewlines(pos[0].outerHTML, 'pos', 1))}`;
+                }
+                else {
+                    if (pos && pos.selector) {
+                        $('#pos')[0].innerHTML = `${pos.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (pos && pos.originalEvent) {
+                        $('#pos')[0].innerHTML = `${pos.type}`;
+                    }
+                    else if (typeof(pos) == 'object') {
+                        try {
+                            $('#pos')[0].innerHTML = JSON.stringify(pos);
+                        }
+                        catch {
+                            $('#pos')[0].innerHTML = `${pos}`;
+                        }
+                    }
+                    else {
+                        $('#pos')[0].innerHTML = `${pos}`;
+                    }
+                }
+            }
+        
         scroll_delta = [position[0] - pos.pageX, position[1] - pos.pageY];
+
+            // console.log('scroll_delta', scroll_delta);
+            // exclude annotations
+            if (scroll_delta && scroll_delta[0] && scroll_delta[0].outerHTML && scroll_delta[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
+                    $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML, 'scroll_delta', 1))}`;
+                }
+                else {
+                    if (scroll_delta && scroll_delta.selector) {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (scroll_delta && scroll_delta.originalEvent) {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta.type}`;
+                    }
+                    else if (typeof(scroll_delta) == 'object') {
+                        try {
+                            $('#scroll_delta')[0].innerHTML = JSON.stringify(scroll_delta);
+                        }
+                        catch {
+                            $('#scroll_delta')[0].innerHTML = `${scroll_delta}`;
+                        }
+                    }
+                    else {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta}`;
+                    }
+                }
+            }
+        
         $(document).on(e.type == "mousedown" ? "mousemove" : "touchmove", drag);
         e.preventDefault();
+
+            // console.log('e', e);
+            // exclude annotations
+            if (e && e[0] && e[0].outerHTML && e[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${e}`).includes("object") && e[0]) {
+                    $('#e')[0].innerHTML = `${h2t(addNewlines(e[0].outerHTML, 'e', 1))}`;
+                }
+                else {
+                    if (e && e.selector) {
+                        $('#e')[0].innerHTML = `${e.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (e && e.originalEvent) {
+                        $('#e')[0].innerHTML = `${e.type}`;
+                    }
+                    else if (typeof(e) == 'object') {
+                        try {
+                            $('#e')[0].innerHTML = JSON.stringify(e);
+                        }
+                        catch {
+                            $('#e')[0].innerHTML = `${e}`;
+                        }
+                    }
+                    else {
+                        $('#e')[0].innerHTML = `${e}`;
+                    }
+                }
+            }
+        
     });
     $(document).on("mouseup touchend", function (e) {
         $(document).off("mousemove touchmove", drag);
         scroll_delta = null;
+
+            // console.log('scroll_delta', scroll_delta);
+            // exclude annotations
+            if (scroll_delta && scroll_delta[0] && scroll_delta[0].outerHTML && scroll_delta[0].outerHTML.includes("annotation")) {
+                console.log("it's annotation so skipping showing");
+            }
+            else {
+                if (JSON.stringify(`${scroll_delta}`).includes("object") && scroll_delta[0]) {
+                    $('#scroll_delta')[0].innerHTML = `${h2t(addNewlines(scroll_delta[0].outerHTML, 'scroll_delta', 1))}`;
+                }
+                else {
+                    if (scroll_delta && scroll_delta.selector) {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta.selector} (we output the selector when length is 0)`;
+                    }
+                    else if (scroll_delta && scroll_delta.originalEvent) {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta.type}`;
+                    }
+                    else if (typeof(scroll_delta) == 'object') {
+                        try {
+                            $('#scroll_delta')[0].innerHTML = JSON.stringify(scroll_delta);
+                        }
+                        catch {
+                            $('#scroll_delta')[0].innerHTML = `${scroll_delta}`;
+                        }
+                    }
+                    else {
+                        $('#scroll_delta')[0].innerHTML = `${scroll_delta}`;
+                    }
+                }
+            }
+        
     });
 };
 
@@ -958,7 +1206,9 @@ $(function () {
     var map = new Map($("#comic"));
 });
 
-        let codeToShow = '"/* update:71:114 */\n    function update() {\n        $map.css({\n            left: position[0],\n            top: position[1]\n        });\n\n        var centre_last = centre;\n        centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];\n\n        function tile_name(x, y) {\n            x -= size[3];\n            y -= size[0];\n            return (y >= 0 ? y + 1 + \"s\" : -y + \"n\") + (x >= 0 ? x + 1 + \"e\" : -x + \"w\");\n        }\n\n        if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {\n            var $remove = $map.children().not(\".ground\");\n\n            for (var y = -1; y <= +1; y++) {\n                for (var x = -1; x <= +1; x++) {\n                    var name = tile_name(centre[0] + x, centre[1] + y);\n                    var tile = $map.find(\".tile\" + name);\n\n                    if (tile.length) {\n                        $remove = $remove.not(tile);\n                    } else {\n                        var $image = $(\n                            \"<img class=\\\"tile\" + name + \"\\\" src=\\\"http://imgs.xkcd.com/clickdrag/\" + name + \".png\\\" style=\\\"top:\" + (centre[1] + y) * tilesize + \"px;left:\" + (centre[0] + x) * tilesize + \"px; z-index: -1; position: absolute;;\\\" style=\\\"display:none\\\" />\"\n                        );\n\n                        $image.load(function() {\n                            $(this).show();\n                        }).error(function() {\n                            $(this).remove();\n                        });\n\n                        $map.append($image);\n                    }\n                }\n            }\n\n            $remove.remove();\n        }\n    }"'
+        let codeToShow = '"    function eventPos(e) {\n        if (e.type.match(/^touch/)) {\n            e = e.originalEvent.changedTouches[0];\n        }\n        return {\n            pageX: e.pageX,\n            pageY: e.pageY\n        };\n    } // here is a comment\n\n    var Map = function ($container) {\n        $container.css({\n            \"z-index\": 1,\n            overflow: \"hidden\",\n            width: \"740px\",\n            height: \"694px\",\n            margin: \"0px auto 0\",\n            background: \"#fff\",\n            position: \"relative\"\n        }); /** another comment */\n\n        var $overlay = $container.children(\"img\");\n        $overlay.css({\n            background: \"transparent\",\n            position: \"relative\"\n        });\n\n        var sign = function (x) {\n            return x > 0 ? +1 : x < 0 ? -1 : 0;\n        };\n        var pow = function (x, y) {\n            return Math.pow(Math.abs(x), y) * sign(x);\n        };\n        var clamp = function (x, min, max) {\n            return Math.max(Math.min(x, max), min);\n        };\n\n        var offset = $container.offset();\n\n        var padding_top = 200;\n        var size = [14, 48, 25, 33];\n        var tilesize = 2048;\n        var visible = [];\n        var container_size = [$container.width(), $container.height()];\n        var scroll_delta = null;\n\n        var $map = $container.children(\".map\");\n\n        var map_size = [(size[1] + size[3]) * tilesize, (size[0] + size[2]) * tilesize];\n        $map.css({\n            width: map_size[0],\n            height: map_size[1],\n            position: \"absolute\",\n            zIndex: -1\n        });\n\n        var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];\n\n        $map.find(\".ground\").css({\n            top: size[0] * tilesize,\n            height: size[2] * tilesize,\n            position: \"absolute\",\n            width: \"100%\",\n            zIndex: -1,\n            background: \"#000\"\n        });\n\n        var centre = [-1, 0];\n\n        var update = function () {\n            "'
+        codeToShow += '"$map.css({\n                left: position[0],\n                top: position[1]\n            });\n\n            var centre_last = centre;\n            centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];\n\n            var tile_name = function (x, y) {\n                x -= size[3];\n                y -= size[0];\n                return (y >= 0 ? y + 1 + \"s\" : -y + \"n\") + (x >= 0 ? x + 1 + \"e\" : -x + \"w\");\n            };\n\n            if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {\n                var $remove = $map.children().not(\".ground\");\n\n                for (var y = -1; y <= +1; y++) {\n                    for (var x = -1; x <= +1; x++) {\n                        var name = tile_name(centre[0] + x, centre[1] + y);\n                        var tile = $map.find(\".tile\" + name);\n                        if (tile.length) {\n                            $remove = $remove.not(tile);\n                        } else {\n                            "'
+        codeToShow += '"var $image = $(\n                                \"<img class=\"tile\" +\n                                    name +\n                                    \"\" src=\"http://imgs.xkcd.com/clickdrag/\" +\n                                    name +\n                                    \".png\" style=\"top:\" +\n                                    (centre[1] + y) * tilesize +\n                                    \"px;left:\" +\n                                    (centre[0] + x) * tilesize +\n                                    \"px; z-index: -1; position: absolute;;\" style=\"display:none\" />\"\n                            );\n                            $image\n                                .load(function () {\n                                    $(this).show();\n                                })\n                                .error(function () {\n                                    $(this).remove();\n                                });\n                            $map.append($image);\n                        }\n                    }\n                }\n\n                $remove.remove();\n            }\n        };\n\n        update();\n\n        function drag(e) {\n            if (scroll_delta) {\n                var pos = eventPos(e);\n                position[0] = Math.round(\n                    clamp(pos.pageX + scroll_delta[0], -(size[1] + size[3]) * tilesize + container_size[0], 0)\n                );\n                position[1] = Math.round(\n                    clamp(pos.pageY + scroll_delta[1], -(size[0] + size[2]) * tilesize + container_size[1], 0)\n                );\n                update();\n            }\n        }\n\n        $container.on(\"mousedown touchstart\", function (e) {\n            if (e.button && e.button >= 2) {\n                return;\n            }\n            var pos = eventPos(e);\n            scroll_delta = [position[0] - pos.pageX, position[1] - pos.pageY];\n            $(document).on(e.type == \"mousedown\" ? \"mousemove\" : \"touchmove\", drag);\n            e.preventDefault();\n        });\n        $(document).on(\"mouseup touchend\", function (e) {\n            $(document).off(\"mousemove touchmove\", drag);\n            scroll_delta = null;\n        });\n    };\n\n    /* 50:72:6f:50:75:6b:65:20:69:73:20:61:77:65:73:6f:6d:65 */\n\n    $(function () {\n        var map = new Map($(\"#comic\"));"'
         codeToShow = codeToShow.substring(1, codeToShow.length - 2);
         document.getElementById("codetoshow").innerHTML = getTutoronifiedHTML(codeToShow);
         var prevNotes = getPrevNotes();
@@ -978,15 +1228,19 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p><HAButton id="dmap_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dmap_notes'></textarea>
-<p id='position_p'>position = <span className ="pt" id='position'> </span> </p><HAButton id="position_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='position_notes'></textarea>
-<p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p><HAButton id="centre_last_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='centre_last_notes'></textarea>
-<p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p><HAButton id="centre_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='centre_notes'></textarea>
+                    <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p><HAButton id="dremove_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dremove_notes'></textarea>
 <p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p><HAButton id="tilesize_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tilesize_notes'></textarea>
-<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p><HAButton id="dremove_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dremove_notes'></textarea>
-<p id='name_p'>name = <span className ="pt" id='name'> </span> </p><HAButton id="name_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='name_notes'></textarea>
-<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p><HAButton id="tile_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tile_notes'></textarea>
+<p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p><HAButton id="pos_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='pos_notes'></textarea>
+<p id='scroll_delta_p'>scroll_delta = <span className ="pt" id='scroll_delta'> </span> </p><HAButton id="scroll_delta_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='scroll_delta_notes'></textarea>
 <p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p><HAButton id="dimage_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dimage_notes'></textarea>
+<p id='position_p'>position = <span className ="pt" id='position'> </span> </p><HAButton id="position_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='position_notes'></textarea>
+<p id='name_p'>name = <span className ="pt" id='name'> </span> </p><HAButton id="name_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='name_notes'></textarea>
+<p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p><HAButton id="centre_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='centre_notes'></textarea>
+<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p><HAButton id="tile_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tile_notes'></textarea>
+<p id='container_size_p'>container_size = <span className ="pt" id='container_size'> </span> </p><HAButton id="container_size_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='container_size_notes'></textarea>
+<p id='e_p'>e = <span className ="pt" id='e'> </span> </p><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='e_notes'></textarea>
+<p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p><HAButton id="dmap_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dmap_notes'></textarea>
+<p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p><HAButton id="centre_last_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='centre_last_notes'></textarea>
 
                     <div className="reflection-area">
                         <p>What is happening to the variable values shown above?</p>
@@ -994,10 +1248,10 @@ $(function () {
                         <pre id="codetoshow"></pre>
                         <p>What is happening in the code? How does it shape the visual output?</p>
                         <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: tilesize, $image, position, name, centre, centre_last? </p>
+                        <p>What is the relationship between the following variables: pos, scroll_delta, $image, name, centre, container_size, e, centre_last? </p>
                         <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
                     </div>
-                    <a href='/exercise-auto8'>Next Exercise</a>
+                    <a href='/exercise-auto10'>Next Exercise</a>
                 </div>
             </div>
         )

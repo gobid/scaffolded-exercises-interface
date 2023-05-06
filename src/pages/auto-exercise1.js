@@ -739,9 +739,9 @@ $(function () {
                         <p>What is happening to the variable values shown above?</p>
                         <textarea id="visualreflect" className="reflection-textarea" rows="6"></textarea>
                         <pre id="codetoshow"></pre>
-                        <p>What is happening in the code?</p>
+                        <p>What is happening in the code? How does it shape the visual output?</p>
                         <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: $map, $remove? </p>
+                        <p>What is the relationship between the following variables: $remove, $map? </p>
                         <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto2'>Next Exercise</a>

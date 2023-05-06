@@ -834,9 +834,9 @@ $(function () {
                         <p>What is happening to the variable values shown above?</p>
                         <textarea id="visualreflect" className="reflection-textarea" rows="6"></textarea>
                         <pre id="codetoshow"></pre>
-                        <p>What is happening in the code?</p>
+                        <p>What is happening in the code? How does it shape the visual output?</p>
                         <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the relationship between the following variables: pos, container_size, position, e, tilesize, scroll_delta? </p>
+                        <p>What is the relationship between the following variables: tilesize, pos, scroll_delta, position, container_size, e? </p>
                         <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
                     </div>
                     <a href='/exercise-auto9'>Next Exercise</a>
