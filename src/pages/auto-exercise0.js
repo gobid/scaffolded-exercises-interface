@@ -547,14 +547,14 @@ $(function () {
                     <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p><HAButton id="dremove_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dremove_notes'></textarea>
 
                     <div className="reflection-area">
-                        <p>What is happening to the variable values shown above?</p>
-                        <textarea id="visualreflect" className="reflection-textarea" rows="6"></textarea>
-                        <pre id="codetoshow"></pre>
-                        <p>What is happening in the code? How does it shape the visual output?</p>
-                        <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                        <p>What is the meaning / purpose of the variable $remove?</p>
-                        <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
-                    </div>
+                <p>What is happening to the variable values shown above?</p>
+                <textarea id="visualreflect" className="reflection-textarea" rows="6"></textarea>
+                <pre id="codetoshow"></pre>
+                <p>What is happening in the code? How does it shape the visual output?</p>
+                <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
+                <p>What is the meaning / purpose of the variable $remove?</p>
+                <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
+            </div>
                     <a href='/exercise-auto1'>Next Exercise</a>
                 </div>
             </div>
