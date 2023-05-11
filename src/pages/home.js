@@ -9,7 +9,7 @@ export default class Home extends React.Component {
             <div id='homepage-container'>
                 <h1>Scaffolded Exercises</h1>
                 <ul style={{textAlign: 'left'}}>
-                    <li><a href="auto-visual-ex">Exercise autov</a></li>
+                    <li><a href="exercise-autov">Exercise autov</a></li>
                     <li><a href="exercise-auto1">Exercise auto1</a></li>
                     <li><a href="exercise-auto2">Exercise auto2</a></li>
                     <li><a href="exercise-auto3">Exercise auto3</a></li>
