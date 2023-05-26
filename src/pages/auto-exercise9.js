@@ -31,6 +31,8 @@ const tutorons = {
     "Math.round": "Returns the value of a number rounded to the nearest integer"
 };
 
+var v_t_o_h = ["scroll_delta", "pos", "position", "tilesize", "container_size", "dmap", "centre_last", "centre", "dremove"];
+
 $(document).on("ready", function(){
     // store variable notes in exercises
     $('textarea').on("change keyup paste", function(){
@@ -241,7 +243,7 @@ function HAButton(props) {
         let element_to_a_h = splitByLastUnderscore(props.id);
         if (!noannotations.includes(element_to_a_h)) {
             if (toggle)
-                alert("Annotated and highlighted! Play around and check.");
+                alert("Done! Play around and check.");
             // console.log("element_to_a_h", element_to_a_h);
             // console.log("selectors[", element_to_a_h, "]", selectors[element_to_a_h]);
             for (var selector of selectors[element_to_a_h]) {
@@ -252,15 +254,21 @@ function HAButton(props) {
         }
         else {
             if (toggle)
-                alert("Highlighted! Play around and check.");
+                alert("Done! Play around and check.");
         }
         highlightInCode(element_to_a_h);
         setToggle(!toggle);
     }
 
     function buttonText(t) {
-        if (t) return "Annotate / Highlight";
-        else return "Unannotate / Unhighlight";
+        if (t) { 
+            if (v_t_o_h.includes(props.id.replace("_button",""))) return "Highlight";
+            else return "Highlight / Annotate"
+        }
+        else {
+            if (v_t_o_h.includes(props.id.replace("_button",""))) return "Unhighlight";
+            else return "Unhighlight / Unannotate"
+        }
     }
     
     return (
@@ -1227,18 +1235,18 @@ $(function () {
                     Variables:
                     <br/><br/>
                     <p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p>
-<p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p>
-<p id='position_p'>position = <span className ="pt" id='position'> </span> </p>
-<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p>
-<p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p>
-<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p>
-<p id='name_p'>name = <span className ="pt" id='name'> </span> </p>
-<p id='e_p'>e = <span className ="pt" id='e'> </span> </p>
-<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
-<p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p>
 <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
+<p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p>
+<p id='name_p'>name = <span className ="pt" id='name'> </span> </p>
+<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p>
 <p id='scroll_delta_p'>scroll_delta = <span className ="pt" id='scroll_delta'> </span> </p>
 <p id='container_size_p'>container_size = <span className ="pt" id='container_size'> </span> </p>
+<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p>
+<p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p>
+<p id='position_p'>position = <span className ="pt" id='position'> </span> </p>
+<p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p>
+<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
+<p id='e_p'>e = <span className ="pt" id='e'> </span> </p>
 
                     <div className="reflection-area">
                 <pre id="codetoshow"></pre>

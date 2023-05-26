@@ -31,6 +31,8 @@ const tutorons = {
     "Math.round": "Returns the value of a number rounded to the nearest integer"
 };
 
+var v_t_o_h = ["scroll_delta", "pos", "position", "tilesize", "container_size", "dmap", "centre_last", "centre", "dremove"];
+
 $(document).on("ready", function(){
     // store variable notes in exercises
     $('textarea').on("change keyup paste", function(){
@@ -241,7 +243,7 @@ function HAButton(props) {
         let element_to_a_h = splitByLastUnderscore(props.id);
         if (!noannotations.includes(element_to_a_h)) {
             if (toggle)
-                alert("Annotated and highlighted! Play around and check.");
+                alert("Done! Play around and check.");
             // console.log("element_to_a_h", element_to_a_h);
             // console.log("selectors[", element_to_a_h, "]", selectors[element_to_a_h]);
             for (var selector of selectors[element_to_a_h]) {
@@ -252,15 +254,21 @@ function HAButton(props) {
         }
         else {
             if (toggle)
-                alert("Highlighted! Play around and check.");
+                alert("Done! Play around and check.");
         }
         highlightInCode(element_to_a_h);
         setToggle(!toggle);
     }
 
     function buttonText(t) {
-        if (t) return "Annotate / Highlight";
-        else return "Unannotate / Unhighlight";
+        if (t) { 
+            if (v_t_o_h.includes(props.id.replace("_button",""))) return "Highlight";
+            else return "Highlight / Annotate"
+        }
+        else {
+            if (v_t_o_h.includes(props.id.replace("_button",""))) return "Unhighlight";
+            else return "Unhighlight / Unannotate"
+        }
     }
     
     return (
@@ -741,7 +749,7 @@ $(function () {
                 <pre id="codetoshow"></pre>
                 <p>What is happening in the code? How does it shape the visual output?</p>
                 <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                <p>What is the relationship between the following variables: $remove, $map? </p>
+                <p>What is the relationship between the following variables: $map, $remove? </p>
                 <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
             </div>
                     <a href='/exercise-auto2'>Next Exercise</a>
