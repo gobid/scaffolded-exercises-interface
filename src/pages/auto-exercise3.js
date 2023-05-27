@@ -31,7 +31,7 @@ const tutorons = {
     "Math.round": "Returns the value of a number rounded to the nearest integer"
 };
 
-var v_t_o_h = ["scroll_delta", "pos", "position", "tilesize", "container_size", "dmap", "centre_last", "centre", "dremove"];
+var v_t_o_h = ["scroll_delta", "pos", "position", "tilesize", "container_size", "dmap", "centre_last", "centre", "dremove", "name"];
 
 $(document).on("ready", function(){
     // store variable notes in exercises
@@ -261,21 +261,33 @@ function HAButton(props) {
     }
 
     function buttonText(t) {
+        let codetoshow = '"/* rhs-method-$map:48:48 */\n    var $map = $container.children(\".map\");\n    var map_size = [(size[1] + size[3]) * tilesize, (size[0] + size[2]) * tilesize];\n\n\n/* $map.css({:51:56 */\n    $map.css({\n        width: map_size[0],\n        height: map_size[1],\n        position: \"absolute\",\n        zIndex: -1\n    });\n\n\n\n/* $map.find(\".ground\").css({:60:67 */\n    $map.find(\".ground\").css({\n        top: size[0] * tilesize,\n        height: size[2] * tilesize,\n        position: \"absolute\",\n        width: \"100%\",\n        zIndex: -1,\n        background: \"#000\"\n    });"';
+        var needle_text = props.id.replace("_button","");
+        var needle_text_short = needle_text.substr(1); // ignore the $ vs d case, all vars are strictly more than 1 character
         if (t) { 
-            if (v_t_o_h.includes(props.id.replace("_button",""))) return "Highlight";
-            else return "Highlight / Annotate"
+            if (codetoshow.includes(needle_text_short)) { // highlights means something
+                if (v_t_o_h.includes(needle_text)) return "Highlight";
+                else return "Highlight / Annotate";
+            }
+            else {
+                if (!v_t_o_h.includes(needle_text)) return "Annotate";
+            }
         }
         else {
-            if (v_t_o_h.includes(props.id.replace("_button",""))) return "Unhighlight";
-            else return "Unhighlight / Unannotate"
+            if (v_t_o_h.includes(needle_text)) return "Unhighlight";
+            else return "Unannotate / Unhighlight";
         }
+        return null;
     }
-    
-    return (
-      <button onClick={handleClick}>
-          {buttonText(toggle)}
-      </button>
-    );
+     
+    if (buttonText(toggle)) {
+        return (
+        <p><button onClick={handleClick}>
+            {buttonText(toggle)}
+        </button> Note un/redoing can annotate new elements on the page.</p>
+        );
+    }
+    else return null;
 }
 
 export default class ExerciseAG3 extends React.Component {
@@ -583,7 +595,7 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p><HAButton id="dmap_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dmap_notes'></textarea>
+                    <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p><HAButton id="dmap_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dmap_notes'></textarea>
 
                     <div className="reflection-area">
                 <p>What is happening to the variable values shown above?</p>
@@ -591,7 +603,7 @@ $(function () {
                 <pre id="codetoshow"></pre>
                 <p>What is happening in the code? How does it shape the visual output?</p>
                 <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                <p>What is the relationship between the following variables: $map, $image, tile? </p>
+                <p>What is the relationship between the following variables: $map, tile, $image? </p>
                 <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
             </div>
                     <a href='/exercise-auto4'>Next Exercise</a>

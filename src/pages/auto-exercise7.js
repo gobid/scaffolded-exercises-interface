@@ -31,7 +31,7 @@ const tutorons = {
     "Math.round": "Returns the value of a number rounded to the nearest integer"
 };
 
-var v_t_o_h = ["scroll_delta", "pos", "position", "tilesize", "container_size", "dmap", "centre_last", "centre", "dremove"];
+var v_t_o_h = ["scroll_delta", "pos", "position", "tilesize", "container_size", "dmap", "centre_last", "centre", "dremove", "name"];
 
 $(document).on("ready", function(){
     // store variable notes in exercises
@@ -261,21 +261,33 @@ function HAButton(props) {
     }
 
     function buttonText(t) {
+        let codetoshow = '"/* update:71:114 */\n    function update() {\n        $map.css({\n            left: position[0],\n            top: position[1]\n        });\n\n        var centre_last = centre;\n        centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];\n\n        function tile_name(x, y) {\n            x -= size[3];\n            y -= size[0];\n            return (y >= 0 ? y + 1 + \"s\" : -y + \"n\") + (x >= 0 ? x + 1 + \"e\" : -x + \"w\");\n        }\n\n        if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {\n            var $remove = $map.children().not(\".ground\");\n\n            for (var y = -1; y <= +1; y++) {\n                for (var x = -1; x <= +1; x++) {\n                    var name = tile_name(centre[0] + x, centre[1] + y);\n                    var tile = $map.find(\".tile\" + name);\n\n                    if (tile.length) {\n                        $remove = $remove.not(tile);\n                    } else {\n                        var $image = $(\n                            \"<img class=\\\"tile\" + name + \"\\\" src=\\\"http://imgs.xkcd.com/clickdrag/\" + name + \".png\\\" style=\\\"top:\" + (centre[1] + y) * tilesize + \"px;left:\" + (centre[0] + x) * tilesize + \"px; z-index: -1; position: absolute;;\\\" style=\\\"display:none\\\" />\"\n                        );\n\n                        $image.load(function() {\n                            $(this).show();\n                        }).error(function() {\n                            $(this).remove();\n                        });\n\n                        $map.append($image);\n                    }\n                }\n            }\n\n            $remove.remove();\n        }\n    }"';
+        var needle_text = props.id.replace("_button","");
+        var needle_text_short = needle_text.substr(1); // ignore the $ vs d case, all vars are strictly more than 1 character
         if (t) { 
-            if (v_t_o_h.includes(props.id.replace("_button",""))) return "Highlight";
-            else return "Highlight / Annotate"
+            if (codetoshow.includes(needle_text_short)) { // highlights means something
+                if (v_t_o_h.includes(needle_text)) return "Highlight";
+                else return "Highlight / Annotate";
+            }
+            else {
+                if (!v_t_o_h.includes(needle_text)) return "Annotate";
+            }
         }
         else {
-            if (v_t_o_h.includes(props.id.replace("_button",""))) return "Unhighlight";
-            else return "Unhighlight / Unannotate"
+            if (v_t_o_h.includes(needle_text)) return "Unhighlight";
+            else return "Unannotate / Unhighlight";
         }
+        return null;
     }
-    
-    return (
-      <button onClick={handleClick}>
-          {buttonText(toggle)}
-      </button>
-    );
+     
+    if (buttonText(toggle)) {
+        return (
+        <p><button onClick={handleClick}>
+            {buttonText(toggle)}
+        </button> Note un/redoing can annotate new elements on the page.</p>
+        );
+    }
+    else return null;
 }
 
 export default class ExerciseAG7 extends React.Component {
@@ -986,15 +998,15 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p><HAButton id="dmap_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dmap_notes'></textarea>
-<p id='position_p'>position = <span className ="pt" id='position'> </span> </p><HAButton id="position_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='position_notes'></textarea>
-<p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p><HAButton id="centre_last_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='centre_last_notes'></textarea>
-<p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p><HAButton id="centre_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='centre_notes'></textarea>
-<p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p><HAButton id="tilesize_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tilesize_notes'></textarea>
-<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p><HAButton id="dremove_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dremove_notes'></textarea>
-<p id='name_p'>name = <span className ="pt" id='name'> </span> </p><HAButton id="name_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='name_notes'></textarea>
-<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p><HAButton id="tile_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tile_notes'></textarea>
-<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p><HAButton id="dimage_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dimage_notes'></textarea>
+                    <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p><HAButton id="dmap_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dmap_notes'></textarea>
+<p id='position_p'>position = <span className ="pt" id='position'> </span> </p><HAButton id="position_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='position_notes'></textarea>
+<p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p><HAButton id="centre_last_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='centre_last_notes'></textarea>
+<p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p><HAButton id="centre_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='centre_notes'></textarea>
+<p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p><HAButton id="tilesize_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tilesize_notes'></textarea>
+<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p><HAButton id="dremove_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dremove_notes'></textarea>
+<p id='name_p'>name = <span className ="pt" id='name'> </span> </p><HAButton id="name_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='name_notes'></textarea>
+<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p><HAButton id="tile_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tile_notes'></textarea>
+<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p><HAButton id="dimage_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dimage_notes'></textarea>
 
                     <div className="reflection-area">
                 <p>What is happening to the variable values shown above?</p>
@@ -1002,7 +1014,7 @@ $(function () {
                 <pre id="codetoshow"></pre>
                 <p>What is happening in the code? How does it shape the visual output?</p>
                 <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                <p>What is the relationship between the following variables: centre_last, $map, tilesize, name, position, centre? </p>
+                <p>What is the relationship between the following variables: position, tilesize, centre, $map, centre_last, name? </p>
                 <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
             </div>
                     <a href='/exercise-auto8'>Next Exercise</a>

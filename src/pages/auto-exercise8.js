@@ -31,7 +31,7 @@ const tutorons = {
     "Math.round": "Returns the value of a number rounded to the nearest integer"
 };
 
-var v_t_o_h = ["scroll_delta", "pos", "position", "tilesize", "container_size", "dmap", "centre_last", "centre", "dremove"];
+var v_t_o_h = ["scroll_delta", "pos", "position", "tilesize", "container_size", "dmap", "centre_last", "centre", "dremove", "name"];
 
 $(document).on("ready", function(){
     // store variable notes in exercises
@@ -261,21 +261,33 @@ function HAButton(props) {
     }
 
     function buttonText(t) {
+        let codetoshow = '"/* drag:118:136 */\n    function drag(e) {\n        if (scroll_delta) {\n            var pos = eventPos(e);\n\n            position[0] = Math.round(clamp(\n                pos.pageX + scroll_delta[0],\n                -(size[1] + size[3]) * tilesize + container_size[0],\n                0\n            ));\n\n            position[1] = Math.round(clamp(\n                pos.pageY + scroll_delta[1],\n                -(size[0] + size[2]) * tilesize + container_size[1],\n                0\n            ));\n\n            update();\n        }\n    }"';
+        var needle_text = props.id.replace("_button","");
+        var needle_text_short = needle_text.substr(1); // ignore the $ vs d case, all vars are strictly more than 1 character
         if (t) { 
-            if (v_t_o_h.includes(props.id.replace("_button",""))) return "Highlight";
-            else return "Highlight / Annotate"
+            if (codetoshow.includes(needle_text_short)) { // highlights means something
+                if (v_t_o_h.includes(needle_text)) return "Highlight";
+                else return "Highlight / Annotate";
+            }
+            else {
+                if (!v_t_o_h.includes(needle_text)) return "Annotate";
+            }
         }
         else {
-            if (v_t_o_h.includes(props.id.replace("_button",""))) return "Unhighlight";
-            else return "Unhighlight / Unannotate"
+            if (v_t_o_h.includes(needle_text)) return "Unhighlight";
+            else return "Unannotate / Unhighlight";
         }
+        return null;
     }
-    
-    return (
-      <button onClick={handleClick}>
-          {buttonText(toggle)}
-      </button>
-    );
+     
+    if (buttonText(toggle)) {
+        return (
+        <p><button onClick={handleClick}>
+            {buttonText(toggle)}
+        </button> Note un/redoing can annotate new elements on the page.</p>
+        );
+    }
+    else return null;
 }
 
 export default class ExerciseAG8 extends React.Component {
@@ -832,11 +844,11 @@ $(function () {
                     Variables:
                     <br/><br/>
                     <p id='e_p'>e = <span className ="pt" id='e'> </span> </p><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='e_notes'></textarea>
-<p id='scroll_delta_p'>scroll_delta = <span className ="pt" id='scroll_delta'> </span> </p><HAButton id="scroll_delta_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='scroll_delta_notes'></textarea>
-<p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p><HAButton id="pos_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='pos_notes'></textarea>
-<p id='position_p'>position = <span className ="pt" id='position'> </span> </p><HAButton id="position_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='position_notes'></textarea>
-<p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p><HAButton id="tilesize_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tilesize_notes'></textarea>
-<p id='container_size_p'>container_size = <span className ="pt" id='container_size'> </span> </p><HAButton id="container_size_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='container_size_notes'></textarea>
+<p id='scroll_delta_p'>scroll_delta = <span className ="pt" id='scroll_delta'> </span> </p><HAButton id="scroll_delta_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='scroll_delta_notes'></textarea>
+<p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p><HAButton id="pos_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='pos_notes'></textarea>
+<p id='position_p'>position = <span className ="pt" id='position'> </span> </p><HAButton id="position_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='position_notes'></textarea>
+<p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p><HAButton id="tilesize_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tilesize_notes'></textarea>
+<p id='container_size_p'>container_size = <span className ="pt" id='container_size'> </span> </p><HAButton id="container_size_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='container_size_notes'></textarea>
 
                     <div className="reflection-area">
                 <p>What is happening to the variable values shown above?</p>
@@ -844,7 +856,7 @@ $(function () {
                 <pre id="codetoshow"></pre>
                 <p>What is happening in the code? How does it shape the visual output?</p>
                 <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                <p>What is the relationship between the following variables: tilesize, container_size, pos, position, scroll_delta, e? </p>
+                <p>What is the relationship between the following variables: position, container_size, e, scroll_delta, tilesize, pos? </p>
                 <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
             </div>
                     <a href='/exercise-auto9'>Next Exercise</a>

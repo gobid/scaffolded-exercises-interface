@@ -31,7 +31,7 @@ const tutorons = {
     "Math.round": "Returns the value of a number rounded to the nearest integer"
 };
 
-var v_t_o_h = ["scroll_delta", "pos", "position", "tilesize", "container_size", "dmap", "centre_last", "centre", "dremove"];
+var v_t_o_h = ["scroll_delta", "pos", "position", "tilesize", "container_size", "dmap", "centre_last", "centre", "dremove", "name"];
 
 $(document).on("ready", function(){
     // store variable notes in exercises
@@ -261,21 +261,33 @@ function HAButton(props) {
     }
 
     function buttonText(t) {
+        let codetoshow = '"/* $remove.remove();:112:112 */\n            $remove.remove();"';
+        var needle_text = props.id.replace("_button","");
+        var needle_text_short = needle_text.substr(1); // ignore the $ vs d case, all vars are strictly more than 1 character
         if (t) { 
-            if (v_t_o_h.includes(props.id.replace("_button",""))) return "Highlight";
-            else return "Highlight / Annotate"
+            if (codetoshow.includes(needle_text_short)) { // highlights means something
+                if (v_t_o_h.includes(needle_text)) return "Highlight";
+                else return "Highlight / Annotate";
+            }
+            else {
+                if (!v_t_o_h.includes(needle_text)) return "Annotate";
+            }
         }
         else {
-            if (v_t_o_h.includes(props.id.replace("_button",""))) return "Unhighlight";
-            else return "Unhighlight / Unannotate"
+            if (v_t_o_h.includes(needle_text)) return "Unhighlight";
+            else return "Unannotate / Unhighlight";
         }
+        return null;
     }
-    
-    return (
-      <button onClick={handleClick}>
-          {buttonText(toggle)}
-      </button>
-    );
+     
+    if (buttonText(toggle)) {
+        return (
+        <p><button onClick={handleClick}>
+            {buttonText(toggle)}
+        </button> Note un/redoing can annotate new elements on the page.</p>
+        );
+    }
+    else return null;
 }
 
 export default class ExerciseAG0 extends React.Component {
@@ -552,7 +564,7 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p><HAButton id="dremove_button"/> Note un/redoing can annotate new elements on the page.<textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dremove_notes'></textarea>
+                    <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p><HAButton id="dremove_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dremove_notes'></textarea>
 
                     <div className="reflection-area">
                 <p>What is happening to the variable values shown above?</p>

@@ -31,7 +31,7 @@ const tutorons = {
     "Math.round": "Returns the value of a number rounded to the nearest integer"
 };
 
-var v_t_o_h = ["scroll_delta", "pos", "position", "tilesize", "container_size", "dmap", "centre_last", "centre", "dremove"];
+var v_t_o_h = ["scroll_delta", "pos", "position", "tilesize", "container_size", "dmap", "centre_last", "centre", "dremove", "name"];
 
 $(document).on("ready", function(){
     // store variable notes in exercises
@@ -261,21 +261,33 @@ function HAButton(props) {
     }
 
     function buttonText(t) {
+        let codetoshow = '"    function eventPos(e) {\n        if (e.type.match(/^touch/)) {\n            e = e.originalEvent.changedTouches[0];\n        }\n        return {\n            pageX: e.pageX,\n            pageY: e.pageY\n        };\n    } // here is a comment\n\n    var Map = function ($container) {\n        $container.css({\n            \"z-index\": 1,\n            overflow: \"hidden\",\n            width: \"740px\",\n            height: \"694px\",\n            margin: \"0px auto 0\",\n            background: \"#fff\",\n            position: \"relative\"\n        }); /** another comment */\n\n        var $overlay = $container.children(\"img\");\n        $overlay.css({\n            background: \"transparent\",\n            position: \"relative\"\n        });\n\n        var sign = function (x) {\n            return x > 0 ? +1 : x < 0 ? -1 : 0;\n        };\n        var pow = function (x, y) {\n            return Math.pow(Math.abs(x), y) * sign(x);\n        };\n        var clamp = function (x, min, max) {\n            return Math.max(Math.min(x, max), min);\n        };\n\n        var offset = $container.offset();\n\n        var padding_top = 200;\n        var size = [14, 48, 25, 33];\n        var tilesize = 2048;\n        var visible = [];\n        var container_size = [$container.width(), $container.height()];\n        var scroll_delta = null;\n\n        var $map = $container.children(\".map\");\n\n        var map_size = [(size[1] + size[3]) * tilesize, (size[0] + size[2]) * tilesize];\n        $map.css({\n            width: map_size[0],\n            height: map_size[1],\n            position: \"absolute\",\n            zIndex: -1\n        });\n\n        var position = [-(size[3] + 0.03) * tilesize, -(size[0] - 0.55) * tilesize];\n\n        $map.find(\".ground\").css({\n            top: size[0] * tilesize,\n            height: size[2] * tilesize,\n            position: \"absolute\",\n            width: \"100%\",\n            zIndex: -1,\n            background: \"#000\"\n        });\n\n        var centre = [-1, 0];\n\n        var update = function () {\n            $map.css({\n                left: position[0],\n                top: position[1]\n            });\n\n            var centre_last = centre;\n            centre = [Math.floor(-position[0] / tilesize), Math.floor(-position[1] / tilesize)];\n\n            var tile_name = function (x, y) {\n                x -= size[3];\n                y -= size[0];\n                return (y >= 0 ? y + 1 + \"s\" : -y + \"n\") + (x >= 0 ? x + 1 + \"e\" : -x + \"w\");\n            };\n\n            if (centre[0] != centre_last[0] || centre[1] != centre_last[1]) {\n                var $remove = $map.children().not(\".ground\");\n\n                for (var y = -1; y <= +1; y++) {\n                    for (var x = -1; x <= +1; x++) {\n                        var name = tile_name(centre[0] + x, centre[1] + y);\n                        var tile = $map.find(\".tile\" + name);\n                        if (tile.length) {\n                            $remove = $remove.not(tile);\n                        } else {\n                            var $image = $(\n                                \"<img class=\"tile\" +\n                                    name +\n                                    \"\" src=\"http://imgs.xkcd.com/clickdrag/\" +\n                                    name +\n                                    \".png\" style=\"top:\" +\n                                    (centre[1] + y) * tilesize +\n                                    \"px;left:\" +\n                                    (centre[0] + x) * tilesize +\n                                    \"px; z-index: -1; position: absolute;;\" style=\"display:none\" />\"\n                            );\n                            $image\n                                .load(function () {\n                                    $(this).show();\n                                })\n                                .error(function () {\n                                    $(this).remove();\n                                });\n                            $map.append($image);\n                        }\n                    }\n                }\n\n                $remove.remove();\n            }\n        };\n\n        update();\n\n        function drag(e) {\n            if (scroll_delta) {\n                var pos = eventPos(e);\n                position[0] = Math.round(\n                    clamp(pos.pageX + scroll_delta[0], -(size[1] + size[3]) * tilesize + container_size[0], 0)\n                );\n                position[1] = Math.round(\n                    clamp(pos.pageY + scroll_delta[1], -(size[0] + size[2]) * tilesize + container_size[1], 0)\n                );\n                update();\n            }\n        }\n\n        $container.on(\"mousedown touchstart\", function (e) {\n            if (e.button && e.button >= 2) {\n                return;\n            }\n            var pos = eventPos(e);\n            scroll_delta = [position[0] - pos.pageX, position[1] - pos.pageY];\n            $(document).on(e.type == \"mousedown\" ? \"mousemove\" : \"touchmove\", drag);\n            e.preventDefault();\n        });\n        $(document).on(\"mouseup touchend\", function (e) {\n            $(document).off(\"mousemove touchmove\", drag);\n            scroll_delta = null;\n        });\n    };\n\n    /* 50:72:6f:50:75:6b:65:20:69:73:20:61:77:65:73:6f:6d:65 */\n\n    $(function () {\n        var map = new Map($(\"#comic\"));"';
+        var needle_text = props.id.replace("_button","");
+        var needle_text_short = needle_text.substr(1); // ignore the $ vs d case, all vars are strictly more than 1 character
         if (t) { 
-            if (v_t_o_h.includes(props.id.replace("_button",""))) return "Highlight";
-            else return "Highlight / Annotate"
+            if (codetoshow.includes(needle_text_short)) { // highlights means something
+                if (v_t_o_h.includes(needle_text)) return "Highlight";
+                else return "Highlight / Annotate";
+            }
+            else {
+                if (!v_t_o_h.includes(needle_text)) return "Annotate";
+            }
         }
         else {
-            if (v_t_o_h.includes(props.id.replace("_button",""))) return "Unhighlight";
-            else return "Unhighlight / Unannotate"
+            if (v_t_o_h.includes(needle_text)) return "Unhighlight";
+            else return "Unannotate / Unhighlight";
         }
+        return null;
     }
-    
-    return (
-      <button onClick={handleClick}>
-          {buttonText(toggle)}
-      </button>
-    );
+     
+    if (buttonText(toggle)) {
+        return (
+        <p><button onClick={handleClick}>
+            {buttonText(toggle)}
+        </button> Note un/redoing can annotate new elements on the page.</p>
+        );
+    }
+    else return null;
 }
 
 export default class ExerciseAG9 extends React.Component {
@@ -1234,19 +1246,19 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/><br/>
-                    <p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p>
-<p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
-<p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p>
-<p id='name_p'>name = <span className ="pt" id='name'> </span> </p>
-<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p>
-<p id='scroll_delta_p'>scroll_delta = <span className ="pt" id='scroll_delta'> </span> </p>
-<p id='container_size_p'>container_size = <span className ="pt" id='container_size'> </span> </p>
-<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p>
-<p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p>
+                    <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
 <p id='position_p'>position = <span className ="pt" id='position'> </span> </p>
-<p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p>
-<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
+<p id='container_size_p'>container_size = <span className ="pt" id='container_size'> </span> </p>
+<p id='name_p'>name = <span className ="pt" id='name'> </span> </p>
 <p id='e_p'>e = <span className ="pt" id='e'> </span> </p>
+<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p>
+<p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p>
+<p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
+<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p>
+<p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p>
+<p id='scroll_delta_p'>scroll_delta = <span className ="pt" id='scroll_delta'> </span> </p>
+<p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p>
+<p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p>
 
                     <div className="reflection-area">
                 <pre id="codetoshow"></pre>
