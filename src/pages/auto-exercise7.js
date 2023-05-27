@@ -253,8 +253,17 @@ function HAButton(props) {
             }
         }
         else {
-            if (toggle)
+            if (toggle) {
+                // disable all buttons - there may be a better way to do this with react state
+                $(':button').prop('disabled', false);
+                // enable just this one
+                
                 alert("Done! Play around and check.");
+            }
+            else {
+                // enable all buttons
+                $(':button').prop('disabled', false);
+            }
         }
         highlightInCode(element_to_a_h);
         setToggle(!toggle);
