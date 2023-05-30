@@ -237,13 +237,20 @@ function HAButton(props) {
 
         // remove all existing annotations to avoid confusion
         if (!toggle) {
-            $(".annotation").remove(); 
+            $(".annotation").remove();
+            // enable all the highlight / annotate buttons on the page
+            $(".habutton").prop("disabled", false);
         }
         
         let element_to_a_h = splitByLastUnderscore(props.id);
         if (!noannotations.includes(element_to_a_h)) {
-            if (toggle)
+            if (toggle) {
                 alert("Done! Play around and check.");
+                // disable all the highlight / annotate buttons on the page
+                $(".habutton").prop("disabled", true);
+                // except this one
+                $("#" + props.id).prop("disabled", false);
+            }
             // console.log("element_to_a_h", element_to_a_h);
             // console.log("selectors[", element_to_a_h, "]", selectors[element_to_a_h]);
             for (var selector of selectors[element_to_a_h]) {
@@ -254,15 +261,11 @@ function HAButton(props) {
         }
         else {
             if (toggle) {
-                // disable all buttons - there may be a better way to do this with react state
-                $(':button').prop('disabled', false);
-                // enable just this one
-                
                 alert("Done! Play around and check.");
-            }
-            else {
-                // enable all buttons
-                $(':button').prop('disabled', false);
+                // disable all the highlight / annotate buttons on the page
+                $(".habutton").prop("disabled", true);
+                // except this one
+                $("#" + props.id).prop("disabled", false);
             }
         }
         highlightInCode(element_to_a_h);
@@ -291,7 +294,7 @@ function HAButton(props) {
      
     if (buttonText(toggle)) {
         return (
-        <p><button onClick={handleClick}>
+        <p><button className="habutton" id={props.id} onClick={handleClick}>
             {buttonText(toggle)}
         </button> Note un/redoing can annotate new elements on the page.</p>
         );
@@ -1000,13 +1003,13 @@ $(function () {
             <div className="App">
                 <div id="app-title">Scaffolded Exercises</div>
                 <br/><br/><br/>
-                DOM
+                <p id="domelemslabel">DOM Elements:</p>
                 <div id="comic"><div className="map"><div className="ground"></div></div></div>
                 <br/>
                 <p id="prev_notes"></p>
                 <div className="exercises">
                     Variables:
-                    <br/><br/>
+                    <br/>
                     <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p><HAButton id="dmap_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dmap_notes'></textarea>
 <p id='position_p'>position = <span className ="pt" id='position'> </span> </p><HAButton id="position_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='position_notes'></textarea>
 <p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p><HAButton id="centre_last_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='centre_last_notes'></textarea>
@@ -1017,13 +1020,15 @@ $(function () {
 <p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p><HAButton id="tile_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tile_notes'></textarea>
 <p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p><HAButton id="dimage_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dimage_notes'></textarea>
 
+                    <br/><br/>
+                    Reflection Questions:
                     <div className="reflection-area">
-                <p>What is happening to the variable values shown above?</p>
+                <p>As you interact with the page, what's happening to the variable values shown above?</p>
                 <textarea id="visualreflect" className="reflection-textarea" rows="6"></textarea>
                 <pre id="codetoshow"></pre>
                 <p>What is happening in the code? How does it shape the visual output?</p>
                 <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                <p>What is the relationship between the following variables: position, tilesize, centre, $map, centre_last, name? </p>
+                <p>What is the relationship between the following variables: tile, centre, name, tilesize, centre_last, position? </p>
                 <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
             </div>
                     <a href='/exercise-auto8'>Next Exercise</a>

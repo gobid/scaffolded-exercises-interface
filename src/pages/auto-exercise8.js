@@ -237,13 +237,20 @@ function HAButton(props) {
 
         // remove all existing annotations to avoid confusion
         if (!toggle) {
-            $(".annotation").remove(); 
+            $(".annotation").remove();
+            // enable all the highlight / annotate buttons on the page
+            $(".habutton").prop("disabled", false);
         }
         
         let element_to_a_h = splitByLastUnderscore(props.id);
         if (!noannotations.includes(element_to_a_h)) {
-            if (toggle)
+            if (toggle) {
                 alert("Done! Play around and check.");
+                // disable all the highlight / annotate buttons on the page
+                $(".habutton").prop("disabled", true);
+                // except this one
+                $("#" + props.id).prop("disabled", false);
+            }
             // console.log("element_to_a_h", element_to_a_h);
             // console.log("selectors[", element_to_a_h, "]", selectors[element_to_a_h]);
             for (var selector of selectors[element_to_a_h]) {
@@ -253,8 +260,13 @@ function HAButton(props) {
             }
         }
         else {
-            if (toggle)
+            if (toggle) {
                 alert("Done! Play around and check.");
+                // disable all the highlight / annotate buttons on the page
+                $(".habutton").prop("disabled", true);
+                // except this one
+                $("#" + props.id).prop("disabled", false);
+            }
         }
         highlightInCode(element_to_a_h);
         setToggle(!toggle);
@@ -282,7 +294,7 @@ function HAButton(props) {
      
     if (buttonText(toggle)) {
         return (
-        <p><button onClick={handleClick}>
+        <p><button className="habutton" id={props.id} onClick={handleClick}>
             {buttonText(toggle)}
         </button> Note un/redoing can annotate new elements on the page.</p>
         );
@@ -836,13 +848,13 @@ $(function () {
             <div className="App">
                 <div id="app-title">Scaffolded Exercises</div>
                 <br/><br/><br/>
-                DOM
+                <p id="domelemslabel">DOM Elements:</p>
                 <div id="comic"><div className="map"><div className="ground"></div></div></div>
                 <br/>
                 <p id="prev_notes"></p>
                 <div className="exercises">
                     Variables:
-                    <br/><br/>
+                    <br/>
                     <p id='e_p'>e = <span className ="pt" id='e'> </span> </p><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='e_notes'></textarea>
 <p id='scroll_delta_p'>scroll_delta = <span className ="pt" id='scroll_delta'> </span> </p><HAButton id="scroll_delta_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='scroll_delta_notes'></textarea>
 <p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p><HAButton id="pos_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='pos_notes'></textarea>
@@ -850,13 +862,15 @@ $(function () {
 <p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p><HAButton id="tilesize_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tilesize_notes'></textarea>
 <p id='container_size_p'>container_size = <span className ="pt" id='container_size'> </span> </p><HAButton id="container_size_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='container_size_notes'></textarea>
 
+                    <br/><br/>
+                    Reflection Questions:
                     <div className="reflection-area">
-                <p>What is happening to the variable values shown above?</p>
+                <p>As you interact with the page, what's happening to the variable values shown above?</p>
                 <textarea id="visualreflect" className="reflection-textarea" rows="6"></textarea>
                 <pre id="codetoshow"></pre>
                 <p>What is happening in the code? How does it shape the visual output?</p>
                 <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                <p>What is the relationship between the following variables: position, container_size, e, scroll_delta, tilesize, pos? </p>
+                <p>What is the relationship between the following variables: e, scroll_delta, tilesize, container_size, pos, position? </p>
                 <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
             </div>
                     <a href='/exercise-auto9'>Next Exercise</a>

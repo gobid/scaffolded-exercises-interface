@@ -237,13 +237,20 @@ function HAButton(props) {
 
         // remove all existing annotations to avoid confusion
         if (!toggle) {
-            $(".annotation").remove(); 
+            $(".annotation").remove();
+            // enable all the highlight / annotate buttons on the page
+            $(".habutton").prop("disabled", false);
         }
         
         let element_to_a_h = splitByLastUnderscore(props.id);
         if (!noannotations.includes(element_to_a_h)) {
-            if (toggle)
+            if (toggle) {
                 alert("Done! Play around and check.");
+                // disable all the highlight / annotate buttons on the page
+                $(".habutton").prop("disabled", true);
+                // except this one
+                $("#" + props.id).prop("disabled", false);
+            }
             // console.log("element_to_a_h", element_to_a_h);
             // console.log("selectors[", element_to_a_h, "]", selectors[element_to_a_h]);
             for (var selector of selectors[element_to_a_h]) {
@@ -253,8 +260,13 @@ function HAButton(props) {
             }
         }
         else {
-            if (toggle)
+            if (toggle) {
                 alert("Done! Play around and check.");
+                // disable all the highlight / annotate buttons on the page
+                $(".habutton").prop("disabled", true);
+                // except this one
+                $("#" + props.id).prop("disabled", false);
+            }
         }
         highlightInCode(element_to_a_h);
         setToggle(!toggle);
@@ -282,7 +294,7 @@ function HAButton(props) {
      
     if (buttonText(toggle)) {
         return (
-        <p><button onClick={handleClick}>
+        <p><button className="habutton" id={props.id} onClick={handleClick}>
             {buttonText(toggle)}
         </button> Note un/redoing can annotate new elements on the page.</p>
         );
@@ -1239,30 +1251,32 @@ $(function () {
             <div className="App">
                 <div id="app-title">Scaffolded Exercises</div>
                 <br/><br/><br/>
-                DOM
+                <p id="domelemslabel">DOM Elements:</p>
                 <div id="comic"><div className="map"><div className="ground"></div></div></div>
                 <br/>
                 <p id="prev_notes"></p>
                 <div className="exercises">
                     Variables:
-                    <br/><br/>
-                    <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
-<p id='position_p'>position = <span className ="pt" id='position'> </span> </p>
-<p id='container_size_p'>container_size = <span className ="pt" id='container_size'> </span> </p>
-<p id='name_p'>name = <span className ="pt" id='name'> </span> </p>
+                    <br/>
+                    <p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p>
 <p id='e_p'>e = <span className ="pt" id='e'> </span> </p>
-<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p>
+<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
 <p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p>
-<p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
-<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p>
-<p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p>
-<p id='scroll_delta_p'>scroll_delta = <span className ="pt" id='scroll_delta'> </span> </p>
 <p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p>
+<p id='name_p'>name = <span className ="pt" id='name'> </span> </p>
+<p id='position_p'>position = <span className ="pt" id='position'> </span> </p>
+<p id='scroll_delta_p'>scroll_delta = <span className ="pt" id='scroll_delta'> </span> </p>
+<p id='container_size_p'>container_size = <span className ="pt" id='container_size'> </span> </p>
 <p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p>
+<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p>
+<p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p>
+<p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
 
+                    <br/><br/>
+                    Reflection Questions:
                     <div className="reflection-area">
                 <pre id="codetoshow"></pre>
-                <p>What is happening to the variable values shown above? What is happening in the code? How does it shape the visual output? What is the relationship between the various variables? <i>If you need more help, then feel free to use Chrome DevTools on this site as well: https://xkcd.com/1110</i></p>
+                <p>As you interact with the page, what's happening to the variable values shown above? What is happening in the code? How does it shape the visual output? What is the relationship between the various variables? <i>If you need more help, then feel free to use Chrome DevTools on this site as well: https://xkcd.com/1110</i></p>
                 <textarea id="codereflect" className="reflection-textarea" rows="18"></textarea>
             </div>
                     <a href='/exercise-auto10'>Next Exercise</a>

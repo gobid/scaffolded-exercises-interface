@@ -746,9 +746,11 @@ ul.comicNav a:hover, ul.comicNav a:focus {
 .exercises {
   position: absolute;
   top: 100px;
-  right: -100px;
-  width: 600px;
+  right: -300px;
+  width: 800px;
   text-align: left;
+  height:1000px;
+  overflow:scroll;
 }
 
 /*.reflection-area {
@@ -775,5 +777,11 @@ ul.comicNav a:hover, ul.comicNav a:focus {
 
 #codetoshow {
   background-color: #D3D3D3;
-  width:1000px
+  width:100%
+}
+
+#domelemslabel {
+  position: fixed;
+  top: 20px;
+  left: 100px;
 }

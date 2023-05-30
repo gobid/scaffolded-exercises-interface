@@ -239,7 +239,7 @@ function HAButton(props) {
         if (!toggle) {
             $(".annotation").remove();
             // enable all the highlight / annotate buttons on the page
-            $(".habutton").prop("disabled", false);             
+            $(".habutton").prop("disabled", false);
         }
         
         let element_to_a_h = splitByLastUnderscore(props.id);
@@ -755,20 +755,22 @@ $(function () {
             <div className="App">
                 <div id="app-title">Scaffolded Exercises</div>
                 <br/><br/><br/>
-                DOM
+                <p id="domelemslabel">DOM Elements:</p>
                 <div id="comic"><div className="map"><div className="ground"></div></div></div>
                 <br/>
                 <p id="prev_notes"></p>
                 <div className="exercises">
                     Variables:
-                    <br/><br/>
+                    <br/>
                     <p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p><HAButton id="dremove_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dremove_notes'></textarea>
 <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p><HAButton id="dmap_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dmap_notes'></textarea>
 <p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p><HAButton id="dimage_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='dimage_notes'></textarea>
 <p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p><HAButton id="tile_button"/><textarea className='reflection-textarea var-notes' rows='2' placeholder='(Optional) Your notes on this variable.' id='tile_notes'></textarea>
 
+                    <br/><br/>
+                    Reflection Questions:
                     <div className="reflection-area">
-                <p>What is happening to the variable values shown above?</p>
+                <p>As you interact with the page, what's happening to the variable values shown above?</p>
                 <textarea id="visualreflect" className="reflection-textarea" rows="6"></textarea>
                 <pre id="codetoshow"></pre>
                 <p>What is happening in the code? How does it shape the visual output?</p>
