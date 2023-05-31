@@ -60,7 +60,7 @@ function createHTMLArray(html_array) {
 }
 
 function getPrevNotes() {
-    var prev_notes = "<ul style='position: fixed; left: 100px;'>";
+    var prev_notes = "<div style='position: fixed; left: 100px;'><ul>";
     var prev_ex = parseInt(window.location.href.at(-1)) - 1;
     if (prev_ex == -1)
         prev_ex = 'v'
@@ -73,7 +73,7 @@ function getPrevNotes() {
             }
         }
     }
-    prev_notes += "</ul>";
+    prev_notes += "</ul></div>";
     return prev_notes;
 }
 
@@ -278,8 +278,8 @@ function HAButton(props) {
         var needle_text_short = needle_text.substr(1); // ignore the $ vs d case, all vars are strictly more than 1 character
         if (t) { 
             if (codetoshow.includes(needle_text_short)) { // highlights means something
-                if (v_t_o_h.includes(needle_text)) return "Highlight";
-                else return "Highlight / Annotate";
+                if (v_t_o_h.includes(needle_text)) return "Highlight in Code";
+                else return "Highlight in Code / Annotate";
             }
             else {
                 if (!v_t_o_h.includes(needle_text)) return "Annotate";
@@ -291,13 +291,14 @@ function HAButton(props) {
         }
         return null;
     }
-     
+
     if (buttonText(toggle)) {
         return (
         <p><button className="habutton" id={props.id} onClick={handleClick}>
             {buttonText(toggle)}
-        </button> Note un/redoing can annotate new elements on the page.</p>
+        </button></p>
         );
+        // dont need this anymore after disabling buttons:  Note un/redoing "annotate" can annotate new elements on the page. 
     }
     else return null;
 }
@@ -1258,25 +1259,25 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/>
-                    <p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p>
-<p id='e_p'>e = <span className ="pt" id='e'> </span> </p>
-<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
-<p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p>
-<p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p>
-<p id='name_p'>name = <span className ="pt" id='name'> </span> </p>
+                    <p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p>
 <p id='position_p'>position = <span className ="pt" id='position'> </span> </p>
-<p id='scroll_delta_p'>scroll_delta = <span className ="pt" id='scroll_delta'> </span> </p>
+<p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p>
 <p id='container_size_p'>container_size = <span className ="pt" id='container_size'> </span> </p>
-<p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p>
-<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p>
-<p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p>
 <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
+<p id='name_p'>name = <span className ="pt" id='name'> </span> </p>
+<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
+<p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p>
+<p id='e_p'>e = <span className ="pt" id='e'> </span> </p>
+<p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p>
+<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p>
+<p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p>
+<p id='scroll_delta_p'>scroll_delta = <span className ="pt" id='scroll_delta'> </span> </p>
 
                     <br/><br/>
                     Reflection Questions:
                     <div className="reflection-area">
                 <pre id="codetoshow"></pre>
-                <p>As you interact with the page, what's happening to the variable values shown above? What is happening in the code? How does it shape the visual output? What is the relationship between the various variables? <i>If you need more help, then feel free to use Chrome DevTools on this site as well: https://xkcd.com/1110</i></p>
+                <p>As you interact with the page, what's happening to the variable values shown above? What is happening in the code? How does it shape the visual output? What is the relationship between the various variables? <i>Hint: hover over the tool tips in the code. If you need more help, then feel free to use Chrome DevTools on this site as well: https://xkcd.com/1110</i></p>
                 <textarea id="codereflect" className="reflection-textarea" rows="18"></textarea>
             </div>
                     <a href='/exercise-auto10'>Next Exercise</a>
