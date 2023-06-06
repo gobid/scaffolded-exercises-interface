@@ -1259,26 +1259,25 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/>
-                    <p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p>
-<p id='position_p'>position = <span className ="pt" id='position'> </span> </p>
-<p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p>
+                    <p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p>
 <p id='container_size_p'>container_size = <span className ="pt" id='container_size'> </span> </p>
 <p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
 <p id='name_p'>name = <span className ="pt" id='name'> </span> </p>
-<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
-<p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p>
 <p id='e_p'>e = <span className ="pt" id='e'> </span> </p>
+<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p>
+<p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p>
+<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
 <p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p>
-<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p>
-<p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p>
 <p id='scroll_delta_p'>scroll_delta = <span className ="pt" id='scroll_delta'> </span> </p>
+<p id='position_p'>position = <span className ="pt" id='position'> </span> </p>
+<p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p>
+<p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p>
 
                     <br/><br/>
                     Reflection Questions:
                     <div className="reflection-area">
                 <pre id="codetoshow"></pre>
-                <p>As you interact with the page, what's happening to the variable values shown above? What is happening in the code? How does it shape the visual output? What is the relationship between the various variables? <i>Hint: hover over the tool tips in the code. If you need more help, then feel free to use Chrome DevTools on this site as well: https://xkcd.com/1110</i></p>
-                <textarea id="codereflect" className="reflection-textarea" rows="18"></textarea>
+                <p>As you interact with the page, note what's happening to the variable values shown above. Note what is happening in the code, and how it shapes the visual output. Note the relationship between the various variables. <i>Hint: hover over the tool tips in the code. If you need more help, then feel free to use Chrome DevTools on this site as well: https://xkcd.com/1110</i>. </p>
             </div>
                     <a href='/exercise-auto10'>Next Exercise</a>
                 </div>

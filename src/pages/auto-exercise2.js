@@ -682,7 +682,7 @@ $(function () {
                 <pre id="codetoshow"></pre>
                 <p>What is happening in the code? How does it shape the visual output? <i>Hint: Use the buttons (annotate, highlight if present) and hover over the tool tips in the code.</i></p>
                 <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                <p>What is the relationship between the following variables: $map, $image, $remove? </p>
+                <p>What is the relationship between the following variables: $map, $remove, $image? </p>
                 <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
             </div>
                     <a href='/exercise-auto3'>Next Exercise</a>

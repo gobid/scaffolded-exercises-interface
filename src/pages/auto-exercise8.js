@@ -871,7 +871,7 @@ $(function () {
                 <pre id="codetoshow"></pre>
                 <p>What is happening in the code? How does it shape the visual output? <i>Hint: Use the buttons (annotate, highlight if present) and hover over the tool tips in the code.</i></p>
                 <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                <p>What is the relationship between the following variables: position, container_size, pos, e, tilesize, scroll_delta? </p>
+                <p>What is the relationship between the following variables: tilesize, e, pos, scroll_delta, position, container_size? </p>
                 <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
             </div>
                     <a href='/exercise-auto9'>Next Exercise</a>
