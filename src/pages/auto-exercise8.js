@@ -60,7 +60,7 @@ function createHTMLArray(html_array) {
 }
 
 function getPrevNotes() {
-    var prev_notes = "<div style='position: fixed; left: 100px; width:700px; overflow:scroll;'><u>Prior Notes</u><ul>";
+    var prev_notes = "<div style='position: fixed; left: 100px; width:700px; height:500px; overflow:scroll;'><u>Prior Notes</u><ul>";
     var prev_ex = parseInt(window.location.href.at(-1)) - 1;
     if (prev_ex == -1)
         prev_ex = 'v'
@@ -871,7 +871,7 @@ $(function () {
                 <pre id="codetoshow"></pre>
                 <p>What is happening in the code? How does it shape the visual output? <i>Hint: Use the buttons (annotate, highlight if present) and hover over the tool tips in the code.</i></p>
                 <textarea id="codereflect" className="reflection-textarea" rows="6"></textarea>
-                <p>What is the relationship between the following variables: pos, e, tilesize, container_size, position, scroll_delta? </p>
+                <p>What is the relationship between the following variables: position, container_size, scroll_delta, e, tilesize, pos? </p>
                 <textarea id="relationreflect" className="reflection-textarea" rows="6"></textarea>
             </div>
                     <a href='/exercise-auto9'>Next Exercise</a>
