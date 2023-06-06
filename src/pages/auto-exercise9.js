@@ -1259,19 +1259,19 @@ $(function () {
                 <div className="exercises">
                     Variables:
                     <br/>
-                    <p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p>
-<p id='position_p'>position = <span className ="pt" id='position'> </span> </p>
+                    <p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p>
+<p id='centre_p'>centre = <span className ="pt" id='centre'> </span> </p>
+<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p>
+<p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p>
+<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
 <p id='tilesize_p'>tilesize = <span className ="pt" id='tilesize'> </span> </p>
 <p id='e_p'>e = <span className ="pt" id='e'> </span> </p>
-<p id='scroll_delta_p'>scroll_delta = <span className ="pt" id='scroll_delta'> </span> </p>
-<p id='dremove_p'>$remove = <span className ="pt" id='dremove'> </span> </p>
-<p id='pos_p'>pos = <span className ="pt" id='pos'> </span> </p>
 <p id='container_size_p'>container_size = <span className ="pt" id='container_size'> </span> </p>
-<p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
-<p id='name_p'>name = <span className ="pt" id='name'> </span> </p>
+<p id='position_p'>position = <span className ="pt" id='position'> </span> </p>
 <p id='tile_p'>tile = <span className ="pt" id='tile'> </span> </p>
-<p id='dimage_p'>$image = <span className ="pt" id='dimage'> </span> </p>
-<p id='centre_last_p'>centre_last = <span className ="pt" id='centre_last'> </span> </p>
+<p id='name_p'>name = <span className ="pt" id='name'> </span> </p>
+<p id='dmap_p'>$map = <span className ="pt" id='dmap'> </span> </p>
+<p id='scroll_delta_p'>scroll_delta = <span className ="pt" id='scroll_delta'> </span> </p>
 
                     <br/><br/>
                     Reflection Questions:
